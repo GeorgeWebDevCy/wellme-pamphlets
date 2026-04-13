@@ -802,18 +802,26 @@ $update_checker = PucFactory::buildUpdateChecker(
     WELLME_PAMPHLETS_PLUGIN_FILE,
     'wellme-pamphlets'
 );
-$update_checker->getVcsApi()->enableReleaseAssets();
+$update_checker->getVcsApi()->enableReleaseAssets( '/^wellme-pamphlets\.zip$/i' );
 ```
 
-`enableReleaseAssets()` tells the checker to use GitHub Release zip assets rather than the repository zip, which is important because the repo root _is_ the plugin root.
+`enableReleaseAssets()` is restricted to `wellme-pamphlets.zip`, so WordPress updates use the packaged plugin archive instead of an arbitrary release asset.
 
 ### Releasing an update
 
 1. Make and commit all changes.
 2. Bump `WELLME_PAMPHLETS_VERSION` in `wellme-pamphlets.php`.
 3. Commit the version bump and push to `main`.
-4. On GitHub, create a new **Release** with a version tag matching the pattern `v1.x.x` (e.g. `v1.1.0`).
-5. Attach the plugin zip as a release asset (or let GitHub auto-generate it).
+4. Build the plugin ZIP with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build-plugin.ps1
+```
+
+5. On GitHub, create a new **Release** with a version tag matching the pattern `v1.x.x` (e.g. `v1.1.0`).
+6. Attach `dist/wellme-pamphlets.zip` as the release asset.
+
+Do not use GitHub's auto-generated source ZIP for manual installs or release assets. The packaged ZIP keeps the expected `wellme-pamphlets/` plugin root and avoids "plugin does not exist" activation failures.
 
 WordPress installations with the plugin active will see the update notification in **Plugins → WELLME Pamphlets** within the next WordPress update check cycle (default: 12 hours).
 

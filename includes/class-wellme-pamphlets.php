@@ -110,8 +110,8 @@ class Wellme_Pamphlets {
             $this->plugin_name
         );
 
-        // Use GitHub releases (tags) as the update source.
-        $update_checker->getVcsApi()->enableReleaseAssets();
+        // Use the packaged plugin ZIP from GitHub releases.
+        $update_checker->getVcsApi()->enableReleaseAssets( '/^wellme-pamphlets\.zip$/i' );
     }
 
     public function run() {

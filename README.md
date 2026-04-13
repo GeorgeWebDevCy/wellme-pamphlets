@@ -153,7 +153,16 @@ The plugin uses [YahnisElsts/plugin-update-checker](https://github.com/YahnisEls
 
 1. Bump `WELLME_PAMPHLETS_VERSION` in `wellme-pamphlets.php`.
 2. Commit and push.
-3. Create a new GitHub release with a version tag (e.g. `v1.1.0`).
+3. Build the release ZIP:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts/build-plugin.ps1
+   ```
+
+4. Create a new GitHub release with a version tag (e.g. `v1.1.0`).
+5. Attach `dist/wellme-pamphlets.zip` to that release, or upload the same ZIP directly in WordPress via **Plugins -> Add New Plugin -> Upload Plugin**.
+
+Do not use GitHub's auto-generated source ZIP for manual installs. Use `dist/wellme-pamphlets.zip`, which preserves the plugin root folder that WordPress expects.
 
 ---
 
