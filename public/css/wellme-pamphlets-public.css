@@ -616,6 +616,7 @@
     font-weight: 800;
     line-height: 1.15;
     margin: 0 0 16px;
+    color: #fff;
     text-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
 
@@ -870,6 +871,10 @@
 .wellme-exp-subtitle {
     color: rgba(255,255,255,0.88);
     opacity: 1;
+}
+
+.wellme-experience .wellme-exp-title {
+    color: #fff;
 }
 
 .wellme-exp-explore-btn {
