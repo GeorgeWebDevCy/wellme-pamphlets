@@ -47,6 +47,7 @@ class Wellme_Pamphlets {
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-i18n.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-cpt.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-acf.php';
+        require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-assessment.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-shortcodes.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-admin.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-importer.php';

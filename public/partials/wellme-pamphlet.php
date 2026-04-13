@@ -22,6 +22,21 @@ $outcomes     = get_field( 'module_learning_outcomes', $module->ID ) ?: [];
 $steps        = get_field( 'module_exercise_steps',    $module->ID ) ?: [];
 $chapters     = get_field( 'module_chapters',          $module->ID ) ?: [];
 $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
+$assessment_questions = Wellme_Pamphlets_Assessment::get_module_questions( $module->ID );
+$display_chapters     = $chapters;
+
+if ( ! empty( $assessment_questions ) ) {
+    $display_chapters = array_values(
+        array_filter(
+            $chapters,
+            static function ( $chapter ) {
+                $title = strtolower( wp_strip_all_tags( $chapter['chapter_title'] ?? '' ) );
+
+                return false === strpos( $title, 'assessment' ) && false === strpos( $title, 'answer' );
+            }
+        )
+    );
+}
 ?>
 <div class="wellme-pamphlet" style="--module-color: <?php echo esc_attr( $color ); ?>;" data-module-id="<?php echo esc_attr( $module->ID ); ?>">
 
@@ -44,12 +59,12 @@ $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
     </section>
 
     <?php /* ── Chapter navigation ─────────────────────────────────── */ ?>
-    <?php if ( ! empty( $chapters ) ) : ?>
+    <?php if ( ! empty( $display_chapters ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-chapters">
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Chapters', 'wellme-pamphlets' ); ?></h2>
             <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module chapters', 'wellme-pamphlets' ); ?>">
-                <?php foreach ( $chapters as $i => $chapter ) : ?>
+                <?php foreach ( $display_chapters as $i => $chapter ) : ?>
                 <button class="wellme-chapter-btn"
                         data-chapter="<?php echo esc_attr( $i ); ?>"
                         aria-controls="wellme-chapter-panel-<?php echo esc_attr( $module->ID . '-' . $i ); ?>">
@@ -58,7 +73,7 @@ $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
                 <?php endforeach; ?>
             </nav>
 
-            <?php foreach ( $chapters as $i => $chapter ) :
+            <?php foreach ( $display_chapters as $i => $chapter ) :
                 $ch_img = $chapter['chapter_image']['url'] ?? '';
             ?>
             <div class="wellme-chapter-panel"
@@ -190,6 +205,68 @@ $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
     <?php endif; ?>
 
     <?php /* ── Video ─────────────────────────────────────────────── */ ?>
+    <?php if ( ! empty( $assessment_questions ) ) : ?>
+    <section class="wellme-pamphlet-section wellme-section-assessment">
+        <div class="wellme-section-inner wellme-scroll-reveal">
+            <h2><?php esc_html_e( 'Assessment', 'wellme-pamphlets' ); ?></h2>
+            <p class="wellme-assessment-intro">
+                <?php esc_html_e( 'Choose one answer per question, then check your results.', 'wellme-pamphlets' ); ?>
+            </p>
+
+            <form class="wellme-assessment-form" novalidate>
+                <?php foreach ( $assessment_questions as $i => $question ) :
+                    $question_name = 'wellme-assessment-' . $module->ID . '-' . $i;
+                    $feedback_id   = $question_name . '-feedback';
+                ?>
+                <fieldset class="wellme-assessment-question"
+                          data-correct-option="<?php echo esc_attr( $question['correct_option'] ); ?>"
+                          aria-describedby="<?php echo esc_attr( $feedback_id ); ?>">
+                    <legend class="wellme-assessment-question-title">
+                        <span class="wellme-assessment-question-number">
+                            <?php echo esc_html( sprintf( __( 'Question %d', 'wellme-pamphlets' ), $i + 1 ) ); ?>
+                        </span>
+                        <span class="wellme-assessment-question-text"><?php echo esc_html( $question['prompt'] ); ?></span>
+                    </legend>
+
+                    <div class="wellme-assessment-options">
+                        <?php foreach ( $question['options'] as $option_key => $option_text ) :
+                            $option_id = $question_name . '-' . strtolower( $option_key );
+                        ?>
+                        <label class="wellme-assessment-option" for="<?php echo esc_attr( $option_id ); ?>">
+                            <input id="<?php echo esc_attr( $option_id ); ?>"
+                                   type="radio"
+                                   name="<?php echo esc_attr( $question_name ); ?>"
+                                   value="<?php echo esc_attr( $option_key ); ?>">
+                            <span class="wellme-assessment-option-key"><?php echo esc_html( $option_key ); ?></span>
+                            <span class="wellme-assessment-option-text"><?php echo esc_html( $option_text ); ?></span>
+                        </label>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="wellme-assessment-feedback" id="<?php echo esc_attr( $feedback_id ); ?>" hidden>
+                        <p class="wellme-assessment-feedback-status"></p>
+                        <?php if ( ! empty( $question['explanation'] ) ) : ?>
+                        <p class="wellme-assessment-feedback-explanation"><?php echo esc_html( $question['explanation'] ); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </fieldset>
+                <?php endforeach; ?>
+
+                <div class="wellme-assessment-actions">
+                    <button type="submit" class="wellme-assessment-submit">
+                        <?php esc_html_e( 'Check Answers', 'wellme-pamphlets' ); ?>
+                    </button>
+                    <button type="button" class="wellme-assessment-reset">
+                        <?php esc_html_e( 'Try Again', 'wellme-pamphlets' ); ?>
+                    </button>
+                </div>
+
+                <div class="wellme-assessment-summary" aria-live="polite" aria-atomic="true" hidden></div>
+            </form>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <?php if ( $video_url ) : ?>
     <section class="wellme-pamphlet-section wellme-section-video">
         <div class="wellme-section-inner wellme-scroll-reveal">

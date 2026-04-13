@@ -136,6 +136,7 @@
         initChapterNav(root);
         initOutcomePanels(root);
         initHotspots(root);
+        initAssessments(root);
     }
 
     /* ── Chapter Navigation ──────────────────────────────────── */
@@ -276,6 +277,118 @@
     }
 
     /* ── Flip Cards (Sum-Up) ─────────────────────────────────── */
+
+    function initAssessments(root) {
+        root.querySelectorAll('.wellme-assessment-form').forEach(function (form) {
+            if (form.dataset.assessmentReady === 'true') return;
+
+            form.dataset.assessmentReady = 'true';
+
+            var questions = Array.from(form.querySelectorAll('.wellme-assessment-question'));
+            var summary = form.querySelector('.wellme-assessment-summary');
+            var localized = typeof wellmePamphlets !== 'undefined' ? wellmePamphlets : {};
+            var strings = {
+                answerAll: localized.answerAll || 'Please answer all questions before checking your results.',
+                correct: localized.correct || 'Correct',
+                incorrect: localized.incorrect || 'Incorrect',
+                correctAnswer: localized.correctAnswer || 'Correct answer:',
+                scorePrefix: localized.scorePrefix || 'Your score:',
+            };
+
+            function resetQuestion(question) {
+                question.classList.remove('is-correct', 'is-incorrect', 'is-unanswered');
+
+                question.querySelectorAll('.wellme-assessment-option').forEach(function (option) {
+                    option.classList.remove('is-selected', 'is-correct', 'is-selected-wrong');
+                });
+
+                var feedback = question.querySelector('.wellme-assessment-feedback');
+                var status = question.querySelector('.wellme-assessment-feedback-status');
+
+                if (feedback) hide(feedback);
+                if (status) status.textContent = '';
+            }
+
+            function updateSummary(message, isError) {
+                if (!summary) return;
+                summary.textContent = message;
+                summary.classList.toggle('is-error', !!isError);
+                show(summary);
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var unanswered = [];
+
+                questions.forEach(function (question) {
+                    resetQuestion(question);
+                    if (!question.querySelector('input[type="radio"]:checked')) {
+                        unanswered.push(question);
+                        question.classList.add('is-unanswered');
+                    }
+                });
+
+                if (unanswered.length) {
+                    updateSummary(strings.answerAll, true);
+                    var firstInput = unanswered[0].querySelector('input[type="radio"]');
+                    if (firstInput) firstInput.focus();
+                    return;
+                }
+
+                var correctCount = 0;
+
+                questions.forEach(function (question) {
+                    var selected = question.querySelector('input[type="radio"]:checked');
+                    var correctOption = question.dataset.correctOption || '';
+                    var feedback = question.querySelector('.wellme-assessment-feedback');
+                    var status = question.querySelector('.wellme-assessment-feedback-status');
+
+                    question.querySelectorAll('.wellme-assessment-option').forEach(function (option) {
+                        var input = option.querySelector('input[type="radio"]');
+                        if (!input) return;
+
+                        if (input.checked) option.classList.add('is-selected');
+                        if (input.value === correctOption) {
+                            option.classList.add('is-correct');
+                        } else if (input.checked) {
+                            option.classList.add('is-selected-wrong');
+                        }
+                    });
+
+                    if (selected && selected.value === correctOption) {
+                        correctCount += 1;
+                        question.classList.add('is-correct');
+                        if (status) status.textContent = strings.correct + '.';
+                    } else {
+                        question.classList.add('is-incorrect');
+                        if (status) {
+                            status.textContent = strings.incorrect + '. ' + strings.correctAnswer + ' ' + correctOption + '.';
+                        }
+                    }
+
+                    if (feedback) show(feedback);
+                });
+
+                var total = questions.length || 1;
+                var percentage = Math.round((correctCount / total) * 100);
+                updateSummary(strings.scorePrefix + ' ' + correctCount + '/' + total + ' (' + percentage + '%).', false);
+            });
+
+            var resetBtn = form.querySelector('.wellme-assessment-reset');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function () {
+                    form.reset();
+                    questions.forEach(resetQuestion);
+                    if (summary) {
+                        summary.classList.remove('is-error');
+                        summary.textContent = '';
+                        hide(summary);
+                    }
+                });
+            }
+        });
+    }
 
     function initFlipCards() {
         document.querySelectorAll('.wellme-flipcard').forEach(function (card) {

@@ -457,6 +457,176 @@ def build_steps(sections: OrderedDict[str, SectionData]) -> list[dict]:
     return steps
 
 
+def extract_html_tables(content: str) -> list[str]:
+    return re.findall(r"<table\b[^>]*>.*?</table>", content, flags=re.IGNORECASE | re.DOTALL)
+
+
+def extract_table_rows(table_html: str) -> list[list[str]]:
+    rows: list[list[str]] = []
+    for row_html in re.findall(r"<tr\b[^>]*>(.*?)</tr>", table_html, flags=re.IGNORECASE | re.DOTALL):
+        cells = []
+        for cell_html in re.findall(r"<(?:td|th)\b[^>]*>(.*?)</(?:td|th)>", row_html, flags=re.IGNORECASE | re.DOTALL):
+            text = normalize_text(html.unescape(re.sub(r"<[^>]+>", " ", cell_html)))
+            cells.append(text)
+        if any(cells):
+            rows.append(cells)
+    return rows
+
+
+def parse_assessment_prompt(text: str) -> tuple[int, str] | None:
+    match = re.match(r"^Q\s*(\d+)[\.\-:\)]?\s*(.+)$", text, flags=re.IGNORECASE)
+    if not match:
+        return None
+    return int(match.group(1)), normalize_text(match.group(2))
+
+
+def parse_assessment_option(cells: list[str]) -> tuple[str, str] | None:
+    values = [normalize_text(cell) for cell in cells if normalize_text(cell)]
+    if not values:
+        return None
+    if len(values) >= 2 and re.fullmatch(r"[A-Z]", values[0]):
+        return values[0], values[1]
+    match = re.match(r"^([A-Z])[\)\.\-:]?\s+(.+)$", values[0])
+    if match:
+        return match.group(1), normalize_text(match.group(2))
+    return None
+
+
+def table_has_answer_prompt(rows: list[list[str]]) -> bool:
+    for row in rows:
+        for cell in row:
+            if "your answer" in normalize_text(cell).lower():
+                return True
+    return False
+
+
+def parse_answer_map(answers_section: SectionData | None) -> dict[int, dict[str, str]]:
+    answer_map: dict[int, dict[str, str]] = {}
+    if not answers_section:
+        return answer_map
+    for table_html in extract_html_tables(normalize_list_blocks(answers_section.blocks)):
+        for row in extract_table_rows(table_html):
+            if not row:
+                continue
+            match = re.match(r"^Q\s*(\d+)(?:\s*[-: ]\s*([A-Z]))?$", row[0], flags=re.IGNORECASE)
+            if not match:
+                continue
+            explanation = normalize_text(row[1]) if len(row) > 1 else ""
+            correct_option = (match.group(2) or "").upper()
+
+            if not correct_option and explanation:
+                explanation_match = re.match(r"^Correct answer\s*[:\-]?\s*([A-Z])\b\s*(.*)$", explanation, flags=re.IGNORECASE)
+                if explanation_match:
+                    correct_option = explanation_match.group(1).upper()
+                    explanation = normalize_text(explanation_match.group(2))
+
+            if not correct_option:
+                continue
+
+            answer_map[int(match.group(1))] = {
+                "correct_option": correct_option,
+                "explanation": explanation,
+            }
+    return answer_map
+
+
+def build_assessment_questions(sections: OrderedDict[str, SectionData]) -> list[dict]:
+    assessment_section = sections.get("assessment")
+    if not assessment_section or not assessment_section.blocks:
+        return []
+
+    answer_map = parse_answer_map(sections.get("answers"))
+    questions: list[dict] = []
+    current: dict | None = None
+
+    for table_html in extract_html_tables(normalize_list_blocks(assessment_section.blocks)):
+        rows = extract_table_rows(table_html)
+        if not rows:
+            continue
+
+        question_number = None
+        prompt = ""
+        options: dict[str, str] = {}
+
+        for row in rows:
+            if not row:
+                continue
+            if question_number is None:
+                parsed_prompt = parse_assessment_prompt(row[0])
+                if parsed_prompt:
+                    question_number, prompt = parsed_prompt
+                    continue
+            parsed_option = parse_assessment_option(row)
+            if parsed_option:
+                option_key, option_text = parsed_option
+                options[option_key] = option_text
+
+        if question_number is not None and prompt:
+            if current and current.get("options"):
+                answer_entry = answer_map.get(current["number"], {})
+                correct_option = answer_entry.get("correct_option", "")
+                if correct_option and correct_option in current["options"]:
+                    questions.append(
+                        {
+                            "prompt": current["prompt"],
+                            "options": current["options"],
+                            "correct_option": correct_option,
+                            "explanation": answer_entry.get("explanation", ""),
+                        }
+                    )
+            current = {
+                "number": question_number,
+                "prompt": prompt,
+                "options": options,
+            }
+            if table_has_answer_prompt(rows):
+                answer_entry = answer_map.get(question_number, {})
+                correct_option = answer_entry.get("correct_option", "")
+                if correct_option and correct_option in options:
+                    questions.append(
+                        {
+                            "prompt": prompt,
+                            "options": options,
+                            "correct_option": correct_option,
+                            "explanation": answer_entry.get("explanation", ""),
+                        }
+                    )
+                current = None
+            continue
+
+        if current:
+            for option_key, option_text in options.items():
+                current["options"][option_key] = option_text
+            if table_has_answer_prompt(rows):
+                answer_entry = answer_map.get(current["number"], {})
+                correct_option = answer_entry.get("correct_option", "")
+                if correct_option and correct_option in current["options"]:
+                    questions.append(
+                        {
+                            "prompt": current["prompt"],
+                            "options": current["options"],
+                            "correct_option": correct_option,
+                            "explanation": answer_entry.get("explanation", ""),
+                        }
+                    )
+                current = None
+
+    if current and current.get("options"):
+        answer_entry = answer_map.get(current["number"], {})
+        correct_option = answer_entry.get("correct_option", "")
+        if correct_option and correct_option in current["options"]:
+            questions.append(
+                {
+                    "prompt": current["prompt"],
+                    "options": current["options"],
+                    "correct_option": correct_option,
+                    "explanation": answer_entry.get("explanation", ""),
+                }
+            )
+
+    return questions[:20]
+
+
 def build_chapters(sections: OrderedDict[str, SectionData]) -> list[dict]:
     chapters = []
     for key, section in sections.items():
@@ -532,6 +702,7 @@ def build_module_payload(parsed_doc: dict, package_root: Path) -> dict:
     chapters = build_chapters(sections)
     outcomes = build_outcomes(sections.get("goals"))
     steps = build_steps(sections)
+    assessment_questions = build_assessment_questions(sections)
 
     return {
         "module_number": module_number,
@@ -547,6 +718,7 @@ def build_module_payload(parsed_doc: dict, package_root: Path) -> dict:
         "module_gallery": gallery_images,
         "module_learning_outcomes": outcomes,
         "module_exercise_steps": steps,
+        "module_assessment_questions": assessment_questions,
         "module_chapters": chapters,
         "source_document": str(parsed_doc["path"]),
     }
@@ -578,7 +750,7 @@ def build_manifest(source_root: Path, package_root: Path) -> dict:
     modules.sort(key=lambda module: module["module_number"])
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "source": {
             "source_root": str(source_root),

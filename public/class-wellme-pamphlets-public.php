@@ -38,9 +38,14 @@ class Wellme_Pamphlets_Public {
 
         // Pass AJAX URL, nonce and i18n strings to the script
         wp_localize_script( $this->plugin_name, 'wellmePamphlets', [
-            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-            'nonce'   => wp_create_nonce( 'wellme_pamphlet_nonce' ),
-            'loading' => __( 'Loading…', 'wellme-pamphlets' ),
+            'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+            'nonce'         => wp_create_nonce( 'wellme_pamphlet_nonce' ),
+            'loading'       => __( 'Loading…', 'wellme-pamphlets' ),
+            'answerAll'     => __( 'Please answer all questions before checking your results.', 'wellme-pamphlets' ),
+            'correct'       => __( 'Correct', 'wellme-pamphlets' ),
+            'incorrect'     => __( 'Incorrect', 'wellme-pamphlets' ),
+            'correctAnswer' => __( 'Correct answer:', 'wellme-pamphlets' ),
+            'scorePrefix'   => __( 'Your score:', 'wellme-pamphlets' ),
         ] );
     }
 

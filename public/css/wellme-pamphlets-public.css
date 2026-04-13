@@ -6,6 +6,14 @@
 :root {
     --wellme-primary:       #26aafc;
     --wellme-secondary:     #ff54b0;
+    --wellme-brand-gradient: linear-gradient(135deg, var(--wellme-primary) 0%, var(--wellme-secondary) 100%);
+    --wellme-brand-gradient-strong: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--wellme-primary) 88%, white 12%) 0%,
+        color-mix(in srgb, var(--wellme-secondary) 88%, white 12%) 100%
+    );
+    --wellme-success:       #138a52;
+    --wellme-danger:        #c43d57;
     --wellme-radius:        12px;
     --wellme-shadow:        0 4px 24px rgba(0,0,0,.12);
     --wellme-shadow-hover:  0 8px 32px rgba(0,0,0,.2);
@@ -230,9 +238,9 @@
 .wellme-chapter-btn {
     padding: 10px 18px;
     border-radius: 24px;
-    border: 2px solid var(--module-color, var(--wellme-primary));
+    border: 2px solid var(--wellme-primary);
     background: transparent;
-    color: var(--module-color, var(--wellme-primary));
+    color: var(--wellme-primary);
     font-weight: 600;
     font-size: .88rem;
     cursor: pointer;
@@ -240,7 +248,8 @@
 }
 .wellme-chapter-btn:hover,
 .wellme-chapter-btn.is-active {
-    background: var(--module-color, var(--wellme-primary));
+    background: var(--wellme-brand-gradient);
+    border-color: transparent;
     color: #fff;
 }
 
@@ -268,7 +277,7 @@
 }
 .wellme-outcome-btn:hover,
 .wellme-outcome-btn[aria-expanded="true"] {
-    background: var(--module-color, var(--wellme-primary));
+    background: var(--wellme-brand-gradient);
     color: #fff;
     transform: translateY(-2px);
 }
@@ -303,7 +312,7 @@
     justify-content: center;
 }
 .wellme-outcome-panel-close:hover { background: #ddd; }
-.wellme-outcome-panel h3 { margin: 0 0 20px; color: var(--module-color, var(--wellme-primary)); font-size: 1.2rem; }
+.wellme-outcome-panel h3 { margin: 0 0 20px; color: var(--wellme-primary); font-size: 1.2rem; }
 
 /* ── Hotspot map (Outremer pattern) ─────────────────────────── */
 .wellme-hotspot-map {
@@ -326,7 +335,7 @@
     padding: 0;
     z-index: 2;
 }
-.wellme-hotspot-dot:focus-visible { outline: 3px solid var(--module-color, var(--wellme-primary)); border-radius: 50%; }
+.wellme-hotspot-dot:focus-visible { outline: 3px solid var(--wellme-secondary); border-radius: 50%; }
 
 .wellme-hotspot-number {
     position: relative;
@@ -336,7 +345,7 @@
     justify-content: center;
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: var(--module-color, var(--wellme-primary));
+    background: var(--wellme-brand-gradient);
     color: #fff;
     font-size: 13px;
     font-weight: 700;
@@ -350,7 +359,7 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 3px solid var(--module-color, var(--wellme-primary));
+    border: 3px solid var(--wellme-secondary);
     opacity: 0;
     animation: wellme-pulse 2s ease-out infinite;
 }
@@ -390,7 +399,7 @@
     display: flex; align-items: center; justify-content: center;
     width: 40px; height: 40px;
     border-radius: 50%;
-    background: var(--module-color, var(--wellme-primary));
+    background: var(--wellme-brand-gradient);
     color: #fff;
     font-size: 1.1rem; font-weight: 700;
     flex-shrink: 0;
@@ -402,16 +411,257 @@
 .wellme-step-nav-btn {
     padding: 8px 16px;
     border-radius: 6px;
-    border: 2px solid var(--module-color, var(--wellme-primary));
+    border: 2px solid var(--wellme-primary);
     background: transparent;
-    color: var(--module-color, var(--wellme-primary));
+    color: var(--wellme-primary);
     font-weight: 600; font-size: .85rem;
     cursor: pointer;
     transition: background var(--wellme-transition), color var(--wellme-transition);
 }
-.wellme-step-nav-btn:hover { background: var(--module-color, var(--wellme-primary)); color: #fff; }
+.wellme-step-nav-btn:hover { background: var(--wellme-brand-gradient); border-color: transparent; color: #fff; }
 
 /* ── Video ────────────────────────────────────────────────────── */
+.wellme-assessment-intro {
+    margin: 0 0 24px;
+    color: #4b5563;
+}
+
+.wellme-assessment-form {
+    display: grid;
+    gap: 20px;
+}
+
+.wellme-assessment-question {
+    margin: 0;
+    padding: 22px;
+    border: 1px solid #dbe4ef;
+    border-radius: var(--wellme-radius);
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(8, 17, 31, 0.06);
+}
+
+.wellme-assessment-question.is-unanswered {
+    border-color: color-mix(in srgb, var(--wellme-secondary) 45%, #dbe4ef);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--wellme-secondary) 10%, transparent);
+}
+
+.wellme-assessment-question.is-correct {
+    border-color: color-mix(in srgb, var(--wellme-success) 50%, #dbe4ef);
+}
+
+.wellme-assessment-question.is-incorrect {
+    border-color: color-mix(in srgb, var(--wellme-danger) 50%, #dbe4ef);
+}
+
+.wellme-assessment-question-title {
+    margin: 0 0 16px;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wellme-assessment-question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--wellme-primary) 12%, #fff);
+    color: var(--wellme-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.wellme-assessment-question-text {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #1a1a2e;
+}
+
+.wellme-assessment-options {
+    display: grid;
+    gap: 12px;
+}
+
+.wellme-assessment-option {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #dbe4ef;
+    border-radius: 14px;
+    background: #f8fbff;
+    transition: border-color var(--wellme-transition), background var(--wellme-transition), transform var(--wellme-transition), box-shadow var(--wellme-transition);
+    cursor: pointer;
+}
+
+.wellme-assessment-option:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--wellme-primary) 42%, #dbe4ef);
+    box-shadow: 0 10px 20px rgba(8, 17, 31, 0.06);
+}
+
+.wellme-assessment-option input {
+    margin: 0;
+    accent-color: var(--wellme-primary);
+}
+
+.wellme-assessment-option-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #dbe4ef;
+    color: var(--wellme-primary);
+    font-weight: 700;
+}
+
+.wellme-assessment-option-text {
+    color: #334155;
+    line-height: 1.5;
+}
+
+.wellme-assessment-option.is-selected {
+    border-color: color-mix(in srgb, var(--wellme-primary) 48%, #dbe4ef);
+    background: color-mix(in srgb, var(--wellme-primary) 10%, #fff);
+}
+
+.wellme-assessment-option.is-correct {
+    border-color: color-mix(in srgb, var(--wellme-success) 46%, #dbe4ef);
+    background: color-mix(in srgb, var(--wellme-success) 12%, #fff);
+}
+
+.wellme-assessment-option.is-correct .wellme-assessment-option-key {
+    border-color: color-mix(in srgb, var(--wellme-success) 46%, #dbe4ef);
+    color: var(--wellme-success);
+}
+
+.wellme-assessment-option.is-selected-wrong {
+    border-color: color-mix(in srgb, var(--wellme-danger) 46%, #dbe4ef);
+    background: color-mix(in srgb, var(--wellme-danger) 9%, #fff);
+}
+
+.wellme-assessment-option.is-selected-wrong .wellme-assessment-option-key {
+    border-color: color-mix(in srgb, var(--wellme-danger) 46%, #dbe4ef);
+    color: var(--wellme-danger);
+}
+
+.wellme-assessment-feedback {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.wellme-assessment-feedback-status {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.wellme-assessment-question.is-correct .wellme-assessment-feedback-status {
+    color: var(--wellme-success);
+}
+
+.wellme-assessment-question.is-incorrect .wellme-assessment-feedback-status {
+    color: var(--wellme-danger);
+}
+
+.wellme-assessment-feedback-explanation {
+    margin: 0;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.wellme-assessment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.wellme-assessment-submit,
+.wellme-assessment-reset {
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform var(--wellme-transition), box-shadow var(--wellme-transition), border-color var(--wellme-transition), background var(--wellme-transition), color var(--wellme-transition);
+}
+
+.wellme-assessment-submit {
+    background: var(--wellme-brand-gradient);
+    color: #fff;
+    box-shadow: 0 14px 30px rgba(8, 17, 31, 0.12);
+}
+
+.wellme-assessment-submit:hover,
+.wellme-assessment-reset:hover {
+    transform: translateY(-2px);
+}
+
+.wellme-assessment-reset {
+    background: #fff;
+    border-color: color-mix(in srgb, var(--wellme-primary) 35%, #dbe4ef);
+    color: var(--wellme-primary);
+}
+
+.wellme-assessment-summary {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--wellme-primary) 10%, #fff);
+    border: 1px solid color-mix(in srgb, var(--wellme-primary) 22%, #dbe4ef);
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.wellme-assessment-summary.is-error {
+    background: color-mix(in srgb, var(--wellme-secondary) 10%, #fff);
+    border-color: color-mix(in srgb, var(--wellme-secondary) 24%, #dbe4ef);
+}
+
+@media (max-width: 640px) {
+    .wellme-assessment-question {
+        padding: 18px;
+    }
+
+    .wellme-assessment-option {
+        grid-template-columns: auto 1fr;
+        align-items: start;
+    }
+
+    .wellme-assessment-option input {
+        grid-row: 1 / span 2;
+        margin-top: 4px;
+    }
+
+    .wellme-assessment-option-key,
+    .wellme-assessment-option-text {
+        grid-column: 2;
+    }
+
+    .wellme-assessment-actions {
+        flex-direction: column;
+    }
+
+    .wellme-assessment-submit,
+    .wellme-assessment-reset {
+        width: 100%;
+    }
+}
+
 .wellme-video-wrapper {
     position: relative;
     padding-bottom: 56.25%;
@@ -485,7 +735,7 @@
 .wellme-flipcard-title { font-size: .95rem; font-weight: 700; margin: 0; line-height: 1.3; }
 
 .wellme-flipcard-back {
-    background: var(--module-color, var(--wellme-primary));
+    background: var(--wellme-brand-gradient);
     color: #fff;
     transform: rotateY(180deg);
     display: flex; flex-direction: column;
@@ -650,8 +900,8 @@
     transition: transform 0.2s ease;
 }
 .wellme-exp-explore-btn:hover {
-    background: var(--module-color, rgba(255,255,255,0.2));
-    border-color: var(--module-color, rgba(255,255,255,0.9));
+    background: var(--wellme-brand-gradient);
+    border-color: color-mix(in srgb, var(--wellme-secondary) 78%, white);
     transform: translateY(-2px);
 }
 .wellme-exp-explore-btn:hover::after { transform: translateX(4px); }
@@ -852,8 +1102,8 @@
     background: linear-gradient(
         145deg,
         rgba(8, 17, 31, 0.88) 0%,
-        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 24%, transparent) 35%,
-        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 28%, transparent) 72%,
+        color-mix(in srgb, var(--wellme-primary) 24%, transparent) 35%,
+        color-mix(in srgb, var(--wellme-secondary) 28%, transparent) 72%,
         rgba(8, 17, 31, 0.82) 100%
     );
 }
@@ -863,8 +1113,8 @@
 }
 
 .wellme-exp-number {
-    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, rgba(255,255,255,0.08));
-    border: 1px solid color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 48%, rgba(255,255,255,0.32));
+    background: color-mix(in srgb, var(--wellme-primary) 22%, rgba(255,255,255,0.08));
+    border: 1px solid color-mix(in srgb, var(--wellme-secondary) 48%, rgba(255,255,255,0.32));
     box-shadow: 0 12px 30px rgba(8, 17, 31, 0.22);
 }
 
@@ -878,12 +1128,8 @@
 }
 
 .wellme-exp-explore-btn {
-    border: 2px solid color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 78%, white);
-    background: linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 88%, white 12%) 0%,
-        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 88%, white 12%) 100%
-    );
+    border: 2px solid color-mix(in srgb, var(--wellme-secondary) 78%, white);
+    background: var(--wellme-brand-gradient-strong);
     box-shadow: 0 18px 42px rgba(8, 17, 31, 0.28);
     transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
     backdrop-filter: none;
@@ -895,23 +1141,19 @@
 }
 
 .wellme-exp-explore-btn:hover {
-    background: linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 88%, white 12%) 0%,
-        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 88%, white 12%) 100%
-    );
-    border-color: color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 78%, white);
+    background: var(--wellme-brand-gradient-strong);
+    border-color: color-mix(in srgb, var(--wellme-secondary) 78%, white);
     transform: translateY(-2px);
     filter: saturate(1.08) brightness(1.04);
     box-shadow: 0 22px 46px rgba(8, 17, 31, 0.34);
 }
 
 .wellme-exp-explore-btn:focus-visible {
-    outline: 3px solid var(--module-color-secondary, var(--wellme-secondary));
+    outline: 3px solid var(--wellme-secondary);
 }
 
 .wellme-exp-arrow {
-    border: 2px solid color-mix(in srgb, var(--module-color, var(--wellme-primary)) 52%, rgba(255,255,255,0.28));
+    border: 2px solid color-mix(in srgb, var(--wellme-primary) 52%, rgba(255,255,255,0.28));
     background: rgba(8, 17, 31, 0.28);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -919,12 +1161,12 @@
 }
 
 .wellme-exp-arrow:hover {
-    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, rgba(8, 17, 31, 0.24));
-    border-color: var(--module-color-secondary, var(--wellme-secondary));
+    background: color-mix(in srgb, var(--wellme-primary) 22%, rgba(8, 17, 31, 0.24));
+    border-color: var(--wellme-secondary);
 }
 
 .wellme-exp-arrow:focus-visible {
-    outline: 3px solid var(--module-color-secondary, var(--wellme-secondary));
+    outline: 3px solid var(--wellme-secondary);
 }
 
 .wellme-exp-dots {
@@ -941,18 +1183,18 @@
 }
 
 .wellme-exp-dot.is-active {
-    background: var(--module-color-secondary, var(--wellme-secondary));
-    border-color: var(--module-color-secondary, var(--wellme-secondary));
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--module-color, var(--wellme-primary)) 18%, transparent);
+    background: var(--wellme-secondary);
+    border-color: var(--wellme-secondary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--wellme-primary) 18%, transparent);
 }
 
 .wellme-exp-dot:hover {
-    border-color: var(--module-color, var(--wellme-primary));
-    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 42%, rgba(255,255,255,0.14));
+    border-color: var(--wellme-primary);
+    background: color-mix(in srgb, var(--wellme-primary) 42%, rgba(255,255,255,0.14));
 }
 
 .wellme-exp-dot:focus-visible {
-    outline: 2px solid var(--module-color-secondary, var(--wellme-secondary));
+    outline: 2px solid var(--wellme-secondary);
 }
 
 .wellme-exp-counter {

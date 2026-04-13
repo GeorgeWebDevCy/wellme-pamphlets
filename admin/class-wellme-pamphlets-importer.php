@@ -234,6 +234,7 @@ class Wellme_Pamphlets_Importer {
         $outcomes  = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
         $steps     = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
         $chapters  = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
+        $assessment_questions = $this->build_assessment_questions( $module['module_assessment_questions'] ?? [] );
         $color     = sanitize_hex_color( $module['module_color'] ?? '' ) ?: '#005b96';
         $subtitle  = sanitize_text_field( $module['module_subtitle'] ?? '' );
         $motto     = sanitize_text_field( $module['module_motto'] ?? '' );
@@ -259,6 +260,7 @@ class Wellme_Pamphlets_Importer {
         update_field( 'module_learning_outcomes', $outcomes, $post_id );
         update_field( 'module_exercise_steps', $steps, $post_id );
         update_field( 'module_chapters', $chapters, $post_id );
+        update_field( 'module_assessment_questions', $assessment_questions, $post_id );
 
         if ( $cover_id ) {
             set_post_thumbnail( $post_id, $cover_id );
@@ -358,6 +360,54 @@ class Wellme_Pamphlets_Importer {
                 'chapter_title'   => $title,
                 'chapter_content' => wp_kses_post( $chapter['chapter_content'] ?? '' ),
                 'chapter_image'   => $this->import_attachment_reference( $chapter['chapter_image'] ?? '', $package_root, $post_id ) ?: '',
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Build repeater rows for assessment questions.
+     *
+     * @param array $questions Assessment payloads.
+     *
+     * @return array
+     */
+    private function build_assessment_questions( array $questions ) {
+        $rows = [];
+
+        foreach ( $questions as $question ) {
+            $prompt      = sanitize_text_field( $question['prompt'] ?? '' );
+            $correct_key = strtoupper( sanitize_text_field( $question['correct_option'] ?? '' ) );
+            $options     = [];
+
+            if ( '' === $prompt ) {
+                continue;
+            }
+
+            foreach ( (array) ( $question['options'] ?? [] ) as $key => $text ) {
+                $option_key  = strtoupper( sanitize_text_field( is_string( $key ) ? $key : '' ) );
+                $option_text = sanitize_text_field( $text );
+
+                if ( '' === $option_key || '' === $option_text ) {
+                    continue;
+                }
+
+                $options[] = [
+                    'option_key'  => $option_key,
+                    'option_text' => $option_text,
+                ];
+            }
+
+            if ( count( $options ) < 2 || '' === $correct_key ) {
+                continue;
+            }
+
+            $rows[] = [
+                'assessment_question_prompt'         => $prompt,
+                'assessment_question_options'        => $options,
+                'assessment_question_correct_option' => $correct_key,
+                'assessment_question_explanation'    => sanitize_text_field( $question['explanation'] ?? '' ),
             ];
         }
 
@@ -528,7 +578,9 @@ class Wellme_Pamphlets_Importer {
             throw new RuntimeException( __( 'The uploaded package manifest is not valid JSON.', 'wellme-pamphlets' ) );
         }
 
-        if ( empty( $payload['schema_version'] ) || 1 !== (int) $payload['schema_version'] ) {
+        $schema_version = isset( $payload['schema_version'] ) ? (int) $payload['schema_version'] : 0;
+
+        if ( $schema_version < 1 || $schema_version > 2 ) {
             throw new RuntimeException( __( 'This import package uses an unsupported schema version.', 'wellme-pamphlets' ) );
         }
 
