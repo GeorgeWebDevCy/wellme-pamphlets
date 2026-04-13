@@ -93,6 +93,33 @@ No attributes. Always shows all published modules ordered by module number.
 
 ---
 
+### `[wellme_experience]`
+
+A single shortcode that turns a blank page into a full-viewport interactive experience. All 6 modules are presented as a full-screen horizontal slider. Each slide fills the entire viewport with the module cover image, number, title and subtitle. An **Explore Module** button slides a pamphlet drawer up from the bottom with the full interactive pamphlet loaded via AJAX.
+
+```
+[wellme_experience]
+```
+
+No attributes. Always shows all published modules ordered by module number.
+
+**Recommended setup:** place on a page using a *Blank Page* template (no theme header/footer) so the experience fills the entire browser window. In Divi, set *Page Attributes → Template* to **Blank Page**.
+
+**Navigation:**
+- Left / Right arrow buttons (hidden on first / last slide respectively)
+- Dot indicators (bottom centre)
+- Keyboard arrow keys ← →
+- Touch swipe left / right on mobile / tablet
+- Brief `← → to navigate` keyboard hint shown on desktop on first load
+
+**Drawer behaviour:**
+- Opens from the bottom at 78 vh height
+- Pamphlet is fetched via AJAX using the same `wellme_load_pamphlet` action
+- Result is cached per module — revisiting the same module in one session skips the network request
+- Close with the × button, or `Escape`
+
+---
+
 ## Admin: Creating a Module
 
 Go to **WELLME Modules → Add Module** in the WordPress admin. The post title is the module title. All other content is managed through ACF field groups organised into tabs:
@@ -237,7 +264,8 @@ wellme-pamphlets/
 │   └── partials/
 │       ├── wellme-module-grid.php         Module card grid + modal container
 │       ├── wellme-pamphlet.php            Full pamphlet template (all sections)
-│       └── wellme-flipcards.php           Sum-Up flip cards
+│       ├── wellme-flipcards.php           Sum-Up flip cards
+│       └── wellme-experience.php         Full-viewport experience slider
 │
 ├── admin/
 │   ├── class-wellme-pamphlets-admin.php
@@ -277,6 +305,28 @@ The interactive patterns were derived by scraping the Maglr digital brochure exa
 | Numbered pulsing hotspot dots on image | Outremer 55 (catamaran-outremer.maglr.com) | Exercise steps |
 | CSS 3D flip cards | Specified in project brief | Sum-Up slide mottos |
 | 6-card column grid | Mazda MX-5 (prijzen.mazda.nl) | Module index grid |
+
+---
+
+## WPML Multilingual Support
+
+The plugin is WPML-compatible. No extra plugins beyond **WPML Multilingual CMS** and **WPML String Translation** are required.
+
+### How it works
+
+| Layer | Behaviour |
+|---|---|
+| `wellme_module` CPT | Translatable post type. WPML lets editors create a translated copy of each module via the Translation Editor. |
+| ACF field groups | Registered in PHP via `acf_add_local_field_group()`. WPML's ACF integration discovers these automatically. |
+| `get_posts()` queries | WPML filters all queries to return posts in the active language automatically — no extra code needed. |
+| AJAX pamphlet loader | Applies `wpml_object_id` filter to resolve the incoming post ID to the correct translated post before rendering. |
+| UI strings | All strings use `__()` / `esc_html_e()` with the `wellme-pamphlets` text domain, ready for `.pot` generation via WP-CLI or Loco Translate. |
+
+### Setup steps
+
+1. In **WPML → Custom Fields Translation**, find all `module_*` fields and set them to **Translate** (or **Copy** for fields that should be the same across languages, such as `module_number` and `module_color`).
+2. Translate each `wellme_module` post via the WPML post translation interface.
+3. Place the shortcodes on language-specific pages as usual — WPML will serve the correct module posts per language automatically.
 
 ---
 

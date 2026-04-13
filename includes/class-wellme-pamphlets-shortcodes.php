@@ -5,6 +5,7 @@
  * [wellme_module_grid]   – 6-card module index (main entry point)
  * [wellme_pamphlet id=X] – Full interactive pamphlet for one module
  * [wellme_flipcards]     – Sum-Up flip cards (6 modules, front=image, back=motto)
+ * [wellme_experience]    – Full-viewport horizontal slider (one shortcode, full-page experience)
  *
  * @since      1.0.0
  * @package    Wellme_Pamphlets
@@ -16,6 +17,7 @@ class Wellme_Pamphlets_Shortcodes {
         add_shortcode( 'wellme_module_grid', [ $this, 'render_module_grid' ] );
         add_shortcode( 'wellme_pamphlet',    [ $this, 'render_pamphlet' ] );
         add_shortcode( 'wellme_flipcards',   [ $this, 'render_flipcards' ] );
+        add_shortcode( 'wellme_experience',  [ $this, 'render_experience' ] );
     }
 
     // ── Module Grid ────────────────────────────────────────────────────────────
@@ -80,6 +82,21 @@ class Wellme_Pamphlets_Shortcodes {
 
         ob_start();
         include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-flipcards.php';
+        return ob_get_clean();
+    }
+
+    // ── Full-screen Experience ────────────────────────────────────────────────
+
+    public function render_experience( $atts ) {
+        $atts = shortcode_atts( [], $atts, 'wellme_experience' );
+
+        $modules = $this->get_modules();
+        if ( empty( $modules ) ) {
+            return '<p class="wellme-no-modules">' . esc_html__( 'No modules found.', 'wellme-pamphlets' ) . '</p>';
+        }
+
+        ob_start();
+        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-experience.php';
         return ob_get_clean();
     }
 

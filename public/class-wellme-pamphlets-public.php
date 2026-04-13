@@ -55,6 +55,9 @@ class Wellme_Pamphlets_Public {
             wp_send_json_error( __( 'Invalid module ID.', 'wellme-pamphlets' ) );
         }
 
+        // If WPML is active, resolve to the translated post for the current language.
+        $id = (int) apply_filters( 'wpml_object_id', $id, 'wellme_module', true );
+
         $module = get_post( $id );
         if ( ! $module || $module->post_type !== 'wellme_module' || $module->post_status !== 'publish' ) {
             wp_send_json_error( __( 'Module not found.', 'wellme-pamphlets' ) );

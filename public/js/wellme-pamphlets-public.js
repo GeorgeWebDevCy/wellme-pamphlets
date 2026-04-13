@@ -288,6 +288,177 @@
         });
     }
 
+    /* ── Full-screen Experience [wellme_experience] ──────────── */
+
+    function initExperience() {
+        var exp   = document.getElementById('wellme-experience');
+        if (!exp) return;
+
+        var track   = document.getElementById('wellme-experience-track');
+        var slides  = Array.from(exp.querySelectorAll('.wellme-experience-slide'));
+        var dots    = Array.from(exp.querySelectorAll('.wellme-exp-dot'));
+        var prevBtn = exp.querySelector('.wellme-exp-arrow--prev');
+        var nextBtn = exp.querySelector('.wellme-exp-arrow--next');
+        var counter = exp.querySelector('.wellme-exp-counter-current');
+        var drawer     = document.getElementById('wellme-exp-drawer');
+        var drawerBody = document.getElementById('wellme-exp-drawer-body');
+
+        var current    = 0;
+        var total      = slides.length;
+        var drawerOpen = false;
+        var touchStartX = 0;
+
+        // ── Slide navigation ──────────────────────────────────
+
+        function goTo(index) {
+            if (index < 0 || index >= total) return;
+
+            slides[current].classList.remove('is-active');
+            if (dots[current]) {
+                dots[current].classList.remove('is-active');
+                dots[current].setAttribute('aria-current', 'false');
+            }
+
+            current = index;
+
+            slides[current].classList.add('is-active');
+            if (dots[current]) {
+                dots[current].classList.add('is-active');
+                dots[current].setAttribute('aria-current', 'true');
+            }
+
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            if (counter) counter.textContent = current + 1;
+            if (prevBtn) prevBtn.hidden = current === 0;
+            if (nextBtn) nextBtn.hidden = current === total - 1;
+        }
+
+        goTo(0);
+
+        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+        dots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () { goTo(i); });
+        });
+
+        // Keyboard — arrows navigate slides; Escape closes drawer
+        document.addEventListener('keydown', function (e) {
+            if (drawerOpen) {
+                if (e.key === 'Escape') closeDrawer();
+                return;
+            }
+            if (e.key === 'ArrowLeft')  goTo(current - 1);
+            if (e.key === 'ArrowRight') goTo(current + 1);
+        });
+
+        // Touch swipe
+        exp.addEventListener('touchstart', function (e) {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+
+        exp.addEventListener('touchend', function (e) {
+            var dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) {
+                dx < 0 ? goTo(current + 1) : goTo(current - 1);
+            }
+        }, { passive: true });
+
+        // ── Drawer ────────────────────────────────────────────
+
+        exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                openDrawer(this.dataset.moduleId, this);
+            });
+        });
+
+        function openDrawer(moduleId, triggerBtn) {
+            drawer.removeAttribute('hidden');
+            // Reflow needed so the CSS transition fires from the initial state
+            drawer.getBoundingClientRect();
+            drawer.classList.add('is-open');
+            drawerOpen = true;
+            document.body.style.overflow = 'hidden';
+
+            exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (b) {
+                b.setAttribute('aria-expanded', b === triggerBtn ? 'true' : 'false');
+            });
+
+            // Cache: skip re-fetch if same module already loaded
+            if (drawerBody.dataset.loadedId === String(moduleId)) {
+                drawerBody.scrollTop = 0;
+                focusDrawerClose();
+                return;
+            }
+
+            drawerBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
+                ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
+                '</div>';
+
+            fetch(wellmePamphlets.ajaxUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    action: 'wellme_load_pamphlet',
+                    id:     moduleId,
+                    nonce:  wellmePamphlets.nonce,
+                }),
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.success) {
+                        drawerBody.innerHTML = data.data.html;
+                        drawerBody.dataset.loadedId = moduleId;
+                        initPamphletInteractions(drawerBody);
+                        initScrollReveal();
+                        focusDrawerClose();
+                    } else {
+                        drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
+                            (data.data || 'Error loading module.') + '</p>';
+                    }
+                })
+                .catch(function () {
+                    drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                });
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('is-open');
+            drawerOpen = false;
+            document.body.style.overflow = '';
+
+            exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (b) {
+                b.setAttribute('aria-expanded', 'false');
+            });
+
+            drawer.addEventListener('transitionend', function onEnd() {
+                drawer.setAttribute('hidden', '');
+                drawer.removeEventListener('transitionend', onEnd);
+            });
+
+            // Return focus to the active slide's explore button
+            var btn = slides[current] && slides[current].querySelector('.wellme-exp-explore-btn');
+            if (btn) btn.focus();
+        }
+
+        function focusDrawerClose() {
+            var btn = drawer.querySelector('.wellme-exp-drawer-close');
+            if (btn) btn.focus();
+        }
+
+        var closeBtn = drawer.querySelector('[data-close-drawer]');
+        if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+
+        // Show a brief keyboard hint on desktop
+        if (window.matchMedia('(hover: hover)').matches && total > 1) {
+            var hint = document.createElement('p');
+            hint.className = 'wellme-exp-hint';
+            hint.textContent = '← → to navigate';
+            exp.appendChild(hint);
+            setTimeout(function () { hint.parentNode && hint.parentNode.removeChild(hint); }, 4500);
+        }
+    }
+
     /* ── AJAX handler for pamphlet modal ─────────────────────── */
     // (server-side registered in class-wellme-pamphlets-public.php)
 
@@ -297,6 +468,7 @@
         initScrollReveal();
         initModuleGrid();
         initFlipCards();
+        initExperience();
 
         // If a standalone [wellme_pamphlet] shortcode is on the page (not in modal)
         initPamphletInteractions(document);

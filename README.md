@@ -84,6 +84,24 @@ Renders the Sum-Up slide — 6 CSS 3D flip cards. Front shows the module cover i
 
 No attributes. Always shows all published modules ordered by module number.
 
+### `[wellme_experience]`
+
+Full-viewport interactive experience. All 6 modules are presented as a full-screen horizontal slider — each slide fills the entire viewport with the module's cover image, number, title and subtitle. Clicking **Explore Module** slides a pamphlet drawer up from the bottom, loading the full interactive pamphlet without leaving the page.
+
+```
+[wellme_experience]
+```
+
+No attributes. Always shows all published modules in order.
+
+**Recommended page setup:** use a page template that removes the theme header and footer (a "blank" or "full-width canvas" template) so the experience fills the entire browser window edge-to-edge. In Divi, set the page to use the *Blank Page* template under Page Attributes.
+
+**Navigation:**
+- Left / Right arrow buttons
+- Dot indicators (bottom centre)
+- Keyboard arrow keys (← →)
+- Touch swipe on mobile
+
 ---
 
 ## Interactive Features
@@ -175,6 +193,20 @@ wellme-pamphlets/
 └── vendor/                                    Composer packages
     └── yahnis-elsts/plugin-update-checker/
 ```
+
+---
+
+## WPML Multilingual Support
+
+The plugin is WPML-compatible out of the box:
+
+- **Post type** — `wellme_module` is translatable. Translators can create a translated copy of each module post via the WPML Translation Editor.
+- **ACF fields** — all fields are registered in code via `acf_add_local_field_group()`. WPML's **String Translation** and **ACF + WPML** integration surface these fields for translation automatically once the field group is configured in **WPML → Custom Fields Translation**.
+- **Queries** — all `get_posts()` calls respect the active WPML language filter automatically.
+- **AJAX pamphlet loader** — resolves incoming post IDs to the correct translated post for the current language via the `wpml_object_id` filter before rendering.
+- **Strings** — all user-facing strings are wrapped in `__()` / `esc_html_e()` with the `wellme-pamphlets` text domain, ready for `.pot` generation.
+
+> In the WPML admin, go to **WPML → Custom Fields Translation** and set all `module_*` fields to **Copy** or **Translate** as appropriate for your workflow.
 
 ---
 
