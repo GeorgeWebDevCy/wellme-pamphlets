@@ -1,3 +1,13 @@
 # Reference documents (local only, not tracked in git)
 refrences doc/
 
+# Scraper scripts and output (research tooling, not part of plugin)
+scrape-*.mjs
+*.png
+*.json
+!composer.json
+!composer.lock
+node_modules/
+package.json
+package-lock.json
+

@@ -36,12 +36,18 @@ class Wellme_Pamphlets {
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        $this->define_cpt_hooks();
+        $this->define_acf_hooks();
+        $this->define_shortcode_hooks();
         $this->setup_update_checker();
     }
 
     private function load_dependencies() {
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-loader.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-i18n.php';
+        require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-cpt.php';
+        require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-acf.php';
+        require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-shortcodes.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-admin.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'public/class-wellme-pamphlets-public.php';
 
@@ -65,6 +71,25 @@ class Wellme_Pamphlets {
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+        // AJAX: load pamphlet HTML into modal (logged-in and guest)
+        $this->loader->add_action( 'wp_ajax_wellme_load_pamphlet',        $plugin_public, 'ajax_load_pamphlet' );
+        $this->loader->add_action( 'wp_ajax_nopriv_wellme_load_pamphlet', $plugin_public, 'ajax_load_pamphlet' );
+    }
+
+    private function define_cpt_hooks() {
+        $cpt = new Wellme_Pamphlets_CPT();
+        $this->loader->add_action( 'init', $cpt, 'register_post_types' );
+    }
+
+    private function define_acf_hooks() {
+        $acf = new Wellme_Pamphlets_ACF();
+        $this->loader->add_action( 'acf/init', $acf, 'register_field_groups' );
+    }
+
+    private function define_shortcode_hooks() {
+        $sc = new Wellme_Pamphlets_Shortcodes();
+        $this->loader->add_action( 'init', $sc, 'register' );
     }
 
     /**
