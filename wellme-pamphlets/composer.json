@@ -1,0 +1,21 @@
+{
+    "name": "georgenicolaou/wellme-pamphlets",
+    "description": "WELLME Project interactive pamphlets WordPress plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=7.4",
+        "yahnis-elsts/plugin-update-checker": "^5.3"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "WellmePamphlets\\": "includes/"
+        }
+    }
+}
