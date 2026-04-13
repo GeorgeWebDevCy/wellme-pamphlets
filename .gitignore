@@ -3,6 +3,7 @@ refrences doc/
 
 # Scraper scripts and output (research tooling, not part of plugin)
 scrape-*.mjs
+.env
 *.png
 *.json
 !composer.json
@@ -12,4 +13,5 @@ package.json
 package-lock.json
 .build/
 dist/
+output/
 
