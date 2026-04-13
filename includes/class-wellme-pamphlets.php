@@ -49,6 +49,7 @@ class Wellme_Pamphlets {
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-acf.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'includes/class-wellme-pamphlets-shortcodes.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-admin.php';
+        require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-importer.php';
         require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'public/class-wellme-pamphlets-public.php';
 
         $this->loader = new Wellme_Pamphlets_Loader();
@@ -60,10 +61,13 @@ class Wellme_Pamphlets {
     }
 
     private function define_admin_hooks() {
-        $plugin_admin = new Wellme_Pamphlets_Admin( $this->plugin_name, $this->version );
+        $plugin_admin    = new Wellme_Pamphlets_Admin( $this->plugin_name, $this->version );
+        $plugin_importer = new Wellme_Pamphlets_Importer( $this->plugin_name, $this->version );
 
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->add_action( 'admin_menu', $plugin_importer, 'register_menu' );
+        $this->loader->add_action( 'admin_post_' . Wellme_Pamphlets_Importer::ACTION, $plugin_importer, 'handle_import' );
     }
 
     private function define_public_hooks() {

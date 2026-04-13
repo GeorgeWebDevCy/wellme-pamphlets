@@ -23,7 +23,7 @@ class Wellme_Pamphlets_Admin {
         $this->version     = $version;
     }
 
-    public function enqueue_styles() {
+    public function enqueue_styles( $hook_suffix = '' ) {
         wp_enqueue_style(
             $this->plugin_name,
             WELLME_PAMPHLETS_PLUGIN_URL . 'admin/css/wellme-pamphlets-admin.css',
@@ -33,7 +33,7 @@ class Wellme_Pamphlets_Admin {
         );
     }
 
-    public function enqueue_scripts() {
+    public function enqueue_scripts( $hook_suffix = '' ) {
         wp_enqueue_script(
             $this->plugin_name,
             WELLME_PAMPHLETS_PLUGIN_URL . 'admin/js/wellme-pamphlets-admin.js',

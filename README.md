@@ -42,6 +42,41 @@ ACF Pro must be installed and activated **before** this plugin. All ACF field gr
 5. Place shortcodes on your pages (see below).
 
 ---
+push and commit
+## Module Import Workflow
+
+The plugin can now import the six WELLME learning modules from the local source documents.
+
+### 1. Build an import package locally
+
+From this repository, run:
+
+```powershell
+python scripts/build-import-package.py --source-root "C:\Users\georg\Downloads\WellMe-20260413T092223Z-3-001\WellMe" --output "dist\wellme-import-package.zip"
+```
+
+This reads the WP2.4 learning module `.docx` files, extracts structured content plus embedded images, and builds a ZIP package with a `manifest.json` file for WordPress import.
+
+### 2. Upload the package in WordPress
+
+In the WordPress admin, go to **WELLME Modules -> Import Modules** and upload the generated ZIP.
+
+The importer will create or update `wellme_module` posts by module number and populate:
+
+- module title and slug
+- subtitle, description, color, and motto defaults
+- learning outcomes
+- chapters
+- exercise steps
+- cover image and gallery images
+
+### Notes
+
+- The current importer uses `WP2.4_Design_Learning_Modules` as the primary source of truth.
+- Hotspot coordinates, icons, and some cover-image choices may still need manual review after import.
+- ACF Pro must be active before running the importer.
+
+---
 
 ## Shortcodes
 
