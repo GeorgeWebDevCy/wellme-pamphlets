@@ -308,6 +308,18 @@
         var drawerOpen = false;
         var touchStartX = 0;
 
+        function syncExperienceViewportHeight() {
+            var viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            document.documentElement.style.setProperty('--wellme-vh', (viewportHeight * 0.01) + 'px');
+        }
+
+        syncExperienceViewportHeight();
+        window.addEventListener('resize', syncExperienceViewportHeight);
+        window.addEventListener('orientationchange', syncExperienceViewportHeight);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', syncExperienceViewportHeight);
+        }
+
         // ── Slide navigation ──────────────────────────────────
 
         function goTo(index) {

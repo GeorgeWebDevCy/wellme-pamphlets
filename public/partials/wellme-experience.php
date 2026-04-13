@@ -15,6 +15,8 @@
 defined( 'ABSPATH' ) || exit;
 
 $total = count( $modules );
+$brand_primary   = '#26aafc';
+$brand_secondary = '#ff54b0';
 ?>
 <div
     class="wellme-experience"
@@ -27,7 +29,8 @@ $total = count( $modules );
     <div class="wellme-experience-track" id="wellme-experience-track">
 
         <?php foreach ( $modules as $index => $module ) :
-            $color    = get_field( 'module_color',       $module->ID ) ?: '#005b96';
+            $color_primary   = 0 === $index % 2 ? $brand_primary : $brand_secondary;
+            $color_secondary = 0 === $index % 2 ? $brand_secondary : $brand_primary;
             $number   = get_field( 'module_number',      $module->ID );
             $subtitle = get_field( 'module_subtitle',    $module->ID );
             $cover    = get_field( 'module_cover_image', $module->ID );
@@ -37,7 +40,7 @@ $total = count( $modules );
             class="wellme-experience-slide<?php echo $index === 0 ? ' is-active' : ''; ?>"
             data-module-id="<?php echo esc_attr( $module->ID ); ?>"
             data-index="<?php echo $index; ?>"
-            style="--module-color: <?php echo esc_attr( $color ); ?>;"
+            style="--module-color: <?php echo esc_attr( $color_primary ); ?>; --module-color-secondary: <?php echo esc_attr( $color_secondary ); ?>;"
             aria-label="<?php echo esc_attr( sprintf(
                 /* translators: 1: module number 2: module title */
                 __( 'Module %1$s: %2$s', 'wellme-pamphlets' ),

@@ -4,7 +4,8 @@
 
 /* ── CSS Custom Properties ─────────────────────────────────── */
 :root {
-    --wellme-primary:       #005b96;
+    --wellme-primary:       #26aafc;
+    --wellme-secondary:     #ff54b0;
     --wellme-radius:        12px;
     --wellme-shadow:        0 4px 24px rgba(0,0,0,.12);
     --wellme-shadow-hover:  0 8px 32px rgba(0,0,0,.2);
@@ -826,4 +827,187 @@
     .wellme-experience-content  { opacity: 1; transform: none; transition: none; pointer-events: auto; }
     .wellme-exp-drawer          { transition: none; }
     .wellme-exp-hint            { animation: none; opacity: 0; }
+}
+
+/* ============================================================
+   EXPERIENCE BRAND + MOBILE FULLSCREEN OVERRIDES
+   ============================================================ */
+.wellme-experience {
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    height: calc(var(--wellme-vh, 1vh) * 100);
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    min-height: calc(var(--wellme-vh, 1vh) * 100);
+    background:
+        radial-gradient(circle at top left, rgba(38, 170, 252, 0.24), transparent 42%),
+        radial-gradient(circle at bottom right, rgba(255, 84, 176, 0.3), transparent 46%),
+        #08111f;
+}
+
+.wellme-experience-overlay {
+    background: linear-gradient(
+        145deg,
+        rgba(8, 17, 31, 0.88) 0%,
+        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 24%, transparent) 35%,
+        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 28%, transparent) 72%,
+        rgba(8, 17, 31, 0.82) 100%
+    );
+}
+
+.wellme-experience-content {
+    max-width: 760px;
+}
+
+.wellme-exp-number {
+    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, rgba(255,255,255,0.08));
+    border: 1px solid color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 48%, rgba(255,255,255,0.32));
+    box-shadow: 0 12px 30px rgba(8, 17, 31, 0.22);
+}
+
+.wellme-exp-subtitle {
+    color: rgba(255,255,255,0.88);
+    opacity: 1;
+}
+
+.wellme-exp-explore-btn {
+    border: 2px solid color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 78%, white);
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 88%, white 12%) 0%,
+        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 88%, white 12%) 100%
+    );
+    box-shadow: 0 18px 42px rgba(8, 17, 31, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-exp-explore-btn::after {
+    content: '→';
+}
+
+.wellme-exp-explore-btn:hover {
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--module-color, var(--wellme-primary)) 88%, white 12%) 0%,
+        color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 88%, white 12%) 100%
+    );
+    border-color: color-mix(in srgb, var(--module-color-secondary, var(--wellme-secondary)) 78%, white);
+    transform: translateY(-2px);
+    filter: saturate(1.08) brightness(1.04);
+    box-shadow: 0 22px 46px rgba(8, 17, 31, 0.34);
+}
+
+.wellme-exp-explore-btn:focus-visible {
+    outline: 3px solid var(--module-color-secondary, var(--wellme-secondary));
+}
+
+.wellme-exp-arrow {
+    border: 2px solid color-mix(in srgb, var(--module-color, var(--wellme-primary)) 52%, rgba(255,255,255,0.28));
+    background: rgba(8, 17, 31, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 12px 28px rgba(8, 17, 31, 0.22);
+}
+
+.wellme-exp-arrow:hover {
+    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, rgba(8, 17, 31, 0.24));
+    border-color: var(--module-color-secondary, var(--wellme-secondary));
+}
+
+.wellme-exp-arrow:focus-visible {
+    outline: 3px solid var(--module-color-secondary, var(--wellme-secondary));
+}
+
+.wellme-exp-dots {
+    bottom: 30px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(8, 17, 31, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.wellme-exp-dot {
+    border: 2px solid rgba(255,255,255,0.52);
+}
+
+.wellme-exp-dot.is-active {
+    background: var(--module-color-secondary, var(--wellme-secondary));
+    border-color: var(--module-color-secondary, var(--wellme-secondary));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--module-color, var(--wellme-primary)) 18%, transparent);
+}
+
+.wellme-exp-dot:hover {
+    border-color: var(--module-color, var(--wellme-primary));
+    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 42%, rgba(255,255,255,0.14));
+}
+
+.wellme-exp-dot:focus-visible {
+    outline: 2px solid var(--module-color-secondary, var(--wellme-secondary));
+}
+
+.wellme-exp-counter {
+    color: rgba(255,255,255,0.78);
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(8, 17, 31, 0.3);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.wellme-exp-drawer {
+    height: 78vh;
+    height: 78svh;
+    height: 78dvh;
+}
+
+.wellme-exp-drawer-handle {
+    background: linear-gradient(90deg, var(--wellme-primary), var(--wellme-secondary));
+}
+
+@media (max-width: 767px) {
+    .wellme-experience {
+        border-radius: 0;
+    }
+
+    .wellme-experience-content {
+        width: 100%;
+        max-width: none;
+        padding: 28px 22px 112px;
+    }
+
+    .wellme-exp-title {
+        font-size: clamp(1.8rem, 8vw, 2.6rem);
+    }
+
+    .wellme-exp-subtitle {
+        margin-bottom: 28px;
+        font-size: 1rem;
+    }
+
+    .wellme-exp-drawer {
+        height: 100vh;
+        height: 100svh;
+        height: 100dvh;
+        height: calc(var(--wellme-vh, 1vh) * 100);
+        border-radius: 0;
+    }
+
+    .wellme-exp-drawer-header {
+        padding: 12px 14px 0;
+    }
+
+    .wellme-exp-counter {
+        right: 14px;
+        bottom: 92px;
+    }
+
+    .wellme-exp-dots {
+        bottom: 20px;
+    }
 }
