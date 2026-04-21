@@ -584,14 +584,6 @@
             }
         }
 
-        // Show a brief keyboard hint on desktop
-        if (window.matchMedia('(hover: hover)').matches && total > 1) {
-            var hint = document.createElement('p');
-            hint.className = 'wellme-exp-hint';
-            hint.textContent = '← → to navigate';
-            exp.appendChild(hint);
-            setTimeout(function () { hint.parentNode && hint.parentNode.removeChild(hint); }, 4500);
-        }
     }
 
     /* ── AJAX handler for pamphlet modal ─────────────────────── */

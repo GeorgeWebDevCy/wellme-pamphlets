@@ -166,7 +166,7 @@ Each `.wellme-flipcard` carries `role="button"` and `tabindex="0"`. The `is-flip
 
 ### `[wellme_experience]`
 
-A single shortcode that turns a blank page into a full-viewport interactive experience. All 6 modules are presented as a horizontal full-screen slider. Each slide fills the entire viewport with the module's cover image, number, title and subtitle. An **Explore Module** button slides a pamphlet drawer up from the bottom of the screen, loading the full interactive pamphlet via AJAX without leaving the page.
+A single shortcode that turns a blank page into a full-viewport interactive presentation. The experience uses a Mazda / Publitas-inspired reader layout: each major section appears as a centered publication page on a quiet light background, with large edge chevrons, dot navigation, and a page counter. Module cards inside the reader load the full interactive pamphlet via AJAX without leaving the page.
 
 ```
 [wellme_experience]
@@ -182,16 +182,16 @@ No attributes. Always shows all published modules ordered by module number.
 
 | Method | Behaviour |
 |---|---|
-| Left / Right arrow buttons | Shown on-screen; Prev hidden on first slide, Next hidden on last |
-| Dot indicators | Bottom centre; one dot per module; active dot scales up |
+| Left / Right arrow buttons | Large edge chevrons; Prev hidden on first slide, Next hidden on last |
+| Dot indicators | Bottom centre; one dot per reader page; active dot scales up |
 | Keyboard ← → | Navigate slides; disabled while drawer is open |
 | Touch swipe | ≥50 px horizontal swipe triggers prev/next |
 | Keyboard `Escape` | Closes the pamphlet drawer |
 
 **Slide behaviour:**
 
-- Background image applies a Ken Burns zoom: scales from 1.08× to 1× as the slide becomes active (CSS transition on `.wellme-experience-bg`)
-- Slide content (number badge, title, subtitle, button) fades in and rises 30 px as the slide becomes active; fades out on departure
+- Each slide is presented as a fixed-ratio publication page with a subtle border and shadow, scaled responsively for desktop and mobile.
+- Slide content fades in and rises slightly as the page becomes active; fades out on departure
 - `aria-current="true"` is updated on the active dot; `aria-live="polite"` on the counter
 
 **Drawer behaviour:**
@@ -609,7 +609,7 @@ Defined in `wellme-pamphlets.php` immediately after the plugin header:
 
 | Constant | Value | Used for |
 |---|---|---|
-| `WELLME_PAMPHLETS_VERSION` | `1.0.0` | Enqueue version strings; bump on every release |
+| `WELLME_PAMPHLETS_VERSION` | `1.1.0` | Enqueue version strings; bump on every release |
 | `WELLME_PAMPHLETS_PLUGIN_DIR` | `plugin_dir_path(__FILE__)` | Absolute server path to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_URL` | `plugin_dir_url(__FILE__)` | Public URL to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_FILE` | `__FILE__` | Absolute path to main plugin file; used by update checker and activation hooks |
@@ -679,7 +679,6 @@ Every descendant interactive element references `var(--module-color, var(--wellm
 | `wellme-slide-in` | Modal inner, outcome panel | `translateX(100%)` → `translateX(0)` |
 | `wellme-fade-in` | Chapter panel, step panel | Opacity + Y shift on show |
 | `wellme-pulse` | Hotspot pulse ring | Scale 1→2.2, opacity 0.7→0, 2 s loop |
-| `wellme-hint-fade` | Experience keyboard hint | Fades in then out over 4 s |
 
 ### Reduced motion
 
@@ -875,7 +874,7 @@ The interactive patterns were derived from Maglr digital brochure examples refer
 | Numbered pulsing hotspot dots on image | Outremer 55 (catamaran-outremer.maglr.com) | Exercise steps |
 | CSS 3D flip cards (click to reveal) | Specified in project brief | Sum-Up slide mottos (`[wellme_flipcards]`) |
 | 6-card column grid | Mazda MX-5 (prijzen.mazda.nl) | Module index grid (`[wellme_module_grid]`) |
-| Full-viewport horizontal slider | Pattern derived from project requirement for single-page interactive experience | `[wellme_experience]` |
+| Publication reader carousel | Mazda MX-5 / Publitas reader (prijzen.mazda.nl) | `[wellme_experience]` |
 
 ---
 

@@ -1303,27 +1303,6 @@
     .wellme-popup-bottom { padding: 12px 16px; }
 }
 
-/* Keyboard hint — shown briefly on first load */
-.wellme-exp-hint {
-    position: absolute;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.06em;
-    pointer-events: none;
-    white-space: nowrap;
-    animation: wellme-hint-fade 4s ease forwards;
-}
-@keyframes wellme-hint-fade {
-    0%   { opacity: 0; }
-    15%  { opacity: 1; }
-    75%  { opacity: 1; }
-    100% { opacity: 0; }
-}
-
 /* ── Reduced motion — experience ────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     .wellme-experience-track    { transition: none; }
@@ -1331,7 +1310,6 @@
     .wellme-experience-content  { opacity: 1; transform: none; transition: none; pointer-events: auto; }
     .wellme-popup-overlay       { transition: none; }
     .wellme-popup-container     { animation: none; }
-    .wellme-exp-hint            { animation: none; opacity: 0; }
 }
 
 /* ============================================================
@@ -2332,6 +2310,455 @@
 
 .wellme-flipcards-grid--experience .wellme-flipcard {
     height: 220px;
+}
+
+/* ============================================================
+   EXPERIENCE READER MODE - Mazda / Publitas inspired
+   ============================================================ */
+
+.wellme-experience--reader {
+    --wellme-reader-page-width: min(72vw, 1050px, calc((var(--wellme-vh, 1vh) * 100 - 218px) * 1.414));
+    background: #f3f4f5;
+}
+
+.wellme-experience--reader .wellme-reader-title {
+    position: absolute;
+    top: 44px;
+    left: 50%;
+    z-index: 6;
+    width: min(900px, calc(100vw - 96px));
+    transform: translateX(-50%);
+    color: #0c1016;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    line-height: 1.08;
+    text-align: center;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.wellme-experience--reader .wellme-experience-track {
+    transition: transform 0.62s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wellme-experience--reader .wellme-experience-slide {
+    align-items: center;
+    justify-content: center;
+    padding: 118px 96px 88px;
+    box-sizing: border-box;
+}
+
+.wellme-experience--reader .wellme-landing-bg,
+.wellme-experience--reader .wellme-landing-overlay,
+.wellme-experience--reader .wellme-overview-bg,
+.wellme-experience--reader .wellme-overview-overlay,
+.wellme-experience--reader .wellme-modules-slide-bg,
+.wellme-experience--reader .wellme-modules-slide-overlay,
+.wellme-experience--reader .wellme-sumup-bg,
+.wellme-experience--reader .wellme-sumup-overlay,
+.wellme-experience--reader .wellme-experience-bg,
+.wellme-experience--reader .wellme-experience-overlay {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-landing-scroll,
+.wellme-experience--reader .wellme-overview-content,
+.wellme-experience--reader .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-sumup-content {
+    position: relative;
+    z-index: 2;
+    width: var(--wellme-reader-page-width);
+    aspect-ratio: 1.414 / 1;
+    max-width: calc(100vw - 192px);
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-sizing: border-box;
+    border: 1px solid #cfd4da;
+    border-radius: 2px;
+    background: #fff;
+    color: #17202a;
+    box-shadow: 0 22px 55px rgba(20, 28, 38, 0.12);
+    scrollbar-width: thin;
+    scrollbar-color: #b8c0ca transparent;
+}
+
+.wellme-experience--reader .wellme-overview-content,
+.wellme-experience--reader .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-sumup-content {
+    padding: clamp(28px, 4vw, 54px);
+    text-align: left;
+}
+
+.wellme-experience--reader .wellme-landing-scroll {
+    padding: 0;
+}
+
+.wellme-experience--reader .wellme-landing-content,
+.wellme-experience--reader .wellme-overview-content,
+.wellme-experience--reader .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-sumup-content {
+    transform: translateY(18px);
+    transition: opacity 0.45s 0.18s ease, transform 0.45s 0.18s ease;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-content,
+.wellme-experience--reader .wellme-slide-overview.is-active .wellme-overview-content,
+.wellme-experience--reader .wellme-slide-modules.is-active .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-slide-sumup.is-active .wellme-sumup-content {
+    transform: translateY(0);
+}
+
+.wellme-experience--reader .wellme-landing-content {
+    max-width: none;
+    min-height: 100%;
+    padding: clamp(34px, 5vw, 64px) clamp(28px, 5vw, 72px) 38px;
+    color: #17202a;
+}
+
+.wellme-experience--reader .wellme-landing-partners {
+    padding: 0 clamp(28px, 5vw, 72px) clamp(34px, 5vw, 56px);
+}
+
+.wellme-experience--reader .wellme-landing-title,
+.wellme-experience--reader .wellme-overview-title,
+.wellme-experience--reader .wellme-modules-slide-title,
+.wellme-experience--reader .wellme-sumup-title {
+    color: #101820;
+    text-shadow: none;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-landing-title {
+    font-size: clamp(1.45rem, 3vw, 2.45rem);
+}
+
+.wellme-experience--reader .wellme-overview-title,
+.wellme-experience--reader .wellme-modules-slide-title,
+.wellme-experience--reader .wellme-sumup-title {
+    margin-bottom: 24px;
+    text-align: left;
+    font-size: clamp(1.35rem, 2.5vw, 2.05rem);
+}
+
+.wellme-experience--reader .wellme-landing-subtitle,
+.wellme-experience--reader .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-landing-agreement,
+.wellme-experience--reader .wellme-sumup-subtitle,
+.wellme-experience--reader .wellme-no-overview,
+.wellme-experience--reader .wellme-no-partners {
+    color: #45515f;
+    opacity: 1;
+    text-shadow: none;
+}
+
+.wellme-experience--reader .wellme-landing-scroll-hint {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-landing-logo {
+    filter: none;
+}
+
+.wellme-experience--reader .wellme-landing-eu-logo {
+    opacity: 1;
+}
+
+.wellme-experience--reader .wellme-landing-partners-title {
+    color: #101820;
+    text-shadow: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+}
+
+.wellme-experience--reader .wellme-partner-card--landing,
+.wellme-experience--reader .wellme-module-inline-card {
+    border: 1px solid #d7dde4;
+    border-radius: 6px;
+    background: #f8fafc;
+    color: #17202a;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-partner-card--landing:hover,
+.wellme-experience--reader .wellme-partner-card--landing:focus-visible,
+.wellme-experience--reader .wellme-module-inline-card:hover,
+.wellme-experience--reader .wellme-module-inline-card:focus-visible {
+    background: #fff;
+    border-color: var(--module-color, var(--wellme-primary));
+    box-shadow: 0 12px 28px rgba(20, 28, 38, 0.11);
+}
+
+.wellme-experience--reader .wellme-partner-name--landing,
+.wellme-experience--reader .wellme-module-inline-title {
+    color: #17202a;
+}
+
+.wellme-experience--reader .wellme-module-inline-subtitle {
+    color: #5f6b78;
+}
+
+.wellme-experience--reader .wellme-module-inline-image {
+    height: clamp(92px, 14vw, 132px);
+}
+
+.wellme-experience--reader .wellme-overview-image img {
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+.wellme-experience--reader .wellme-overview-sections {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.wellme-experience--reader .wellme-overview-section {
+    border: 1px solid #d7dde4;
+    border-radius: 6px;
+    background: #f8fafc;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-overview-section h3 {
+    color: #101820;
+}
+
+.wellme-experience--reader .wellme-overview-section-body {
+    color: #45515f;
+}
+
+.wellme-experience--reader .wellme-modules-grid-inline,
+.wellme-experience--reader .wellme-flipcards-grid--experience {
+    gap: 16px;
+}
+
+.wellme-experience--reader .wellme-flipcards-grid--experience .wellme-flipcard {
+    height: clamp(150px, 20vw, 205px);
+}
+
+.wellme-experience--reader .wellme-flipcard-front,
+.wellme-experience--reader .wellme-flipcard-back {
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.wellme-experience--reader .wellme-flipcard-front {
+    border: 1px solid #d7dde4;
+    background: #101820;
+}
+
+.wellme-experience--reader .wellme-flipcard-back {
+    background: #17202a;
+}
+
+.wellme-experience--reader .wellme-exp-arrow {
+    top: calc(50% + 16px);
+    width: 58px;
+    height: 96px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #17202a;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-exp-arrow--prev {
+    left: max(12px, calc((100vw - var(--wellme-reader-page-width)) / 2 - 72px));
+}
+
+.wellme-experience--reader .wellme-exp-arrow--next {
+    right: max(12px, calc((100vw - var(--wellme-reader-page-width)) / 2 - 72px));
+}
+
+.wellme-experience--reader .wellme-exp-arrow svg {
+    width: 44px;
+    height: 72px;
+    stroke-width: 1.15;
+}
+
+.wellme-experience--reader .wellme-exp-arrow:hover {
+    background: transparent;
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.wellme-experience--reader .wellme-exp-arrow:focus-visible {
+    outline: 2px solid #101820;
+    outline-offset: 2px;
+}
+
+.wellme-experience--reader .wellme-exp-dots {
+    bottom: 24px;
+    gap: 8px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-exp-dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #6a7480;
+    background: transparent;
+}
+
+.wellme-experience--reader .wellme-exp-dot.is-active {
+    background: #101820;
+    border-color: #101820;
+    box-shadow: none;
+    transform: scale(1.25);
+}
+
+.wellme-experience--reader .wellme-exp-dot:hover {
+    border-color: #101820;
+    background: #6a7480;
+}
+
+.wellme-experience--reader .wellme-exp-dot:focus-visible {
+    outline: 2px solid #101820;
+}
+
+.wellme-experience--reader .wellme-exp-counter {
+    right: 28px;
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #46515d;
+    font-size: 12px;
+    letter-spacing: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-exp-counter-label {
+    margin-right: 2px;
+}
+
+@media (max-width: 980px) {
+    .wellme-experience--reader {
+        --wellme-reader-page-width: min(82vw, calc((var(--wellme-vh, 1vh) * 100 - 214px) * 1.414));
+    }
+
+    .wellme-experience--reader .wellme-experience-slide {
+        padding: 112px 48px 88px;
+    }
+
+    .wellme-experience--reader .wellme-landing-scroll,
+    .wellme-experience--reader .wellme-overview-content,
+    .wellme-experience--reader .wellme-modules-slide-content,
+    .wellme-experience--reader .wellme-sumup-content {
+        max-width: calc(100vw - 96px);
+    }
+
+    .wellme-experience--reader .wellme-overview-sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .wellme-experience--reader {
+        --wellme-reader-page-width: min(82vw, calc((var(--wellme-vh, 1vh) * 100 - 236px) * 0.78));
+    }
+
+    .wellme-experience--reader .wellme-reader-title {
+        top: 36px;
+        width: calc(100vw - 62px);
+        font-size: clamp(1.45rem, 8vw, 2.05rem);
+        letter-spacing: 0.18em;
+    }
+
+    .wellme-experience--reader .wellme-experience-slide {
+        padding: 132px 34px 98px;
+    }
+
+    .wellme-experience--reader .wellme-landing-scroll,
+    .wellme-experience--reader .wellme-overview-content,
+    .wellme-experience--reader .wellme-modules-slide-content,
+    .wellme-experience--reader .wellme-sumup-content {
+        aspect-ratio: 0.78 / 1;
+        max-width: calc(100vw - 68px);
+        box-shadow: 0 14px 32px rgba(20, 28, 38, 0.11);
+    }
+
+    .wellme-experience--reader .wellme-overview-content,
+    .wellme-experience--reader .wellme-modules-slide-content,
+    .wellme-experience--reader .wellme-sumup-content {
+        padding: 24px 22px;
+    }
+
+    .wellme-experience--reader .wellme-landing-content {
+        padding: 28px 22px 26px;
+    }
+
+    .wellme-experience--reader .wellme-landing-partners {
+        padding: 0 22px 28px;
+    }
+
+    .wellme-experience--reader .wellme-modules-grid-inline,
+    .wellme-experience--reader .wellme-flipcards-grid--experience {
+        grid-template-columns: 1fr;
+    }
+
+    .wellme-experience--reader .wellme-exp-arrow {
+        top: calc(50% + 18px);
+        width: 28px;
+        height: 72px;
+    }
+
+    .wellme-experience--reader .wellme-exp-arrow--prev {
+        left: 2px;
+    }
+
+    .wellme-experience--reader .wellme-exp-arrow--next {
+        right: 2px;
+    }
+
+    .wellme-experience--reader .wellme-exp-arrow svg {
+        width: 26px;
+        height: 46px;
+    }
+
+    .wellme-experience--reader .wellme-exp-counter {
+        right: 50%;
+        bottom: 48px;
+        transform: translateX(50%);
+        white-space: nowrap;
+    }
+
+    .wellme-experience--reader .wellme-exp-counter-label {
+        display: none;
+    }
+
+    .wellme-experience--reader .wellme-exp-dots {
+        bottom: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wellme-experience--reader .wellme-landing-content,
+    .wellme-experience--reader .wellme-overview-content,
+    .wellme-experience--reader .wellme-modules-slide-content,
+    .wellme-experience--reader .wellme-sumup-content {
+        transform: none;
+        transition: none;
+    }
 }
 
 /* ============================================================

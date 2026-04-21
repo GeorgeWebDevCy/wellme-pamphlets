@@ -16,13 +16,17 @@
 defined( 'ABSPATH' ) || exit;
 
 $total_slides = 4; // landing+partners, overview, modules, sum-up
+$experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
 ?>
 <div
-    class="wellme-experience"
+    class="wellme-experience wellme-experience--reader"
     id="wellme-experience"
     role="region"
     aria-label="<?php esc_attr_e( 'WELLME Presentation', 'wellme-pamphlets' ); ?>"
 >
+    <div class="wellme-reader-title" aria-hidden="true">
+        <?php echo esc_html( $experience_title ); ?>
+    </div>
 
     <?php /* ── Slides track ─────────────────────────────────────── */ ?>
     <div class="wellme-experience-track" id="wellme-experience-track">
@@ -179,8 +183,9 @@ $total_slides = 4; // landing+partners, overview, modules, sum-up
 
     <?php /* ── Slide counter ─────────────────────────────────────── */ ?>
     <div class="wellme-exp-counter" aria-live="polite" aria-atomic="true">
+        <span class="wellme-exp-counter-label"><?php esc_html_e( 'WELLME Presentation - page', 'wellme-pamphlets' ); ?></span>
         <span class="wellme-exp-counter-current">1</span>
-        <span aria-hidden="true"> / </span>
+        <span class="wellme-exp-counter-separator" aria-hidden="true"> / </span>
         <span class="wellme-exp-counter-total"><?php echo $total_slides; ?></span>
     </div>
 

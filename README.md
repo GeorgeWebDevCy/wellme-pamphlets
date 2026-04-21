@@ -121,7 +121,7 @@ No attributes. Always shows all published modules ordered by module number.
 
 ### `[wellme_experience]`
 
-Full-viewport interactive experience. All 6 modules are presented as a full-screen horizontal slider — each slide fills the entire viewport with the module's cover image, number, title and subtitle. Clicking **Explore Module** slides a pamphlet drawer up from the bottom, loading the full interactive pamphlet without leaving the page.
+Full-viewport interactive experience with a Mazda / Publitas-inspired reader layout. Each major section appears as a centered publication page with edge chevrons, dot navigation, and a page counter. Module cards inside the reader load the full interactive pamphlet without leaving the page.
 
 ```
 [wellme_experience]
@@ -132,7 +132,7 @@ No attributes. Always shows all published modules in order.
 **Recommended page setup:** use a page template that removes the theme header and footer (a "blank" or "full-width canvas" template) so the experience fills the entire browser window edge-to-edge. In Divi, set the page to use the *Blank Page* template under Page Attributes.
 
 **Navigation:**
-- Left / Right arrow buttons
+- Large left / right edge chevrons
 - Dot indicators (bottom centre)
 - Keyboard arrow keys (← →)
 - Touch swipe on mobile
