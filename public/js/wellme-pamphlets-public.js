@@ -596,24 +596,27 @@
     /* ── AJAX handler for pamphlet modal ─────────────────────── */
     // (server-side registered in class-wellme-pamphlets-public.php)
 
-    /* ── Partnership Card Interactions ───────────────────────── */
+    /* ── Partner Card Interactions (Landing slide) ─────────────── */
 
     function initPartnershipCards(root) {
         root = root || document;
 
-        root.querySelectorAll('.wellme-partner-card').forEach(function (card) {
+        // Handle both old partnership slide cards and new landing partner cards
+        root.querySelectorAll('.wellme-partner-card, .wellme-partner-card--landing').forEach(function (card) {
             card.addEventListener('click', function () {
                 var idx = this.dataset.partnerIndex;
-                if (!idx) return;
+                if (idx === undefined || idx === null) return;
 
-                var panel = document.getElementById('wellme-partner-detail-' + idx);
+                // Try landing detail first, then legacy detail
+                var panel = document.getElementById('wellme-partner-detail-landing-' + idx) ||
+                            document.getElementById('wellme-partner-detail-' + idx);
                 if (!panel) return;
 
                 var isOpen = !panel.hidden;
 
                 // Close all partner details and reset cards
                 root.querySelectorAll('.wellme-partner-detail').forEach(function (d) { d.hidden = true; });
-                root.querySelectorAll('.wellme-partner-card').forEach(function (c) {
+                root.querySelectorAll('.wellme-partner-card, .wellme-partner-card--landing').forEach(function (c) {
                     c.setAttribute('aria-expanded', 'false');
                 });
 
@@ -635,8 +638,8 @@
                 var detail = this.closest('.wellme-partner-detail');
                 if (detail) {
                     detail.hidden = true;
-                    var idx = detail.id.replace('wellme-partner-detail-', '');
-                    var trigger = root.querySelector('.wellme-partner-card[data-partner-index="' + idx + '"]');
+                    var idx = detail.id.replace('wellme-partner-detail-landing-', '').replace('wellme-partner-detail-', '');
+                    var trigger = root.querySelector('.wellme-partner-card[data-partner-index="' + idx + '"], .wellme-partner-card--landing[data-partner-index="' + idx + '"]');
                     if (trigger) {
                         trigger.setAttribute('aria-expanded', 'false');
                         trigger.focus();

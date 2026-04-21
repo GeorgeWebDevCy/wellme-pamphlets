@@ -1494,8 +1494,188 @@
     letter-spacing: 0.04em;
 }
 
+/* Scrollable landing container */
+.wellme-landing-scroll {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scroll hint arrow */
+.wellme-landing-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 32px;
+    font-size: 0.78rem;
+    opacity: 0.5;
+    color: #fff;
+    animation: wellme-bounce-down 2s ease-in-out infinite;
+}
+@keyframes wellme-bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* Partners section on landing slide */
+.wellme-landing-partners {
+    padding: 40px 40px 80px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.wellme-landing-partners-title {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 800;
+    margin: 0 0 32px;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,.3);
+}
+
+.wellme-partners-grid--landing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    .wellme-partners-grid--landing { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .wellme-partners-grid--landing { grid-template-columns: 1fr; }
+}
+
+.wellme-partner-card--landing {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--wellme-radius);
+    padding: 24px 16px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font: inherit;
+}
+.wellme-partner-card--landing:hover,
+.wellme-partner-card--landing:focus-visible {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+    border-color: var(--wellme-secondary);
+}
+.wellme-partner-card--landing[aria-expanded="true"] {
+    background: var(--wellme-brand-gradient);
+    border-color: color-mix(in srgb, var(--wellme-secondary) 60%, white);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.wellme-partner-logo--landing {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255,255,255,.15);
+    padding: 8px;
+}
+
+.wellme-partner-name--landing {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* Detail panel (slides in when partner clicked) */
+.wellme-partner-detail {
+    position: fixed;
+    top: 0; right: 0;
+    width: var(--wellme-panel-width);
+    max-width: 90vw;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -4px 0 32px rgba(0,0,0,.18);
+    z-index: 10001;
+    padding: 48px 36px 36px;
+    overflow-y: auto;
+    animation: wellme-slide-in 0.3s ease both;
+}
+.wellme-partner-detail[hidden] { display: none; }
+
+.wellme-partner-detail-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f0f0f0;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wellme-partner-detail-close:hover { background: #ddd; }
+
+.wellme-partner-detail-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 16px;
+}
+
+.wellme-partner-detail-name {
+    margin: 0 0 12px;
+    font-size: 1.3rem;
+    color: #1a1a2e;
+}
+
+.wellme-partner-detail-desc {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 20px;
+}
+
+.wellme-partner-detail-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wellme-partner-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.wellme-partner-contact-label {
+    font-weight: 700;
+    color: #333;
+}
+
+.wellme-partner-contact a {
+    color: var(--wellme-primary);
+    text-decoration: none;
+}
+.wellme-partner-contact a:hover { text-decoration: underline; }
+
+.no-partners-msg {
+    color: rgba(255,255,255,.5);
+    font-size: 0.9rem;
+}
+
 /* ============================================================
-   SLIDE 2 — PARTNERSHIP
+   SLIDE 2 — PARTNERSHIP  (legacy, kept for detail panel styles)
    ============================================================ */
 
 .wellme-slide-partnership {

@@ -1,12 +1,11 @@
 <?php
 /**
- * Template: Full-screen experience slider — 5-slide presentation.
+ * Template: Full-screen experience slider — 4-slide presentation.
  *
- * Slide 1: WELLME Landing (logo, title, EU branding)
- * Slide 2: Partnership (clickable partner cards)
- * Slide 3: Wellme Overview (purpose, need, results)
- * Slide 4: Modules (6 clickable module cards)
- * Slide 5: Sum-Up (6 flip cards with module mottos)
+ * Slide 1: WELLME Landing + Partners (logo, title, EU branding, clickable partner cards)
+ * Slide 2: Wellme Overview (purpose, need, results)
+ * Slide 3: Modules (6 clickable module cards)
+ * Slide 4: Sum-Up (6 flip cards with module mottos)
  *
  * Variables available:
  *   $modules  array of WP_Post
@@ -16,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$total_slides = 5; // landing, partnership, overview, modules, sum-up
+$total_slides = 4; // landing+partners, overview, modules, sum-up
 ?>
 <div
     class="wellme-experience"
@@ -28,30 +27,23 @@ $total_slides = 5; // landing, partnership, overview, modules, sum-up
     <?php /* ── Slides track ─────────────────────────────────────── */ ?>
     <div class="wellme-experience-track" id="wellme-experience-track">
 
-        <?php /* ── Slide 1: Landing ──────────────────────────── */ ?>
+        <?php /* ── Slide 1: Landing + Partners ──────────────────── */ ?>
         <?php
         $index = 0;
         $is_first = true;
         include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-landing.php';
         ?>
 
-        <?php /* ── Slide 2: Partnership ──────────────────────── */ ?>
+        <?php /* ── Slide 2: Overview ─────────────────────────── */ ?>
         <?php
         $index = 1;
-        $is_first = false;
-        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-partnership.php';
-        ?>
-
-        <?php /* ── Slide 3: Overview ─────────────────────────── */ ?>
-        <?php
-        $index = 2;
         $is_first = false;
         include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-overview.php';
         ?>
 
-        <?php /* ── Slide 4: Modules ──────────────────────────── */ ?>
+        <?php /* ── Slide 3: Modules ──────────────────────────── */ ?>
         <section class="wellme-experience-slide wellme-slide-modules"
-                 data-index="3"
+                 data-index="2"
                  aria-label="<?php esc_attr_e( 'Modules', 'wellme-pamphlets' ); ?>">
 
             <div class="wellme-modules-slide-bg" aria-hidden="true"></div>
@@ -91,9 +83,9 @@ $total_slides = 5; // landing, partnership, overview, modules, sum-up
             </div>
         </section>
 
-        <?php /* ── Slide 5: Sum-Up (Flip Cards) ──────────────── */ ?>
+        <?php /* ── Slide 4: Sum-Up (Flip Cards) ──────────────── */ ?>
         <section class="wellme-experience-slide wellme-slide-sumup"
-                 data-index="4"
+                 data-index="3"
                  aria-label="<?php esc_attr_e( 'Sum-Up', 'wellme-pamphlets' ); ?>">
 
             <div class="wellme-sumup-bg" aria-hidden="true"></div>
@@ -195,10 +187,9 @@ $total_slides = 5; // landing, partnership, overview, modules, sum-up
     <?php /* ── Slide labels for accessibility ────────────────────── */ ?>
     <div class="wellme-exp-slide-labels" aria-hidden="true">
         <span data-label="0"><?php esc_html_e( 'WELLME', 'wellme-pamphlets' ); ?></span>
-        <span data-label="1"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></span>
-        <span data-label="2"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></span>
-        <span data-label="3"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></span>
-        <span data-label="4"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
+        <span data-label="1"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></span>
+        <span data-label="2"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></span>
+        <span data-label="3"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
     </div>
 
 </div><!-- /.wellme-experience -->
