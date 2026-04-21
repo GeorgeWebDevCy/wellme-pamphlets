@@ -80,9 +80,6 @@ class Wellme_Pamphlets {
         // AJAX: load pamphlet HTML into modal (logged-in and guest)
         $this->loader->add_action( 'wp_ajax_wellme_load_pamphlet',        $plugin_public, 'ajax_load_pamphlet' );
         $this->loader->add_action( 'wp_ajax_nopriv_wellme_load_pamphlet', $plugin_public, 'ajax_load_pamphlet' );
-
-        // TEMP: one-time module population endpoint (DELETE after use)
-        $this->loader->add_action( 'wp_ajax_wellme_populate_modules', $plugin_public, 'ajax_populate_modules' );
     }
 
     private function define_cpt_hooks() {
