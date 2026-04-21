@@ -698,8 +698,7 @@
     transition: transform var(--wellme-flip-duration) cubic-bezier(.4,0,.2,1);
     border-radius: var(--wellme-radius);
 }
-.wellme-flipcard.is-flipped .wellme-flipcard-inner,
-.wellme-flipcard:focus-visible .wellme-flipcard-inner { transform: rotateY(180deg); }
+.wellme-flipcard.is-flipped .wellme-flipcard-inner { transform: rotateY(180deg); }
 
 .wellme-flipcard-front,
 .wellme-flipcard-back {
