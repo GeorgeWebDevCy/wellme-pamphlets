@@ -257,51 +257,119 @@
 .wellme-chapter-panel[hidden] { display: none; }
 .wellme-chapter-image { width: 100%; border-radius: var(--wellme-radius); margin-bottom: 20px; }
 
-/* ── Learning outcomes (Partou pattern) ────────────────────── */
-.wellme-outcomes-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
-
-.wellme-outcome-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
-    background: #f4f6f9;
-    color: #1a1a2e;
-    font-weight: 600;
+/* ── Learning outcomes (Partou pattern — large link cards) ──── */
+.wellme-outcomes-intro {
+    margin: 0 0 20px;
+    color: #4b5563;
     font-size: .9rem;
-    cursor: pointer;
-    transition: background var(--wellme-transition), transform var(--wellme-transition);
-    text-align: left;
 }
-.wellme-outcome-btn:hover,
-.wellme-outcome-btn[aria-expanded="true"] {
+
+.wellme-outcomes-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.wellme-outcome-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: var(--wellme-radius);
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #f4f6f9 0%, #eef2f7 100%);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.wellme-outcome-link:hover,
+.wellme-outcome-link[aria-expanded="true"] {
     background: var(--wellme-brand-gradient);
     color: #fff;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.15);
+    border-color: color-mix(in srgb, var(--wellme-secondary) 60%, white);
 }
-.wellme-outcome-icon { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+.wellme-outcome-link[aria-expanded="true"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: rgba(255,255,255,.3);
+}
 
-.wellme-outcome-panel {
-    position: fixed;
-    top: 0; right: 0;
-    width: var(--wellme-panel-width);
-    max-width: 100vw;
-    height: 100vh;
+.wellme-outcome-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0.9);
+}
+.wellme-outcome-link:hover .wellme-outcome-icon,
+.wellme-outcome-link[aria-expanded="true"] .wellme-outcome-icon {
+    filter: brightness(1.3) drop-shadow(0 2px 6px rgba(0,0,0,.2));
+}
+
+.wellme-outcome-link-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.wellme-outcome-link-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.wellme-outcome-link-desc {
+    font-size: .85rem;
+    opacity: .75;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.wellme-outcome-link:hover .wellme-outcome-link-desc,
+.wellme-outcome-link[aria-expanded="true"] .wellme-outcome-link-desc {
+    opacity: .9;
+}
+
+/* Inline expandable detail panel (Partou pattern) */
+.wellme-outcome-detail-inline {
+    border: 2px solid color-mix(in srgb, var(--wellme-primary) 20%, #e2e8f0);
+    border-top: none;
+    border-radius: 0 0 var(--wellme-radius) var(--wellme-radius);
     background: #fff;
-    box-shadow: -4px 0 32px rgba(0,0,0,.18);
-    z-index: 10001;
-    padding: 48px 36px 36px;
-    overflow-y: auto;
-    animation: wellme-slide-in var(--wellme-transition) both;
+    margin-top: -8px;
+    margin-bottom: 16px;
+    animation: wellme-slide-down 0.35s ease;
 }
-.wellme-outcome-panel[hidden] { display: none; }
+.wellme-outcome-detail-inline[hidden] { display: none; }
 
-.wellme-outcome-panel-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 32px; height: 32px;
+@keyframes wellme-slide-down {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.wellme-outcome-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px 0;
+}
+.wellme-outcome-detail-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--wellme-primary);
+}
+
+.wellme-outcome-detail-close {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: none;
     background: #f0f0f0;
@@ -310,9 +378,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
 }
-.wellme-outcome-panel-close:hover { background: #ddd; }
-.wellme-outcome-panel h3 { margin: 0 0 20px; color: var(--wellme-primary); font-size: 1.2rem; }
+.wellme-outcome-detail-close:hover { background: #ddd; }
+
+.wellme-outcome-detail-body {
+    padding: 16px 24px 24px;
+    line-height: 1.7;
+    color: #334155;
+}
 
 /* ── Hotspot map (Outremer pattern) ─────────────────────────── */
 .wellme-hotspot-map {
@@ -757,7 +832,7 @@
     .wellme-flipcard-inner { transition: none; }
     .wellme-hotspot-pulse { animation: none; }
     .wellme-pamphlet-modal-inner,
-    .wellme-outcome-panel { animation: none; }
+    .wellme-outcome-detail-inline { animation: none; }
     .wellme-logo-spin { animation: none; }
     .wellme-landing-content,
     .wellme-partnership-content,

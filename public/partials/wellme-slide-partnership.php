@@ -20,7 +20,7 @@ $partners = get_field( 'partners', 'option' ) ?: [];
     <div class="wellme-partnership-overlay" aria-hidden="true"></div>
 
     <div class="wellme-partnership-content">
-        <h2 class="wellme-partnership-title"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></h2>
+        <h2 class="wellme-partnership-title"><?php esc_html_e( 'Partnership and Click', 'wellme-pamphlets' ); ?></h2>
 
         <?php if ( ! empty( $partners ) ) : ?>
         <div class="wellme-partners-grid">

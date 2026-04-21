@@ -130,35 +130,46 @@ if ( ! empty( $assessment_questions ) ) {
     <section class="wellme-pamphlet-section wellme-section-outcomes">
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Learning Outcomes', 'wellme-pamphlets' ); ?></h2>
-            <div class="wellme-outcomes-list">
+            <p class="wellme-outcomes-intro"><?php esc_html_e( 'Click on each outcome to learn more.', 'wellme-pamphlets' ); ?></p>
+            <div class="wellme-outcomes-links">
                 <?php foreach ( $outcomes as $i => $outcome ) :
                     $icon_url = $outcome['outcome_icon']['url'] ?? '';
                     $panel_id = 'wellme-outcome-panel-' . $module->ID . '-' . $i;
+                    $detail   = strip_tags( $outcome['outcome_detail'] ?? '' );
+                    $preview  = wp_trim_words( $detail, 15, '…' );
                 ?>
-                <button class="wellme-outcome-btn"
-                        data-target="<?php echo esc_attr( $panel_id ); ?>"
-                        aria-expanded="false"
-                        aria-controls="<?php echo esc_attr( $panel_id ); ?>">
+                <a class="wellme-outcome-link"
+                   href="#<?php echo esc_attr( $panel_id ); ?>"
+                   data-target="<?php echo esc_attr( $panel_id ); ?>"
+                   aria-expanded="false"
+                   aria-controls="<?php echo esc_attr( $panel_id ); ?>">
                     <?php if ( $icon_url ) : ?>
                     <img src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true" class="wellme-outcome-icon">
                     <?php endif; ?>
-                    <?php echo esc_html( $outcome['outcome_title'] ); ?>
-                </button>
+                    <span class="wellme-outcome-link-body">
+                        <span class="wellme-outcome-link-title"><?php echo esc_html( $outcome['outcome_title'] ); ?></span>
+                        <?php if ( $preview ) : ?>
+                        <span class="wellme-outcome-link-desc"><?php echo esc_html( $preview ); ?></span>
+                        <?php endif; ?>
+                    </span>
+                </a>
                 <?php endforeach; ?>
             </div>
 
-            <?php /* Side-panel overlay for outcome detail */ ?>
+            <?php /* Inline expandable panels (Partou pattern) */ ?>
             <?php foreach ( $outcomes as $i => $outcome ) :
                 $panel_id = 'wellme-outcome-panel-' . $module->ID . '-' . $i;
             ?>
-            <div class="wellme-outcome-panel"
+            <div class="wellme-outcome-detail-inline"
                  id="<?php echo esc_attr( $panel_id ); ?>"
                  role="region"
                  aria-label="<?php echo esc_attr( $outcome['outcome_title'] ); ?>"
                  hidden>
-                <button class="wellme-outcome-panel-close" aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
-                <h3><?php echo esc_html( $outcome['outcome_title'] ); ?></h3>
-                <div class="wellme-outcome-detail">
+                <div class="wellme-outcome-detail-header">
+                    <h3><?php echo esc_html( $outcome['outcome_title'] ); ?></h3>
+                    <button class="wellme-outcome-detail-close" aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
+                </div>
+                <div class="wellme-outcome-detail-body">
                     <?php echo wp_kses_post( $outcome['outcome_detail'] ); ?>
                 </div>
             </div>

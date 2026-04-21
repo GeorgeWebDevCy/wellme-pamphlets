@@ -168,42 +168,51 @@
         });
     }
 
-    /* ── Outcome Side Panels (Partou pattern) ────────────────── */
+    /* ── Outcome Link Cards (Partou pattern — inline panels) ──── */
 
     function initOutcomePanels(root) {
-        root.querySelectorAll('.wellme-outcome-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
+        root.querySelectorAll('.wellme-outcome-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
                 var panelId = this.dataset.target;
                 var panel   = document.getElementById(panelId);
                 if (!panel) return;
 
                 var isOpen = !panel.hidden;
 
-                // Close all outcome panels
-                root.querySelectorAll('.wellme-outcome-panel').forEach(hide);
-                root.querySelectorAll('.wellme-outcome-btn').forEach(function (b) {
-                    b.setAttribute('aria-expanded', 'false');
-                });
+                // Close all other outcome panels and reset links
+                var parent = this.closest('.wellme-section-outcomes');
+                if (parent) {
+                    parent.querySelectorAll('.wellme-outcome-detail-inline').forEach(hide);
+                    parent.querySelectorAll('.wellme-outcome-link').forEach(function (l) {
+                        l.setAttribute('aria-expanded', 'false');
+                    });
+                }
 
                 if (!isOpen) {
                     show(panel);
                     this.setAttribute('aria-expanded', 'true');
-                    trapFocus(panel);
+                    // Insert panel right after the links container
+                    var linksContainer = this.closest('.wellme-outcomes-links');
+                    if (linksContainer && linksContainer.nextSibling !== panel) {
+                        linksContainer.after(panel);
+                    }
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             });
         });
 
-        // Close button inside panel
-        root.querySelectorAll('.wellme-outcome-panel-close').forEach(function (btn) {
+        // Close button inside inline panel
+        root.querySelectorAll('.wellme-outcome-detail-close').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                var panel = this.closest('.wellme-outcome-panel');
+                var panel = this.closest('.wellme-outcome-detail-inline');
                 if (panel) {
                     hide(panel);
                     var panelId = panel.id;
-                    var triggerBtn = root.querySelector('[data-target="' + panelId + '"]');
-                    if (triggerBtn) {
-                        triggerBtn.setAttribute('aria-expanded', 'false');
-                        triggerBtn.focus();
+                    var trigger = root.querySelector('[data-target="' + panelId + '"]');
+                    if (trigger) {
+                        trigger.setAttribute('aria-expanded', 'false');
+                        trigger.focus();
                     }
                 }
             });
@@ -212,10 +221,10 @@
         // Close on Escape
         document.addEventListener('keydown', function (e) {
             if (e.key !== 'Escape') return;
-            root.querySelectorAll('.wellme-outcome-panel:not([hidden])').forEach(function (panel) {
+            root.querySelectorAll('.wellme-outcome-detail-inline:not([hidden])').forEach(function (panel) {
                 hide(panel);
-                var triggerBtn = root.querySelector('[data-target="' + panel.id + '"]');
-                if (triggerBtn) { triggerBtn.setAttribute('aria-expanded', 'false'); triggerBtn.focus(); }
+                var trigger = root.querySelector('[data-target="' + panel.id + '"]');
+                if (trigger) { trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
             });
         });
     }
