@@ -609,7 +609,7 @@ Defined in `wellme-pamphlets.php` immediately after the plugin header:
 
 | Constant | Value | Used for |
 |---|---|---|
-| `WELLME_PAMPHLETS_VERSION` | `1.1.1` | Enqueue version strings; bump on every release |
+| `WELLME_PAMPHLETS_VERSION` | `1.1.2` | Enqueue version strings; bump on every release |
 | `WELLME_PAMPHLETS_PLUGIN_DIR` | `plugin_dir_path(__FILE__)` | Absolute server path to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_URL` | `plugin_dir_url(__FILE__)` | Public URL to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_FILE` | `__FILE__` | Absolute path to main plugin file; used by update checker and activation hooks |
@@ -820,7 +820,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-plugin.ps1
 5. On GitHub, create a new **Release** with a version tag matching the pattern `v1.x.x` (e.g. `v1.1.0`).
 6. Attach `dist/wellme-pamphlets.zip` as the release asset.
 
-Do not use GitHub's auto-generated source ZIP for manual installs or release assets. The packaged ZIP keeps the expected `wellme-pamphlets/` plugin root and avoids "plugin does not exist" activation failures.
+Do not use GitHub's auto-generated source ZIP for manual installs or release assets. The packaged ZIP contains the plugin files at the archive root so it can be extracted directly into the existing `wellme-pamphlets` plugin directory without creating a nested folder.
 
 WordPress installations with the plugin active will see the update notification in **Plugins → WELLME Pamphlets** within the next WordPress update check cycle (default: 12 hours).
 

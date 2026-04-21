@@ -45,7 +45,8 @@ if (Test-Path $zipPath) {
     Remove-Item -LiteralPath $zipPath -Force
 }
 
-Compress-Archive -Path $packageRoot -DestinationPath $zipPath -CompressionLevel Optimal
+$packageContents = Join-Path $packageRoot "*"
+Compress-Archive -Path $packageContents -DestinationPath $zipPath -CompressionLevel Optimal
 
 Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
