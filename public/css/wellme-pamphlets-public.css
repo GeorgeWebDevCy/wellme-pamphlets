@@ -277,12 +277,15 @@
     gap: 16px;
     padding: 20px 24px;
     border-radius: var(--wellme-radius);
-    border: 2px solid transparent;
+    border-left: 5px solid var(--wellme-primary);
+    border-right: 2px solid transparent;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
     background: linear-gradient(135deg, #f4f6f9 0%, #eef2f7 100%);
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease, border-left-width 0.3s ease;
 }
 .wellme-outcome-link:hover,
 .wellme-outcome-link[aria-expanded="true"] {
@@ -318,8 +321,8 @@
 }
 
 .wellme-outcome-link-title {
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 800;
     line-height: 1.3;
 }
 
@@ -402,7 +405,7 @@
 
 .wellme-hotspot-dot {
     position: absolute;
-    width: 40px; height: 40px;
+    width: 64px; height: 64px;
     transform: translate(-50%, -50%);
     border: none;
     background: none;
@@ -418,17 +421,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px; height: 36px;
+    width: 56px; height: 56px;
     border-radius: 50%;
     background: var(--wellme-brand-gradient);
     color: #fff;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0,0,0,.25);
-    transition: transform .2s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,.35), 0 0 0 4px rgba(255,255,255,.3);
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 .wellme-hotspot-dot:hover .wellme-hotspot-number,
-.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number { transform: scale(1.15); }
+.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number { transform: scale(1.2); box-shadow: 0 4px 20px rgba(0,0,0,.4), 0 0 0 6px rgba(255,255,255,.5); }
 
 .wellme-hotspot-pulse {
     position: absolute;
@@ -440,6 +443,29 @@
 }
 .wellme-hotspot-dot:hover .wellme-hotspot-pulse { animation: none; }
 
+.wellme-hotspot-label {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+    white-space: nowrap;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,.65);
+    padding: 4px 12px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+}
+.wellme-hotspot-dot:hover .wellme-hotspot-label,
+.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-label {
+    opacity: 1;
+}
+
 @keyframes wellme-pulse {
     0%   { transform: scale(1);   opacity: .7; }
     80%  { transform: scale(2.2); opacity: 0; }
@@ -447,6 +473,12 @@
 }
 
 /* Step panels */
+.wellme-exercise-hint {
+    margin: 0 0 20px;
+    color: #4b5563;
+    font-size: .9rem;
+}
+
 .wellme-step-panel {
     background: #f8f9fc;
     border-radius: var(--wellme-radius);

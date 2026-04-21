@@ -184,6 +184,8 @@ if ( ! empty( $assessment_questions ) ) {
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Exercise Steps', 'wellme-pamphlets' ); ?></h2>
 
+            <p class="wellme-exercise-hint"><?php esc_html_e( 'Click the numbered dots on the image to explore each step.', 'wellme-pamphlets' ); ?></p>
+
             <?php /* Layout image with numbered pulsing dots */ ?>
             <div class="wellme-hotspot-map">
                 <?php if ( $cover_url ) : ?>
@@ -203,6 +205,7 @@ if ( ! empty( $assessment_questions ) ) {
                         aria-label="<?php echo esc_attr( sprintf( __( 'Step %d: %s', 'wellme-pamphlets' ), $i + 1, $step['step_title'] ) ); ?>">
                     <span class="wellme-hotspot-number"><?php echo esc_html( $i + 1 ); ?></span>
                     <span class="wellme-hotspot-pulse"></span>
+                    <span class="wellme-hotspot-label"><?php echo esc_html( $step['step_title'] ); ?></span>
                 </button>
                 <?php endforeach; ?>
             </div>
