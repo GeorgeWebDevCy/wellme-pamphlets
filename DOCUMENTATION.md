@@ -609,7 +609,7 @@ Defined in `wellme-pamphlets.php` immediately after the plugin header:
 
 | Constant | Value | Used for |
 |---|---|---|
-| `WELLME_PAMPHLETS_VERSION` | `1.1.0` | Enqueue version strings; bump on every release |
+| `WELLME_PAMPHLETS_VERSION` | `1.1.1` | Enqueue version strings; bump on every release |
 | `WELLME_PAMPHLETS_PLUGIN_DIR` | `plugin_dir_path(__FILE__)` | Absolute server path to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_URL` | `plugin_dir_url(__FILE__)` | Public URL to plugin root (trailing slash included) |
 | `WELLME_PAMPHLETS_PLUGIN_FILE` | `__FILE__` | Absolute path to main plugin file; used by update checker and activation hooks |
