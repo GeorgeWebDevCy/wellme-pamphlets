@@ -587,6 +587,134 @@
     /* ── AJAX handler for pamphlet modal ─────────────────────── */
     // (server-side registered in class-wellme-pamphlets-public.php)
 
+    /* ── Partnership Card Interactions ───────────────────────── */
+
+    function initPartnershipCards(root) {
+        root = root || document;
+
+        root.querySelectorAll('.wellme-partner-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                var idx = this.dataset.partnerIndex;
+                if (!idx) return;
+
+                var panel = document.getElementById('wellme-partner-detail-' + idx);
+                if (!panel) return;
+
+                var isOpen = !panel.hidden;
+
+                // Close all partner details and reset cards
+                root.querySelectorAll('.wellme-partner-detail').forEach(function (d) { d.hidden = true; });
+                root.querySelectorAll('.wellme-partner-card').forEach(function (c) {
+                    c.setAttribute('aria-expanded', 'false');
+                });
+
+                if (!isOpen) {
+                    panel.hidden = false;
+                    this.setAttribute('aria-expanded', 'true');
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+
+        // Close button inside detail panels
+        root.querySelectorAll('.wellme-partner-detail-close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var detail = this.closest('.wellme-partner-detail');
+                if (detail) {
+                    detail.hidden = true;
+                    var idx = detail.id.replace('wellme-partner-detail-', '');
+                    var trigger = root.querySelector('.wellme-partner-card[data-partner-index="' + idx + '"]');
+                    if (trigger) {
+                        trigger.setAttribute('aria-expanded', 'false');
+                        trigger.focus();
+                    }
+                }
+            });
+        });
+    }
+
+    /* ── Module Inline Card Interactions (Slide 4) ───────────── */
+
+    function initModuleInlineCards() {
+        var drawer     = document.getElementById('wellme-exp-drawer');
+        var drawerBody = document.getElementById('wellme-exp-drawer-body');
+        if (!drawer || !drawerBody) return;
+
+        document.querySelectorAll('.wellme-module-inline-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                var moduleId = this.dataset.moduleId;
+                if (!moduleId) return;
+
+                // Open drawer
+                drawer.removeAttribute('hidden');
+                drawer.getBoundingClientRect();
+                drawer.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+
+                // Cache check
+                if (drawerBody.dataset.loadedId === String(moduleId)) {
+                    drawerBody.scrollTop = 0;
+                    var closeBtn = drawer.querySelector('.wellme-exp-drawer-close');
+                    if (closeBtn) closeBtn.focus();
+                    return;
+                }
+
+                drawerBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
+                    ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
+                    '</div>';
+
+                fetch(wellmePamphlets.ajaxUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({
+                        action: 'wellme_load_pamphlet',
+                        id:     moduleId,
+                        nonce:  wellmePamphlets.nonce,
+                    }),
+                })
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        if (data.success) {
+                            drawerBody.innerHTML = data.data.html;
+                            drawerBody.dataset.loadedId = moduleId;
+                            initPamphletInteractions(drawerBody);
+                            initScrollReveal();
+                            var closeBtn = drawer.querySelector('.wellme-exp-drawer-close');
+                            if (closeBtn) closeBtn.focus();
+                        } else {
+                            drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
+                                (data.data || 'Error loading module.') + '</p>';
+                        }
+                    })
+                    .catch(function () {
+                        drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                    });
+            });
+
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+
+        // Close drawer (shared handler)
+        var closeBtn = drawer.querySelector('[data-close-drawer]');
+        if (closeBtn && !closeBtn.dataset.boundModuleCards) {
+            closeBtn.dataset.boundModuleCards = 'true';
+            closeBtn.addEventListener('click', function () {
+                drawer.classList.remove('is-open');
+                document.body.style.overflow = '';
+                drawer.addEventListener('transitionend', function onEnd() {
+                    drawer.setAttribute('hidden', '');
+                    drawer.removeEventListener('transitionend', onEnd);
+                });
+            });
+        }
+    }
+
     /* ── Boot ────────────────────────────────────────────────── */
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -594,6 +722,8 @@
         initModuleGrid();
         initFlipCards();
         initExperience();
+        initPartnershipCards();
+        initModuleInlineCards();
 
         // If a standalone [wellme_pamphlet] shortcode is on the page (not in modal)
         initPamphletInteractions(document);

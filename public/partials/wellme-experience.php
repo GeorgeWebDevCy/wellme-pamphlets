@@ -1,94 +1,153 @@
 <?php
 /**
- * Template: Full-screen experience slider.
+ * Template: Full-screen experience slider — 5-slide presentation.
  *
- * Renders all modules as a horizontal full-viewport slider. Each slide
- * shows the module cover, number, title and subtitle. An "Explore" button
- * pulls the full pamphlet into a bottom drawer via AJAX.
+ * Slide 1: WELLME Landing (logo, title, EU branding)
+ * Slide 2: Partnership (clickable partner cards)
+ * Slide 3: Wellme Overview (purpose, need, results)
+ * Slide 4: Modules (6 clickable module cards)
+ * Slide 5: Sum-Up (6 flip cards with module mottos)
  *
  * Variables available:
  *   $modules  array of WP_Post
  *
- * @since 1.0.0
+ * @since 1.0.8
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$total = count( $modules );
+$total_slides = 5; // landing, partnership, overview, modules, sum-up
 ?>
 <div
     class="wellme-experience"
     id="wellme-experience"
     role="region"
-    aria-label="<?php esc_attr_e( 'WELLME Modules Experience', 'wellme-pamphlets' ); ?>"
+    aria-label="<?php esc_attr_e( 'WELLME Presentation', 'wellme-pamphlets' ); ?>"
 >
 
     <?php /* ── Slides track ─────────────────────────────────────── */ ?>
     <div class="wellme-experience-track" id="wellme-experience-track">
 
-        <?php foreach ( $modules as $index => $module ) :
-            $number   = get_field( 'module_number',      $module->ID );
-            $subtitle = get_field( 'module_subtitle',    $module->ID );
-            $cover    = get_field( 'module_cover_image', $module->ID );
-            $cover_url = $cover ? esc_url( $cover['url'] ) : '';
+        <?php /* ── Slide 1: Landing ──────────────────────────── */ ?>
+        <?php
+        $index = 0;
+        $is_first = true;
+        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-landing.php';
         ?>
-        <section
-            class="wellme-experience-slide<?php echo $index === 0 ? ' is-active' : ''; ?>"
-            data-module-id="<?php echo esc_attr( $module->ID ); ?>"
-            data-index="<?php echo $index; ?>"
-            aria-label="<?php echo esc_attr( sprintf(
-                /* translators: 1: module number 2: module title */
-                __( 'Module %1$s: %2$s', 'wellme-pamphlets' ),
-                $number,
-                $module->post_title
-            ) ); ?>"
-        >
-            <?php if ( $cover_url ) : ?>
-            <div
-                class="wellme-experience-bg"
-                style="background-image: url('<?php echo $cover_url; ?>');"
-                role="img"
-                aria-hidden="true"
-            ></div>
-            <?php endif; ?>
 
-            <div class="wellme-experience-overlay" aria-hidden="true"></div>
+        <?php /* ── Slide 2: Partnership ──────────────────────── */ ?>
+        <?php
+        $index = 1;
+        $is_first = false;
+        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-partnership.php';
+        ?>
 
-            <div class="wellme-experience-content">
-                <?php if ( $number ) : ?>
-                <span class="wellme-exp-number">
-                    <?php echo esc_html( sprintf(
-                        /* translators: %s: module number */
-                        __( 'Module %02d', 'wellme-pamphlets' ),
-                        $number
-                    ) ); ?>
-                </span>
-                <?php endif; ?>
+        <?php /* ── Slide 3: Overview ─────────────────────────── */ ?>
+        <?php
+        $index = 2;
+        $is_first = false;
+        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-overview.php';
+        ?>
 
-                <h2 class="wellme-exp-title"><?php echo esc_html( $module->post_title ); ?></h2>
+        <?php /* ── Slide 4: Modules ──────────────────────────── */ ?>
+        <section class="wellme-experience-slide wellme-slide-modules"
+                 data-index="3"
+                 aria-label="<?php esc_attr_e( 'Modules', 'wellme-pamphlets' ); ?>">
 
-                <?php if ( $subtitle ) : ?>
-                <p class="wellme-exp-subtitle"><?php echo esc_html( $subtitle ); ?></p>
-                <?php endif; ?>
+            <div class="wellme-modules-slide-bg" aria-hidden="true"></div>
+            <div class="wellme-modules-slide-overlay" aria-hidden="true"></div>
 
-                <button
-                    class="wellme-exp-explore-btn"
-                    data-module-id="<?php echo esc_attr( $module->ID ); ?>"
-                    aria-expanded="false"
-                    aria-controls="wellme-exp-drawer"
-                >
-                    <?php esc_html_e( 'Explore Module', 'wellme-pamphlets' ); ?>
-                </button>
+            <div class="wellme-modules-slide-content">
+                <h2 class="wellme-modules-slide-title"><?php esc_html_e( 'Training Modules', 'wellme-pamphlets' ); ?></h2>
+                <div class="wellme-modules-grid-inline">
+                    <?php foreach ( $modules as $m_index => $module ) :
+                        $number    = (int) get_field( 'module_number', $module->ID );
+                        $subtitle  = get_field( 'module_subtitle', $module->ID );
+                        $color     = get_field( 'module_color', $module->ID ) ?: '#005b96';
+                        $cover     = get_field( 'module_cover_image', $module->ID );
+                        $cover_url = $cover['url'] ?? '';
+                    ?>
+                    <div class="wellme-module-inline-card wellme-scroll-reveal"
+                         style="--module-color: <?php echo esc_attr( $color ); ?>;"
+                         data-module-id="<?php echo esc_attr( $module->ID ); ?>"
+                         role="button"
+                         tabindex="0"
+                         aria-label="<?php echo esc_attr( get_the_title( $module ) ); ?>">
+
+                        <?php if ( $cover_url ) : ?>
+                        <div class="wellme-module-inline-image" style="background-image: url('<?php echo esc_url( $cover_url ); ?>');"></div>
+                        <?php endif; ?>
+
+                        <div class="wellme-module-inline-body">
+                            <span class="wellme-module-inline-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
+                            <h3 class="wellme-module-inline-title"><?php echo esc_html( get_the_title( $module ) ); ?></h3>
+                            <?php if ( $subtitle ) : ?>
+                            <p class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </section>
-        <?php endforeach; ?>
+
+        <?php /* ── Slide 5: Sum-Up (Flip Cards) ──────────────── */ ?>
+        <section class="wellme-experience-slide wellme-slide-sumup"
+                 data-index="4"
+                 aria-label="<?php esc_attr_e( 'Sum-Up', 'wellme-pamphlets' ); ?>">
+
+            <div class="wellme-sumup-bg" aria-hidden="true"></div>
+            <div class="wellme-sumup-overlay" aria-hidden="true"></div>
+
+            <div class="wellme-sumup-content">
+                <h2 class="wellme-sumup-title"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></h2>
+                <p class="wellme-sumup-subtitle"><?php esc_html_e( 'Click each card to reveal the module motto.', 'wellme-pamphlets' ); ?></p>
+
+                <div class="wellme-flipcards-grid wellme-flipcards-grid--experience">
+                    <?php foreach ( $modules as $module ) :
+                        $number    = (int) get_field( 'module_number',       $module->ID );
+                        $motto     = get_field( 'module_motto',        $module->ID );
+                        $color     = get_field( 'module_color',        $module->ID ) ?: '#005b96';
+                        $cover     = get_field( 'module_cover_image',  $module->ID );
+                        $cover_url = $cover['sizes']['medium'] ?? ( $cover['url'] ?? '' );
+                    ?>
+                    <div class="wellme-flipcard wellme-scroll-reveal"
+                         style="--module-color: <?php echo esc_attr( $color ); ?>;"
+                         role="button"
+                         tabindex="0"
+                         aria-label="<?php echo esc_attr( sprintf( __( 'Module %d: %s — click to reveal motto', 'wellme-pamphlets' ), $number, get_the_title( $module ) ) ); ?>">
+
+                        <div class="wellme-flipcard-inner">
+                            <div class="wellme-flipcard-front">
+                                <?php if ( $cover_url ) : ?>
+                                <div class="wellme-flipcard-image" style="background-image: url('<?php echo esc_url( $cover_url ); ?>');"></div>
+                                <?php endif; ?>
+                                <div class="wellme-flipcard-front-body">
+                                    <span class="wellme-flipcard-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
+                                    <h3 class="wellme-flipcard-title"><?php echo esc_html( get_the_title( $module ) ); ?></h3>
+                                </div>
+                            </div>
+                            <div class="wellme-flipcard-back">
+                                <span class="wellme-flipcard-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
+                                <?php if ( $motto ) : ?>
+                                <p class="wellme-flipcard-motto">&ldquo;<?php echo esc_html( $motto ); ?>&rdquo;</p>
+                                <?php else : ?>
+                                <p class="wellme-flipcard-motto wellme-placeholder"><?php esc_html_e( 'Motto coming soon.', 'wellme-pamphlets' ); ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
 
     </div><!-- /.wellme-experience-track -->
 
     <?php /* ── Prev / Next arrows ──────────────────────────────── */ ?>
     <button
         class="wellme-exp-arrow wellme-exp-arrow--prev"
-        aria-label="<?php esc_attr_e( 'Previous module', 'wellme-pamphlets' ); ?>"
+        aria-label="<?php esc_attr_e( 'Previous slide', 'wellme-pamphlets' ); ?>"
         hidden
     >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -99,7 +158,7 @@ $total = count( $modules );
 
     <button
         class="wellme-exp-arrow wellme-exp-arrow--next"
-        aria-label="<?php esc_attr_e( 'Next module', 'wellme-pamphlets' ); ?>"
+        aria-label="<?php esc_attr_e( 'Next slide', 'wellme-pamphlets' ); ?>"
     >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -110,29 +169,36 @@ $total = count( $modules );
     <?php /* ── Dot navigation ──────────────────────────────────── */ ?>
     <nav
         class="wellme-exp-dots"
-        aria-label="<?php esc_attr_e( 'Module navigation', 'wellme-pamphlets' ); ?>"
+        aria-label="<?php esc_attr_e( 'Slide navigation', 'wellme-pamphlets' ); ?>"
     >
-        <?php foreach ( $modules as $index => $module ) :
-            $num = get_field( 'module_number', $module->ID ) ?: ( $index + 1 );
-        ?>
+        <?php for ( $d = 0; $d < $total_slides; $d++ ) : ?>
         <button
-            class="wellme-exp-dot<?php echo $index === 0 ? ' is-active' : ''; ?>"
-            data-index="<?php echo $index; ?>"
+            class="wellme-exp-dot<?php echo $d === 0 ? ' is-active' : ''; ?>"
+            data-index="<?php echo $d; ?>"
             aria-label="<?php echo esc_attr( sprintf(
-                /* translators: %s: module number */
-                __( 'Go to Module %s', 'wellme-pamphlets' ),
-                $num
+                /* translators: %s: slide number */
+                __( 'Go to slide %s', 'wellme-pamphlets' ),
+                $d + 1
             ) ); ?>"
-            aria-current="<?php echo $index === 0 ? 'true' : 'false'; ?>"
+            aria-current="<?php echo $d === 0 ? 'true' : 'false'; ?>"
         ></button>
-        <?php endforeach; ?>
+        <?php endfor; ?>
     </nav>
 
     <?php /* ── Slide counter ─────────────────────────────────────── */ ?>
     <div class="wellme-exp-counter" aria-live="polite" aria-atomic="true">
         <span class="wellme-exp-counter-current">1</span>
         <span aria-hidden="true"> / </span>
-        <span class="wellme-exp-counter-total"><?php echo $total; ?></span>
+        <span class="wellme-exp-counter-total"><?php echo $total_slides; ?></span>
+    </div>
+
+    <?php /* ── Slide labels for accessibility ────────────────────── */ ?>
+    <div class="wellme-exp-slide-labels" aria-hidden="true">
+        <span data-label="0"><?php esc_html_e( 'WELLME', 'wellme-pamphlets' ); ?></span>
+        <span data-label="1"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></span>
+        <span data-label="2"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></span>
+        <span data-label="3"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></span>
+        <span data-label="4"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
     </div>
 
 </div><!-- /.wellme-experience -->

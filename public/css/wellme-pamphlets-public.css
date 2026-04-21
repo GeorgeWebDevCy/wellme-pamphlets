@@ -759,6 +759,12 @@
     .wellme-hotspot-pulse { animation: none; }
     .wellme-pamphlet-modal-inner,
     .wellme-outcome-panel { animation: none; }
+    .wellme-logo-spin { animation: none; }
+    .wellme-landing-content,
+    .wellme-partnership-content,
+    .wellme-overview-content,
+    .wellme-modules-slide-content,
+    .wellme-sumup-content { opacity: 1; transform: none; transition: none; pointer-events: auto; }
 }
 
 /* ============================================================
@@ -1257,4 +1263,761 @@
     .wellme-exp-dots {
         bottom: 20px;
     }
+
+    .wellme-partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .wellme-modules-grid-inline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+/* ============================================================
+   SLIDE 1 — LANDING
+   ============================================================ */
+
+.wellme-slide-landing {
+    flex-direction: column;
+}
+
+.wellme-landing-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(38, 170, 252, 0.18), transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 84, 176, 0.2), transparent 50%),
+        #08111f;
+}
+
+.wellme-landing-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(8, 17, 31, 0.4) 100%);
+}
+
+.wellme-landing-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 40px 80px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    pointer-events: none;
+}
+
+.wellme-slide-landing.is-active .wellme-landing-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wellme-landing-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 8px;
+}
+
+.wellme-landing-logo {
+    max-width: 140px;
+    max-height: 140px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 20px rgba(38, 170, 252, 0.4));
+}
+
+/* Rotating logo animation */
+@keyframes wellme-logo-rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.wellme-logo-spin {
+    animation: wellme-logo-rotate 12s linear infinite;
+}
+
+.wellme-landing-title {
+    font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wellme-landing-subtitle {
+    font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+    opacity: 0.85;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+.wellme-landing-eu {
+    margin-top: 12px;
+}
+
+.wellme-landing-eu-logo {
+    max-width: 180px;
+    max-height: 80px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+.wellme-landing-eu-text {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.wellme-landing-agreement {
+    font-size: 0.72rem;
+    opacity: 0.5;
+    letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   SLIDE 2 — PARTNERSHIP
+   ============================================================ */
+
+.wellme-slide-partnership {
+    flex-direction: column;
+}
+
+.wellme-partnership-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right, rgba(38, 170, 252, 0.15), transparent 45%),
+        radial-gradient(circle at bottom left, rgba(255, 84, 176, 0.18), transparent 45%),
+        #0a0e1a;
+}
+
+.wellme-partnership-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 17, 31, 0.3);
+}
+
+.wellme-partnership-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 40px 80px;
+    max-width: 900px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    pointer-events: none;
+}
+
+.wellme-slide-partnership.is-active .wellme-partnership-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wellme-partnership-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin: 0 0 32px;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wellme-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .wellme-partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .wellme-partners-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.wellme-partner-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--wellme-radius);
+    padding: 28px 20px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.wellme-partner-card:hover,
+.wellme-partner-card:focus-visible {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-4px);
+    border-color: var(--wellme-secondary);
+}
+
+.wellme-partner-card:focus-visible {
+    outline: 3px solid var(--wellme-secondary);
+    outline-offset: 2px;
+}
+
+.wellme-partner-card[aria-expanded="true"] {
+    background: var(--wellme-brand-gradient);
+    border-color: transparent;
+}
+
+.wellme-partner-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+}
+
+.wellme-partner-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Partner detail panels */
+.wellme-partner-details {
+    margin-top: 28px;
+}
+
+.wellme-partner-detail {
+    background: rgba(255, 255, 255, 0.96);
+    color: #1a1a2e;
+    border-radius: var(--wellme-radius);
+    padding: 32px;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    animation: wellme-fade-in 0.3s ease;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+
+.wellme-partner-detail[hidden] { display: none; }
+
+.wellme-partner-detail-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: #f0f0f0;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wellme-partner-detail-close:hover { background: #ddd; }
+
+.wellme-partner-detail-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.wellme-partner-detail-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #1a1a2e;
+}
+
+.wellme-partner-detail-desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 20px;
+}
+
+.wellme-partner-detail-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wellme-partner-contact {
+    font-size: 0.88rem;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.wellme-partner-contact-label {
+    font-weight: 700;
+    color: #1a1a2e;
+    white-space: nowrap;
+}
+
+.wellme-partner-contact a {
+    color: var(--wellme-primary);
+    text-decoration: none;
+}
+
+.wellme-partner-contact a:hover {
+    text-decoration: underline;
+}
+
+.wellme-no-partners {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin-top: 24px;
+}
+
+/* ============================================================
+   SLIDE 3 — OVERVIEW
+   ============================================================ */
+
+.wellme-slide-overview {
+    flex-direction: column;
+}
+
+.wellme-overview-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at center top, rgba(38, 170, 252, 0.12), transparent 50%),
+        radial-gradient(circle at center bottom, rgba(255, 84, 176, 0.15), transparent 50%),
+        #0a0e1a;
+}
+
+.wellme-overview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 17, 31, 0.25);
+}
+
+.wellme-overview-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 40px 80px;
+    max-width: 800px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    pointer-events: none;
+}
+
+.wellme-slide-overview.is-active .wellme-overview-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wellme-overview-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin: 0 0 28px;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wellme-overview-image {
+    margin: 0 auto 28px;
+    max-width: 500px;
+}
+
+.wellme-overview-image img {
+    width: 100%;
+    border-radius: var(--wellme-radius);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.wellme-overview-sections {
+    display: grid;
+    gap: 20px;
+    text-align: left;
+}
+
+.wellme-overview-section {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--wellme-radius);
+    padding: 24px 28px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.wellme-overview-section h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: var(--wellme-primary);
+}
+
+.wellme-overview-section-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.wellme-overview-section-body p {
+    margin: 0 0 8px;
+}
+
+.wellme-overview-section-body p:last-child {
+    margin-bottom: 0;
+}
+
+.wellme-no-overview {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin-top: 24px;
+}
+
+/* ============================================================
+   SLIDE 4 — MODULES (inline grid)
+   ============================================================ */
+
+.wellme-slide-modules {
+    flex-direction: column;
+}
+
+.wellme-modules-slide-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top left, rgba(38, 170, 252, 0.14), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(255, 84, 176, 0.16), transparent 45%),
+        #0a0e1a;
+}
+
+.wellme-modules-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 17, 31, 0.25);
+}
+
+.wellme-modules-slide-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 30px 80px;
+    max-width: 1000px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    pointer-events: none;
+}
+
+.wellme-slide-modules.is-active .wellme-modules-slide-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wellme-modules-slide-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin: 0 0 28px;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wellme-modules-grid-inline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .wellme-modules-grid-inline {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .wellme-modules-grid-inline {
+        grid-template-columns: 1fr;
+    }
+}
+
+.wellme-module-inline-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--wellme-radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    text-align: left;
+}
+
+.wellme-module-inline-card:hover,
+.wellme-module-inline-card:focus-visible {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+    border-color: var(--module-color, var(--wellme-primary));
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.wellme-module-inline-card:focus-visible {
+    outline: 3px solid var(--module-color, var(--wellme-primary));
+    outline-offset: 2px;
+}
+
+.wellme-module-inline-image {
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.wellme-module-inline-card:hover .wellme-module-inline-image {
+    transform: scale(1.05);
+}
+
+.wellme-module-inline-body {
+    padding: 16px 18px 20px;
+    border-top: 3px solid var(--module-color, var(--wellme-primary));
+}
+
+.wellme-module-inline-number {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--module-color, var(--wellme-primary));
+    margin-bottom: 6px;
+}
+
+.wellme-module-inline-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.wellme-module-inline-subtitle {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ============================================================
+   SLIDE 5 — SUM-UP (flip cards in experience)
+   ============================================================ */
+
+.wellme-slide-sumup {
+    flex-direction: column;
+}
+
+.wellme-sumup-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at center, rgba(38, 170, 252, 0.1), transparent 50%),
+        radial-gradient(circle at bottom, rgba(255, 84, 176, 0.12), transparent 50%),
+        #0a0e1a;
+}
+
+.wellme-sumup-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 17, 31, 0.2);
+}
+
+.wellme-sumup-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 40px 30px 80px;
+    max-width: 1000px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.55s 0.25s ease, transform 0.55s 0.25s ease;
+    pointer-events: none;
+}
+
+.wellme-slide-sumup.is-active .wellme-sumup-content {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.wellme-sumup-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.wellme-sumup-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.75;
+    margin: 0 0 28px;
+}
+
+.wellme-flipcards-grid--experience {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .wellme-flipcards-grid--experience {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .wellme-flipcards-grid--experience {
+        grid-template-columns: 1fr;
+    }
+}
+
+.wellme-flipcards-grid--experience .wellme-flipcard {
+    height: 220px;
+}
+
+/* ============================================================
+   PAMPHLET — EU Text, TOC, Introduction, Conclusion
+   ============================================================ */
+
+/* EU funding text on cover */
+.wellme-cover-eu-text {
+    font-size: 0.72rem;
+    opacity: 0.55;
+    margin: 16px 0 0;
+    line-height: 1.5;
+    max-width: 560px;
+}
+
+/* Table of contents on cover */
+.wellme-cover-toc {
+    text-align: left;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    max-width: 400px;
+}
+
+.wellme-cover-toc-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 10px;
+    opacity: 0.8;
+}
+
+.wellme-cover-toc-list {
+    margin: 0;
+    padding: 0 0 0 18px;
+    list-style: disc;
+}
+
+.wellme-cover-toc-list li {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    opacity: 0.85;
+}
+
+/* Introduction section */
+.wellme-section-introduction .wellme-introduction-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.wellme-section-introduction .wellme-introduction-content p {
+    margin: 0 0 12px;
+}
+
+/* Conclusion section */
+.wellme-section-conclusion .wellme-conclusion-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.wellme-section-conclusion .wellme-conclusion-content p {
+    margin: 0 0 12px;
+}
+
+.wellme-reflection-questions {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: #f8f9fc;
+    border-radius: var(--wellme-radius);
+    border-left: 4px solid var(--module-color, var(--wellme-primary));
+    text-align: left;
+}
+
+.wellme-reflection-questions h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+    color: var(--module-color, var(--wellme-primary));
+}
+
+.wellme-reflection-list {
+    margin: 0;
+    padding: 0 0 0 20px;
+    color: #333;
+}
+
+.wellme-reflection-list li {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+/* Slide labels (hidden, for potential future use) */
+.wellme-exp-slide-labels {
+    display: none;
 }

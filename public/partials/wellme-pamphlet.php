@@ -22,6 +22,11 @@ $outcomes     = get_field( 'module_learning_outcomes', $module->ID ) ?: [];
 $steps        = get_field( 'module_exercise_steps',    $module->ID ) ?: [];
 $chapters     = get_field( 'module_chapters',          $module->ID ) ?: [];
 $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
+$eu_text      = get_field( 'module_eu_funding_text',   $module->ID );
+$toc          = get_field( 'module_table_of_contents', $module->ID );
+$introduction = get_field( 'module_introduction',      $module->ID );
+$conclusion   = get_field( 'module_conclusion',        $module->ID );
+$reflection   = get_field( 'module_reflection_questions', $module->ID ) ?: [];
 $assessment_questions = Wellme_Pamphlets_Assessment::get_module_questions( $module->ID );
 $display_chapters     = $chapters;
 
@@ -55,8 +60,36 @@ if ( ! empty( $assessment_questions ) ) {
             <?php if ( $description ) : ?>
             <p class="wellme-cover-description"><?php echo esc_html( $description ); ?></p>
             <?php endif; ?>
+            <?php if ( $eu_text ) : ?>
+            <p class="wellme-cover-eu-text"><?php echo esc_html( $eu_text ); ?></p>
+            <?php endif; ?>
+            <?php if ( $toc ) : ?>
+            <div class="wellme-cover-toc">
+                <h4 class="wellme-cover-toc-title"><?php esc_html_e( 'Contents', 'wellme-pamphlets' ); ?></h4>
+                <ul class="wellme-cover-toc-list">
+                    <?php foreach ( explode( "\n", $toc ) as $toc_item ) :
+                        $toc_item = trim( $toc_item );
+                        if ( $toc_item ) : ?>
+                    <li><?php echo esc_html( $toc_item ); ?></li>
+                    <?php endif;
+                    endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
         </div>
     </section>
+
+    <?php /* ── Introduction (Theoretical Background) ──────────────── */ ?>
+    <?php if ( $introduction ) : ?>
+    <section class="wellme-pamphlet-section wellme-section-introduction">
+        <div class="wellme-section-inner wellme-scroll-reveal">
+            <h2><?php esc_html_e( 'Introduction', 'wellme-pamphlets' ); ?></h2>
+            <div class="wellme-introduction-content">
+                <?php echo wp_kses_post( $introduction ); ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
 
     <?php /* ── Chapter navigation ─────────────────────────────────── */ ?>
     <?php if ( ! empty( $display_chapters ) ) : ?>
@@ -200,6 +233,32 @@ if ( ! empty( $assessment_questions ) ) {
                 </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <?php /* ── Conclusion ──────────────────────────────────────── */ ?>
+    <?php if ( $conclusion || ! empty( $reflection ) ) : ?>
+    <section class="wellme-pamphlet-section wellme-section-conclusion">
+        <div class="wellme-section-inner wellme-scroll-reveal">
+            <h2><?php esc_html_e( 'Conclusion', 'wellme-pamphlets' ); ?></h2>
+
+            <?php if ( $conclusion ) : ?>
+            <div class="wellme-conclusion-content">
+                <?php echo wp_kses_post( $conclusion ); ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( ! empty( $reflection ) ) : ?>
+            <div class="wellme-reflection-questions">
+                <h3><?php esc_html_e( 'Reflection Questions', 'wellme-pamphlets' ); ?></h3>
+                <ol class="wellme-reflection-list">
+                    <?php foreach ( $reflection as $rq ) : ?>
+                    <li><?php echo esc_html( $rq['reflection_question'] ); ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+            <?php endif; ?>
         </div>
     </section>
     <?php endif; ?>
