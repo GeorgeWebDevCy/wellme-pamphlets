@@ -24,13 +24,17 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
-define( 'WELLME_PAMPHLETS_VERSION', '1.0.8' );
+define( 'WELLME_PAMPHLETS_VERSION', '1.0.9' );
 define( 'WELLME_PAMPHLETS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WELLME_PAMPHLETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WELLME_PAMPHLETS_PLUGIN_FILE', __FILE__ );
 
-/**
- * Composer autoloader — loads plugin-update-checker and any future dependencies.
+// TEMP: Include fix-modules (DELETE after running once)
+if ( file_exists( WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-fix-modules.php' ) ) {
+    require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-fix-modules.php';
+}
+
+/** Composer autoloader — loads plugin-update-checker and any future dependencies.
  */
 if ( file_exists( WELLME_PAMPHLETS_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
     require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'vendor/autoload.php';
