@@ -422,12 +422,10 @@
         var prevBtn = exp.querySelector('.wellme-exp-arrow--prev');
         var nextBtn = exp.querySelector('.wellme-exp-arrow--next');
         var counter = exp.querySelector('.wellme-exp-counter-current');
-        var drawer     = document.getElementById('wellme-exp-drawer');
-        var drawerBody = document.getElementById('wellme-exp-drawer-body');
+        var popupOverlay = document.getElementById('wellme-popup-overlay');
 
         var current    = 0;
         var total      = slides.length;
-        var drawerOpen = false;
         var touchStartX = 0;
 
         function syncExperienceViewportHeight() {
@@ -476,10 +474,10 @@
             dot.addEventListener('click', function () { goTo(i); });
         });
 
-        // Keyboard — arrows navigate slides; Escape closes drawer
+        // Keyboard — arrows navigate slides; Escape closes popup
         document.addEventListener('keydown', function (e) {
-            if (drawerOpen) {
-                if (e.key === 'Escape') closeDrawer();
+            if (!popupOverlay.hidden) {
+                if (e.key === 'Escape') closePopupOverlay();
                 return;
             }
             if (e.key === 'ArrowLeft')  goTo(current - 1);
@@ -498,34 +496,40 @@
             }
         }, { passive: true });
 
-        // ── Drawer ────────────────────────────────────────────
+        // ── Popup overlay ─────────────────────────────────────
 
-        exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                openDrawer(this.dataset.moduleId, this);
-            });
-        });
+        var popupOverlay = document.getElementById('wellme-popup-overlay');
 
-        function openDrawer(moduleId, triggerBtn) {
-            drawer.removeAttribute('hidden');
-            // Reflow needed so the CSS transition fires from the initial state
-            drawer.getBoundingClientRect();
-            drawer.classList.add('is-open');
-            drawerOpen = true;
+        function openPopupOverlay(moduleId, triggerBtn) {
+            var popupBody = document.getElementById('wellme-popup-body');
+            var popupTitle = document.getElementById('wellme-popup-title');
+            var popupLabel = document.getElementById('wellme-popup-label');
+            var popupSubtitle = document.getElementById('wellme-popup-subtitle');
+            var popupMoreInfo = document.getElementById('wellme-popup-more-info');
+            var popupDesc = document.getElementById('wellme-popup-desc');
+            var popupModnum = document.getElementById('wellme-popup-modnum');
+
+            if (!popupOverlay || !popupBody) return;
+
+            // Set title from trigger
+            if (triggerBtn) {
+                var titleEl = triggerBtn.closest('.wellme-module-inline-card, .wellme-exp-slide')?.querySelector('h3, .wellme-exp-title');
+                if (popupTitle && titleEl) popupTitle.textContent = titleEl.textContent;
+            }
+
+            // Open popup
+            popupOverlay.removeAttribute('hidden');
+            popupOverlay.getBoundingClientRect();
+            popupOverlay.classList.add('is-visible');
             document.body.style.overflow = 'hidden';
 
-            exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (b) {
-                b.setAttribute('aria-expanded', b === triggerBtn ? 'true' : 'false');
-            });
-
-            // Cache: skip re-fetch if same module already loaded
-            if (drawerBody.dataset.loadedId === String(moduleId)) {
-                drawerBody.scrollTop = 0;
-                focusDrawerClose();
+            // Cache
+            if (popupBody.dataset.loadedId === String(moduleId)) {
+                popupBody.scrollTop = 0;
                 return;
             }
 
-            drawerBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
+            popupBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
                 ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
                 '</div>';
 
@@ -541,47 +545,44 @@
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
                     if (data.success) {
-                        drawerBody.innerHTML = data.data.html;
-                        drawerBody.dataset.loadedId = moduleId;
-                        initPamphletInteractions(drawerBody);
+                        popupBody.innerHTML = data.data.html;
+                        popupBody.dataset.loadedId = moduleId;
+                        initPamphletInteractions(popupBody);
                         initScrollReveal();
-                        focusDrawerClose();
                     } else {
-                        drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
+                        popupBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
                             (data.data || 'Error loading module.') + '</p>';
                     }
                 })
                 .catch(function () {
-                    drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                    popupBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
                 });
         }
 
-        function closeDrawer() {
-            drawer.classList.remove('is-open');
-            drawerOpen = false;
+        function closePopupOverlay() {
+            if (!popupOverlay) return;
+            popupOverlay.classList.remove('is-visible');
             document.body.style.overflow = '';
-
-            exp.querySelectorAll('.wellme-exp-explore-btn').forEach(function (b) {
-                b.setAttribute('aria-expanded', 'false');
+            popupOverlay.addEventListener('transitionend', function onEnd() {
+                popupOverlay.setAttribute('hidden', '');
+                popupOverlay.removeEventListener('transitionend', onEnd);
             });
-
-            drawer.addEventListener('transitionend', function onEnd() {
-                drawer.setAttribute('hidden', '');
-                drawer.removeEventListener('transitionend', onEnd);
-            });
-
-            // Return focus to the active slide's explore button
-            var btn = slides[current] && slides[current].querySelector('.wellme-exp-explore-btn');
-            if (btn) btn.focus();
         }
 
-        function focusDrawerClose() {
-            var btn = drawer.querySelector('.wellme-exp-drawer-close');
-            if (btn) btn.focus();
-        }
+        if (popupOverlay) {
+            popupOverlay.querySelectorAll('[data-close-popup]').forEach(function (btn) {
+                btn.addEventListener('click', function (e) { e.preventDefault(); closePopupOverlay(); });
+            });
 
-        var closeBtn = drawer.querySelector('[data-close-drawer]');
-        if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+            // More info toggle
+            var moreBtn = document.getElementById('wellme-popup-more-btn');
+            var moreInfo = document.getElementById('wellme-popup-more-info');
+            if (moreBtn && moreInfo) {
+                moreBtn.addEventListener('click', function () {
+                    moreInfo.hidden = !moreInfo.hidden;
+                });
+            }
+        }
 
         // Show a brief keyboard hint on desktop
         if (window.matchMedia('(hover: hover)').matches && total > 1) {
@@ -652,30 +653,47 @@
     /* ── Module Inline Card Interactions (Slide 4) ───────────── */
 
     function initModuleInlineCards() {
-        var drawer     = document.getElementById('wellme-exp-drawer');
-        var drawerBody = document.getElementById('wellme-exp-drawer-body');
-        if (!drawer || !drawerBody) return;
+        var overlay    = document.getElementById('wellme-popup-overlay');
+        var popupBody  = document.getElementById('wellme-popup-body');
+        var popupTitle = document.getElementById('wellme-popup-title');
+        var popupLabel = document.getElementById('wellme-popup-label');
+        var popupSubtitle = document.getElementById('wellme-popup-subtitle');
+        var popupMoreBtn  = document.getElementById('wellme-popup-more-btn');
+        var popupMoreInfo = document.getElementById('wellme-popup-more-info');
+        var popupDesc  = document.getElementById('wellme-popup-desc');
+        var popupModnum = document.getElementById('wellme-popup-modnum');
+        if (!overlay || !popupBody) return;
 
         document.querySelectorAll('.wellme-module-inline-card').forEach(function (card) {
             card.addEventListener('click', function () {
                 var moduleId = this.dataset.moduleId;
                 if (!moduleId) return;
 
-                // Open drawer
-                drawer.removeAttribute('hidden');
-                drawer.getBoundingClientRect();
-                drawer.classList.add('is-open');
+                // Get module info from card
+                var label = card.querySelector('.wellme-module-inline-number');
+                var title = card.querySelector('.wellme-module-inline-title');
+                var subtitle = card.querySelector('.wellme-module-inline-subtitle');
+
+                if (popupLabel && label) popupLabel.textContent = label.textContent;
+                if (popupTitle && title) popupTitle.textContent = title.textContent;
+                if (popupSubtitle && subtitle) popupSubtitle.textContent = subtitle.textContent;
+                if (popupDesc) popupDesc.textContent = '';
+                if (popupModnum) popupModnum.textContent = '';
+                if (popupMoreInfo) popupMoreInfo.hidden = true;
+
+                // Open popup
+                overlay.removeAttribute('hidden');
+                overlay.getBoundingClientRect();
+                overlay.classList.add('is-visible');
                 document.body.style.overflow = 'hidden';
 
                 // Cache check
-                if (drawerBody.dataset.loadedId === String(moduleId)) {
-                    drawerBody.scrollTop = 0;
-                    var closeBtn = drawer.querySelector('.wellme-exp-drawer-close');
-                    if (closeBtn) closeBtn.focus();
+                if (popupBody.dataset.loadedId === String(moduleId)) {
+                    popupBody.scrollTop = 0;
                     return;
                 }
 
-                drawerBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
+                popupBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
                     ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
                     '</div>';
 
@@ -691,19 +709,17 @@
                     .then(function (r) { return r.json(); })
                     .then(function (data) {
                         if (data.success) {
-                            drawerBody.innerHTML = data.data.html;
-                            drawerBody.dataset.loadedId = moduleId;
-                            initPamphletInteractions(drawerBody);
+                            popupBody.innerHTML = data.data.html;
+                            popupBody.dataset.loadedId = moduleId;
+                            initPamphletInteractions(popupBody);
                             initScrollReveal();
-                            var closeBtn = drawer.querySelector('.wellme-exp-drawer-close');
-                            if (closeBtn) closeBtn.focus();
                         } else {
-                            drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
+                            popupBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
                                 (data.data || 'Error loading module.') + '</p>';
                         }
                     })
                     .catch(function () {
-                        drawerBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                        popupBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
                     });
             });
 
@@ -712,17 +728,28 @@
             });
         });
 
-        // Close drawer (shared handler)
-        var closeBtn = drawer.querySelector('[data-close-drawer]');
-        if (closeBtn && !closeBtn.dataset.boundModuleCards) {
-            closeBtn.dataset.boundModuleCards = 'true';
-            closeBtn.addEventListener('click', function () {
-                drawer.classList.remove('is-open');
-                document.body.style.overflow = '';
-                drawer.addEventListener('transitionend', function onEnd() {
-                    drawer.setAttribute('hidden', '');
-                    drawer.removeEventListener('transitionend', onEnd);
-                });
+        // Close popup handlers
+        function closePopup() {
+            overlay.classList.remove('is-visible');
+            document.body.style.overflow = '';
+            overlay.addEventListener('transitionend', function onEnd() {
+                overlay.setAttribute('hidden', '');
+                overlay.removeEventListener('transitionend', onEnd);
+            });
+        }
+
+        overlay.querySelectorAll('[data-close-popup]').forEach(function (btn) {
+            btn.addEventListener('click', function (e) { e.preventDefault(); closePopup(); });
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay && !overlay.hidden) closePopup();
+        });
+
+        // More info toggle
+        if (popupMoreBtn && popupMoreInfo) {
+            popupMoreBtn.addEventListener('click', function () {
+                popupMoreInfo.hidden = !popupMoreInfo.hidden;
             });
         }
     }

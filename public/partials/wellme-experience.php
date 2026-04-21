@@ -192,28 +192,6 @@ $total_slides = 4; // landing+partners, overview, modules, sum-up
         <span data-label="3"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
     </div>
 
-</div><!-- /.wellme-experience -->
+    </div><!-- /.wellme-experience -->
 
-<?php /* ── Pamphlet drawer (fixed, outside the clipping container) ── */ ?>
-<div
-    class="wellme-exp-drawer"
-    id="wellme-exp-drawer"
-    role="dialog"
-    aria-modal="true"
-    aria-label="<?php esc_attr_e( 'Module details', 'wellme-pamphlets' ); ?>"
-    hidden
->
-    <div class="wellme-exp-drawer-handle" aria-hidden="true"></div>
-
-    <div class="wellme-exp-drawer-header">
-        <button
-            class="wellme-exp-drawer-close"
-            data-close-drawer
-            aria-label="<?php esc_attr_e( 'Close module details', 'wellme-pamphlets' ); ?>"
-        >&#10005;</button>
-    </div>
-
-    <div class="wellme-exp-drawer-body" id="wellme-exp-drawer-body">
-        <?php /* Pamphlet content injected here via AJAX */ ?>
-    </div>
-</div>
+<?php include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-popup.php'; ?>

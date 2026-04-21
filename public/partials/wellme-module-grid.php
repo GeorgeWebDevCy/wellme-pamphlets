@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <?php
-// Pamphlet modal container — loaded via AJAX, rendered here as a drawer.
+// Pamphlet popup overlay — loaded via AJAX, rendered here.
 ?>
 <div class="wellme-pamphlet-modal" id="wellme-pamphlet-modal" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Module Pamphlet', 'wellme-pamphlets' ); ?>" hidden>
     <div class="wellme-pamphlet-modal-overlay" data-close-modal></div>
