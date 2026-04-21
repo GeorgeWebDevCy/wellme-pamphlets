@@ -74,6 +74,4 @@ class Wellme_Pamphlets_Public {
 
         wp_send_json_success( [ 'html' => $html ] );
     }
-
-    }
 }
