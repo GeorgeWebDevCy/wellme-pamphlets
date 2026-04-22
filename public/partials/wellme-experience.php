@@ -25,6 +25,30 @@ $slide_nav_items  = [
     __( 'Modules', 'wellme-pamphlets' ),
     __( 'Sum-Up', 'wellme-pamphlets' ),
 ];
+
+$landing_image = get_field( 'landing_hero_image', 'option' );
+$overview_image = get_field( 'overview_image', 'option' );
+$landing_image_url = $landing_image['sizes']['medium'] ?? ( $landing_image['url'] ?? '' );
+$overview_image_url = $overview_image['sizes']['medium'] ?? ( $overview_image['url'] ?? '' );
+$module_cover_urls = [];
+
+if ( ! empty( $modules ) && is_array( $modules ) ) {
+    foreach ( $modules as $nav_module ) {
+        $nav_cover = get_field( 'module_cover_image', $nav_module->ID );
+        if ( ! empty( $nav_cover['url'] ) ) {
+            $module_cover_urls[] = $nav_cover['sizes']['medium'] ?? $nav_cover['url'];
+        }
+    }
+}
+
+$fallback_nav_image = $landing_image_url ?: ( $overview_image_url ?: ( $module_cover_urls[0] ?? '' ) );
+$slide_nav_media = [
+    $landing_image_url ?: $fallback_nav_image,
+    $overview_image_url ?: $fallback_nav_image,
+    $overview_image_url ?: $fallback_nav_image,
+    $module_cover_urls[0] ?? $fallback_nav_image,
+    $module_cover_urls[1] ?? ( $module_cover_urls[0] ?? $fallback_nav_image ),
+];
 ?>
 <div
     class="wellme-experience wellme-experience--reader"
@@ -250,6 +274,11 @@ $slide_nav_items  = [
             ) ); ?>"
             aria-current="<?php echo $d === 0 ? 'true' : 'false'; ?>"
         >
+            <?php if ( ! empty( $slide_nav_media[ $d ] ) ) : ?>
+            <span class="wellme-exp-dot-thumb"
+                  style="background-image: url('<?php echo esc_url( $slide_nav_media[ $d ] ); ?>');"
+                  aria-hidden="true"></span>
+            <?php endif; ?>
             <span class="wellme-exp-dot-number"><?php echo esc_html( (string) ( $d + 1 ) ); ?></span>
             <span class="wellme-exp-dot-label"><?php echo esc_html( $slide_nav_items[ $d ] ?? (string) ( $d + 1 ) ); ?></span>
         </button>
