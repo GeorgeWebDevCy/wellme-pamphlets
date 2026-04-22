@@ -63,6 +63,21 @@ $overview_items = array_values(
     <div class="wellme-overview-overlay" aria-hidden="true"></div>
 
     <div class="wellme-overview-content">
+        <h2 class="wellme-overview-main-title"><?php esc_html_e( 'WELLME Overview', 'wellme-pamphlets' ); ?></h2>
+
+        <nav class="wellme-mazda-page-tabs" aria-label="<?php esc_attr_e( 'Overview page tabs', 'wellme-pamphlets' ); ?>">
+            <?php foreach ( $overview_items as $item_index => $item ) : ?>
+            <button type="button"
+                    class="wellme-mazda-page-tab<?php echo 0 === $item_index ? ' is-active' : ''; ?>"
+                    data-overview-target="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>"
+                    data-overview-label="<?php echo esc_attr( $item['label'] ); ?>"
+                    data-overview-index="<?php echo esc_attr( $item_index + 1 ); ?>"
+                    data-overview-total="<?php echo esc_attr( count( $overview_items ) ); ?>">
+                <?php echo esc_html( $item['label'] ); ?>
+            </button>
+            <?php endforeach; ?>
+        </nav>
+
         <div class="wellme-overview-visual">
             <?php if ( $image_url ) : ?>
             <div class="wellme-overview-image">

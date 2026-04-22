@@ -4480,3 +4480,598 @@
         min-height: 300px;
     }
 }
+
+/* ============================================================
+   MAZDA MX-5 PARITY PASS
+   ============================================================ */
+
+.wellme-experience--reader {
+    --wellme-reader-top-height: 104px;
+    --wellme-reader-nav-height: 76px;
+    --wellme-reader-page-width: min(1070px, calc(100vw - 370px));
+    background: #f4f4f4;
+}
+
+.wellme-experience--reader .wellme-exp-topnav {
+    min-height: var(--wellme-reader-top-height);
+    height: var(--wellme-reader-top-height);
+    align-items: stretch;
+    padding: 0 28px;
+    background: #020d18;
+    border-bottom: 0;
+    box-shadow: none;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-brand {
+    width: 72px;
+    padding: 0 24px 0 0;
+    margin: 0 28px 0 0;
+    border-right: 0;
+    justify-content: center;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-brand-name {
+    width: 64px;
+    color: rgba(255,255,255,0.72);
+    font-size: 0;
+    letter-spacing: 0;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-brand-name::before {
+    content: "W";
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border: 2px solid rgba(255,255,255,0.62);
+    border-radius: 50%;
+    color: rgba(255,255,255,0.78);
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tabs {
+    height: 100%;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tab {
+    min-width: 128px;
+    height: 100%;
+    justify-content: flex-start;
+    padding: 0 24px;
+    color: rgba(255,255,255,0.78);
+    font-size: 0.86rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: normal;
+    line-height: 1.35;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tab::after {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tab:hover,
+.wellme-experience--reader .wellme-exp-topnav-tab:focus-visible,
+.wellme-experience--reader .wellme-exp-topnav-tab.is-active {
+    color: #fff;
+    background: rgba(255,255,255,0.045);
+}
+
+.wellme-experience--reader .wellme-exp-topnav-actions {
+    border-left: 0;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-counter {
+    color: rgba(255,255,255,0.62);
+}
+
+.wellme-experience--reader .wellme-experience-slide {
+    padding: calc(var(--wellme-reader-top-height) + 42px) 92px calc(var(--wellme-reader-nav-height) + 0px);
+}
+
+.wellme-experience--reader .wellme-landing-scroll,
+.wellme-experience--reader .wellme-partnership-content,
+.wellme-experience--reader .wellme-overview-content {
+    width: var(--wellme-reader-page-width);
+    max-width: calc(100vw - 220px);
+    height: min(755px, calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-nav-height) - 42px));
+    border: 1px solid #c9c9c9;
+    border-radius: 0;
+    background: #fff;
+    color: #080d12;
+    box-shadow: none;
+}
+
+.wellme-experience--reader .wellme-landing-scroll {
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.wellme-experience--reader .wellme-landing-content {
+    min-height: 100%;
+    display: block;
+    padding: 0;
+    color: #080d12;
+    text-align: center;
+}
+
+.wellme-experience--reader .wellme-landing-hero-media {
+    position: absolute;
+    left: 6.5%;
+    right: 6.5%;
+    top: 96px;
+    bottom: 0;
+    min-height: 0;
+    background: #e2e2e2;
+}
+
+.wellme-experience--reader .wellme-landing-hero-media::after {
+    background: linear-gradient(180deg, rgba(226,226,226,0.12), rgba(226,226,226,0.02));
+}
+
+.wellme-experience--reader .wellme-landing-hero-media img {
+    object-fit: cover;
+    object-position: center bottom;
+    filter: grayscale(0.12) contrast(1.02) brightness(1.06);
+}
+
+.wellme-experience--reader .wellme-landing-copy {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 18px;
+    padding: 44px 48px;
+    color: #080d12;
+    text-align: center;
+}
+
+.wellme-experience--reader .wellme-landing-logo {
+    max-width: 86px;
+    max-height: 86px;
+    filter: none;
+}
+
+.wellme-experience--reader .wellme-landing-kicker,
+.wellme-experience--reader .wellme-landing-subtitle,
+.wellme-experience--reader .wellme-landing-continue,
+.wellme-experience--reader .wellme-landing-eu,
+.wellme-experience--reader .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-landing-agreement {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-landing-title {
+    max-width: 920px;
+    color: #080d12;
+    font-size: clamp(2.15rem, 4vw, 4.15rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.28em;
+    text-shadow: none;
+}
+
+.wellme-experience--reader .wellme-partnership-content,
+.wellme-experience--reader .wellme-overview-content {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
+    grid-template-rows: auto auto 1fr auto;
+    gap: 22px 44px;
+    align-items: start;
+    padding: 20px 52px 42px;
+    overflow: auto;
+}
+
+.wellme-mazda-page-tabs {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 35px;
+    border-bottom: 1px solid #ececec;
+}
+
+.wellme-mazda-page-tab {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #a0a0a0;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.18s ease;
+}
+
+.wellme-mazda-page-tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    height: 1px;
+    background: #111;
+    opacity: 0;
+    transform: scaleX(0.3);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.wellme-mazda-page-tab:hover,
+.wellme-mazda-page-tab:focus-visible,
+.wellme-mazda-page-tab.is-active {
+    color: #111;
+}
+
+.wellme-mazda-page-tab:hover::after,
+.wellme-mazda-page-tab:focus-visible::after,
+.wellme-mazda-page-tab.is-active::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.wellme-experience--reader .wellme-partnership-intro {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.wellme-experience--reader .wellme-partnership-kicker,
+.wellme-experience--reader .wellme-overview-kicker {
+    color: #9d9d9d;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+}
+
+.wellme-experience--reader .wellme-partnership-title {
+    margin: 30px 0 18px;
+    color: #080d12;
+    font-size: clamp(1.7rem, 2.4vw, 2.45rem);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    line-height: 1.05;
+}
+
+.wellme-experience--reader .wellme-partnership-lede {
+    max-width: 330px;
+    color: #151515;
+    font-size: 0.92rem;
+    line-height: 1.72;
+}
+
+.wellme-experience--reader .wellme-partnership-menu {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    align-self: start;
+}
+
+.wellme-partnership-choice {
+    min-height: 132px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-content: center;
+    padding: 18px;
+    border: 1px solid #d8d8d8;
+    border-radius: 0;
+    background: #f5f5f5;
+    box-shadow: none;
+    text-align: center;
+}
+
+.wellme-partnership-choice:hover,
+.wellme-partnership-choice:focus-visible {
+    transform: translateY(-2px);
+    border-color: #111;
+    background: #fff;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.wellme-partnership-choice-number {
+    grid-row: auto;
+    color: #9d9d9d;
+}
+
+.wellme-partnership-choice-title {
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+}
+
+.wellme-partnership-choice-text {
+    font-size: 0.72rem;
+    line-height: 1.45;
+}
+
+.wellme-experience--reader .wellme-partner-strip {
+    grid-column: 1 / -1;
+    grid-row: 4;
+}
+
+.wellme-experience--reader .wellme-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+    overflow: visible;
+}
+
+.wellme-experience--reader .wellme-partner-card {
+    min-width: 0;
+    min-height: 96px;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: none;
+}
+
+.wellme-experience--reader .wellme-partner-card:hover,
+.wellme-experience--reader .wellme-partner-card:focus-visible {
+    border-color: #111;
+    transform: translateY(-2px);
+}
+
+.wellme-experience--reader .wellme-overview-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    padding-top: 28px;
+}
+
+.wellme-experience--reader .wellme-overview-main-title {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #080d12;
+    font-size: clamp(2rem, 3.4vw, 3.2rem);
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-overview-visual {
+    position: relative;
+    grid-column: 1 / -1;
+    min-height: 246px;
+    background: #f1f1f1;
+}
+
+.wellme-experience--reader .wellme-overview-image {
+    position: absolute;
+    inset: 0;
+}
+
+.wellme-experience--reader .wellme-overview-image::after {
+    background: linear-gradient(90deg, rgba(255,255,255,0.64) 0%, transparent 36%, rgba(255,255,255,0.78) 100%);
+}
+
+.wellme-experience--reader .wellme-overview-image img {
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(0.08) contrast(1.03) brightness(1.06);
+}
+
+.wellme-experience--reader .wellme-overview-state {
+    left: 34px;
+    bottom: 28px;
+    color: #080d12;
+}
+
+.wellme-overview-state-kicker,
+.wellme-overview-state-count {
+    color: #5a5a5a;
+}
+
+.wellme-overview-active-label {
+    font-size: clamp(1.8rem, 3.3vw, 3.4rem);
+    font-weight: 400;
+    color: #080d12;
+}
+
+.wellme-experience--reader .wellme-overview-selectors {
+    right: 34px;
+    left: auto;
+    bottom: 32px;
+}
+
+.wellme-overview-selector {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #fff;
+    box-shadow: 0 0 0 1px #bdbdbd;
+}
+
+.wellme-overview-selector:hover,
+.wellme-overview-selector:focus-visible,
+.wellme-overview-selector.is-active {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px #111, 0 8px 16px rgba(0,0,0,0.16);
+}
+
+.wellme-experience--reader .wellme-overview-copy {
+    display: block;
+    grid-column: 1 / -1;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+}
+
+.wellme-experience--reader .wellme-overview-kicker,
+.wellme-experience--reader .wellme-overview-title {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-overview-section {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.28fr) minmax(0, 0.72fr);
+    gap: 34px;
+    align-items: start;
+    padding-top: 22px;
+}
+
+.wellme-experience--reader .wellme-overview-section[hidden] {
+    display: none;
+}
+
+.wellme-overview-section-label {
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    color: #080d12;
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+}
+
+.wellme-experience--reader .wellme-overview-section h3 {
+    grid-column: 1;
+    margin: 32px 0 0;
+    color: #080d12;
+    font-size: 1.08rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-overview-section-body {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    column-count: 2;
+    column-gap: 42px;
+    color: #111;
+    font-size: 0.84rem;
+    line-height: 1.72;
+}
+
+.wellme-experience--reader .wellme-exp-arrow {
+    top: calc(var(--wellme-reader-top-height) + 420px);
+    width: 52px;
+    height: 96px;
+    color: #111;
+    opacity: 0.9;
+}
+
+.wellme-experience--reader .wellme-exp-arrow--prev {
+    left: max(72px, calc((100vw - var(--wellme-reader-page-width)) / 2 - 64px));
+}
+
+.wellme-experience--reader .wellme-exp-arrow--next {
+    right: max(72px, calc((100vw - var(--wellme-reader-page-width)) / 2 - 64px));
+}
+
+.wellme-experience--reader .wellme-exp-arrow svg {
+    width: 42px;
+    height: 72px;
+    stroke-width: 1;
+}
+
+.wellme-experience--reader .wellme-exp-arrow:hover,
+.wellme-experience--reader .wellme-exp-arrow:focus-visible {
+    transform: translateY(-50%) scale(1.08);
+    background: transparent;
+}
+
+.wellme-experience--reader .wellme-exp-dots {
+    height: var(--wellme-reader-nav-height);
+    background: #05070a;
+}
+
+.wellme-experience--reader .wellme-exp-dot {
+    min-width: 150px;
+    border-left-color: rgba(255,255,255,0.12);
+}
+
+@media (max-width: 1120px) {
+    .wellme-experience--reader {
+        --wellme-reader-page-width: calc(100vw - 136px);
+    }
+
+    .wellme-experience--reader .wellme-experience-slide {
+        padding-left: 68px;
+        padding-right: 68px;
+    }
+
+    .wellme-experience--reader .wellme-partnership-content {
+        grid-template-columns: 1fr;
+    }
+
+    .wellme-experience--reader .wellme-partnership-intro,
+    .wellme-experience--reader .wellme-partnership-menu {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader {
+        --wellme-reader-top-height: 72px;
+        --wellme-reader-page-width: calc(100vw - 34px);
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav {
+        min-height: var(--wellme-reader-top-height);
+        height: var(--wellme-reader-top-height);
+        padding: 0 14px;
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav-brand {
+        display: none;
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav-tab {
+        min-width: 112px;
+        padding: 0 14px;
+        font-size: 0.72rem;
+    }
+
+    .wellme-experience--reader .wellme-experience-slide {
+        padding: calc(var(--wellme-reader-top-height) + 16px) 17px var(--wellme-reader-nav-height);
+    }
+
+    .wellme-experience--reader .wellme-landing-scroll,
+    .wellme-experience--reader .wellme-partnership-content,
+    .wellme-experience--reader .wellme-overview-content {
+        max-width: calc(100vw - 34px);
+        height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-nav-height) - 18px);
+    }
+
+    .wellme-experience--reader .wellme-landing-title {
+        font-size: clamp(1.65rem, 8vw, 2.6rem);
+        letter-spacing: 0.18em;
+    }
+
+    .wellme-experience--reader .wellme-partnership-content,
+    .wellme-experience--reader .wellme-overview-content {
+        padding: 18px 20px 30px;
+    }
+
+    .wellme-experience--reader .wellme-partnership-menu,
+    .wellme-experience--reader .wellme-partners-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wellme-mazda-page-tabs {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .wellme-experience--reader .wellme-overview-section,
+    .wellme-experience--reader .wellme-overview-section-body {
+        display: block;
+        column-count: 1;
+    }
+}

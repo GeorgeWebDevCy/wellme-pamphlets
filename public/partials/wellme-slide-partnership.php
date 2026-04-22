@@ -18,6 +18,13 @@ $partner_count = is_array( $partners ) ? count( $partners ) : 0;
     <div class="wellme-partnership-overlay" aria-hidden="true"></div>
 
     <div class="wellme-partnership-content">
+        <nav class="wellme-mazda-page-tabs" aria-label="<?php esc_attr_e( 'Presentation page tabs', 'wellme-pamphlets' ); ?>">
+            <button type="button" class="wellme-mazda-page-tab is-active" data-experience-goto="1"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></button>
+            <button type="button" class="wellme-mazda-page-tab" data-experience-goto="2"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></button>
+            <button type="button" class="wellme-mazda-page-tab" data-experience-goto="3"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></button>
+            <button type="button" class="wellme-mazda-page-tab" data-experience-goto="4"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></button>
+        </nav>
+
         <div class="wellme-partnership-intro">
             <p class="wellme-partnership-kicker"><?php esc_html_e( 'European Partnership', 'wellme-pamphlets' ); ?></p>
             <h2 class="wellme-partnership-title"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></h2>

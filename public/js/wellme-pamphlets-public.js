@@ -776,7 +776,7 @@
         var overview = document.querySelector('.wellme-overview-content');
         if (!overview) return;
 
-        var buttons = Array.from(overview.querySelectorAll('.wellme-overview-selector'));
+        var buttons = Array.from(overview.querySelectorAll('.wellme-overview-selector, .wellme-mazda-page-tab[data-overview-target]'));
         var panels = Array.from(overview.querySelectorAll('.wellme-overview-section'));
         var label = overview.querySelector('.wellme-overview-active-label');
         var count = overview.querySelector('.wellme-overview-state-count');
@@ -787,7 +787,7 @@
             var targetId = button.dataset.overviewTarget;
 
             buttons.forEach(function (item) {
-                var active = item === button;
+                var active = item.dataset.overviewTarget === targetId;
                 item.classList.toggle('is-active', active);
                 item.setAttribute('aria-selected', active ? 'true' : 'false');
             });
