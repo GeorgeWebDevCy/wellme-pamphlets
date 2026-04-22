@@ -275,6 +275,20 @@
             });
         }
 
+        const activeOverviewSlide = document.querySelector('.wellme-slide-overview.is-active');
+        if (activeOverviewSlide) {
+            const overviewSections = Array.from(activeOverviewSlide.querySelectorAll('.wellme-overview-section'));
+            const activeOverviewSection = activeOverviewSlide.querySelector('.wellme-overview-section.is-active') || overviewSections[0];
+
+            console.info('[WELLME Debug] overview summary:', {
+                label: snapshot.label,
+                blockCount: overviewSections.length,
+                activeBlockId: activeOverviewSection ? activeOverviewSection.id : '',
+                activeBlockText: activeOverviewSection ? activeOverviewSection.textContent.trim().replace(/\s+/g, ' ').slice(0, 260) : '',
+                hiddenCount: overviewSections.filter(function (section) { return section.hidden; }).length
+            });
+        }
+
         console.groupEnd();
     }
 
@@ -1221,15 +1235,28 @@
             });
 
             panels.forEach(function (panel) {
-                panel.hidden = panel.id !== targetId;
-                if (!panel.hidden) panel.classList.add('is-visible');
+                var active = panel.id === targetId;
+                panel.hidden = false;
+                panel.classList.toggle('is-active', active);
+                panel.classList.add('is-visible');
             });
 
             if (label) label.textContent = button.dataset.overviewLabel || '';
             if (count) {
                 count.textContent = (button.dataset.overviewIndex || '1') + ' / ' + (button.dataset.overviewTotal || buttons.length);
             }
+
+            var target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
+
+        panels.forEach(function (panel, index) {
+            panel.hidden = false;
+            panel.classList.toggle('is-active', index === 0);
+            panel.classList.add('is-visible');
+        });
 
         buttons.forEach(function (button) {
             button.addEventListener('click', function () { activate(button); });

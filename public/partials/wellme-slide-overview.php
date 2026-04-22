@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $purpose       = get_field( 'overview_purpose', 'option' );
 $need          = get_field( 'overview_need', 'option' );
 $results       = get_field( 'overview_results', 'option' );
+$blocks        = get_field( 'overview_blocks', 'option' );
 $image         = get_field( 'overview_image', 'option' );
 $landing_image = get_field( 'landing_hero_image', 'option' );
 $image_url     = $image['url'] ?? ( $landing_image['url'] ?? '' );
@@ -24,36 +25,65 @@ if ( ! $image_url && ! empty( $modules ) && is_array( $modules ) ) {
     }
 }
 
-$overview_items = array_values(
-    array_filter(
-        [
-            [
-                'key'   => 'purpose',
-                'label' => __( 'Purpose', 'wellme-pamphlets' ),
-                'title' => __( 'Why WELLME exists', 'wellme-pamphlets' ),
-                'body'  => $purpose,
-                'color' => '#27ae60',
-            ],
-            [
-                'key'   => 'need',
-                'label' => __( 'Need', 'wellme-pamphlets' ),
-                'title' => __( 'The challenge for youth trainers', 'wellme-pamphlets' ),
-                'body'  => $need,
-                'color' => '#1e88c8',
-            ],
-            [
-                'key'   => 'results',
-                'label' => __( 'Results', 'wellme-pamphlets' ),
-                'title' => __( 'Expected results', 'wellme-pamphlets' ),
-                'body'  => $results,
-                'color' => '#c6548f',
-            ],
-        ],
-        static function ( $item ) {
-            return ! empty( $item['body'] );
+$overview_items = [];
+
+if ( ! empty( $blocks ) && is_array( $blocks ) ) {
+    foreach ( $blocks as $block_index => $block ) {
+        $body = $block['body'] ?? '';
+
+        if ( empty( $body ) ) {
+            continue;
         }
-    )
-);
+
+        $label = $block['label'] ?? '';
+        $title = $block['title'] ?? '';
+
+        $overview_items[] = [
+            'key'   => 'block-' . ( $block_index + 1 ),
+            'label' => $label ?: sprintf(
+                /* translators: %d: overview block number */
+                __( 'Block %d', 'wellme-pamphlets' ),
+                $block_index + 1
+            ),
+            'title' => $title ?: ( $label ?: __( 'Overview', 'wellme-pamphlets' ) ),
+            'body'  => $body,
+            'color' => $block['color'] ?? '#1e88c8',
+        ];
+    }
+}
+
+if ( empty( $overview_items ) ) {
+    $overview_items = array_values(
+        array_filter(
+            [
+                [
+                    'key'   => 'purpose',
+                    'label' => __( 'Purpose', 'wellme-pamphlets' ),
+                    'title' => __( 'Why WELLME exists', 'wellme-pamphlets' ),
+                    'body'  => $purpose,
+                    'color' => '#27ae60',
+                ],
+                [
+                    'key'   => 'need',
+                    'label' => __( 'Need', 'wellme-pamphlets' ),
+                    'title' => __( 'The challenge for youth trainers', 'wellme-pamphlets' ),
+                    'body'  => $need,
+                    'color' => '#1e88c8',
+                ],
+                [
+                    'key'   => 'results',
+                    'label' => __( 'Results', 'wellme-pamphlets' ),
+                    'title' => __( 'Expected results', 'wellme-pamphlets' ),
+                    'body'  => $results,
+                    'color' => '#c6548f',
+                ],
+            ],
+            static function ( $item ) {
+                return ! empty( $item['body'] );
+            }
+        )
+    );
+}
 ?>
 <section class="wellme-experience-slide wellme-slide-overview<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
@@ -128,7 +158,7 @@ $overview_items = array_values(
                 <section class="wellme-overview-section wellme-scroll-reveal"
                          id="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>"
                          role="tabpanel"
-                         <?php echo 0 === $item_index ? '' : 'hidden'; ?>>
+                         style="--overview-color: <?php echo esc_attr( $item['color'] ); ?>;">
                     <span class="wellme-overview-section-label"><?php echo esc_html( $item['label'] ); ?></span>
                     <h3><?php echo esc_html( $item['title'] ); ?></h3>
                     <div class="wellme-overview-section-body"><?php echo wp_kses_post( $item['body'] ); ?></div>
