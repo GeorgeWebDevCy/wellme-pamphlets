@@ -98,11 +98,14 @@ class Wellme_Pamphlets {
     }
 
     /**
-     * Configure the plugin update checker to pull releases from GitHub.
+     * Configure the plugin update checker to track the main branch on GitHub.
      *
-     * Point this at the GitHub repository that hosts the plugin.
-     * When a new release/tag is pushed, WordPress will surface the update
-     * in the Plugins screen automatically.
+     * Because the repo is public, PUC can read the Version: header directly
+     * from wellme-pamphlets.php on the main branch and download a branch zip
+     * when an update is available — no GitHub release or attached asset needed.
+     *
+     * To release an update: bump the version in wellme-pamphlets.php and push
+     * to main. WordPress will surface the update notification automatically.
      */
     private function setup_update_checker() {
         if ( ! class_exists( '\YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
@@ -115,8 +118,8 @@ class Wellme_Pamphlets {
             $this->plugin_name
         );
 
-        // Use the packaged plugin ZIP from GitHub releases.
-        $update_checker->getVcsApi()->enableReleaseAssets( '/^wellme-pamphlets\.zip$/i' );
+        // Track the main branch — version is read from the plugin header on that branch.
+        $update_checker->setBranch( 'main' );
     }
 
     public function run() {
