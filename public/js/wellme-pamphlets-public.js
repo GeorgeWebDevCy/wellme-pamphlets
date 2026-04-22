@@ -639,7 +639,9 @@
                 if (!isOpen) {
                     panel.hidden = false;
                     this.setAttribute('aria-expanded', 'true');
-                    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    if (!panel.closest('.wellme-experience--reader')) {
+                        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
                 }
             });
 

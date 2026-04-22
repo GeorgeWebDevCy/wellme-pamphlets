@@ -3,7 +3,7 @@
  * Template: Full-screen experience slider — 5-slide presentation.
  *
  * Slide 1: WELLME Landing (logo, title, EU branding)
- * Slide 2: Partnership (clickable partner cards)
+ * Slide 2: Partnership and Click (clickable partner cards)
  * Slide 3: Wellme Overview (purpose, need, results)
  * Slide 4: Modules (6 clickable module cards → open pamphlets)
  * Slide 5: Sum-Up (6 flip cards with module mottos)
@@ -20,7 +20,7 @@ $total_slides     = 5; // landing, partnership, overview, modules, sum-up
 $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
 $slide_nav_items  = [
     __( 'WELLME', 'wellme-pamphlets' ),
-    __( 'Partnership', 'wellme-pamphlets' ),
+    __( 'Partnership and Click', 'wellme-pamphlets' ),
     __( 'Overview', 'wellme-pamphlets' ),
     __( 'Modules', 'wellme-pamphlets' ),
     __( 'Sum-Up', 'wellme-pamphlets' ),
@@ -70,7 +70,7 @@ $slide_nav_media = [
             </button>
             <button class="wellme-exp-topnav-tab" data-index="1"
                     role="tab" aria-selected="false" aria-controls="wellme-experience-track">
-                <?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?>
+                <?php esc_html_e( 'Partnership and Click', 'wellme-pamphlets' ); ?>
             </button>
             <button class="wellme-exp-topnav-tab" data-index="2"
                     role="tab" aria-selected="false" aria-controls="wellme-experience-track">

@@ -6369,3 +6369,302 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* CENTREDOT PARTNER SLIDE AND BRANDING OVERRIDES */
+.wellme-experience--reader .wellme-logo-spin {
+    animation: wellme-logo-rotate 14s linear infinite !important;
+    transform-origin: 50% 50%;
+}
+
+.wellme-experience--reader .wellme-landing-copy {
+    position: relative;
+    min-height: 100%;
+    min-height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-control-height));
+    height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-control-height));
+    box-sizing: border-box;
+}
+
+.wellme-experience--reader .wellme-landing-subtitle {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-landing-eu {
+    position: absolute;
+    left: 28px;
+    bottom: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 148px;
+    margin: 0;
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.84);
+}
+
+.wellme-experience--reader .wellme-landing-eu-logo {
+    display: block;
+    max-width: 128px;
+    max-height: 44px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+}
+
+.wellme-experience--reader .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-landing-agreement {
+    position: absolute;
+    left: 28px;
+    display: block;
+    width: min(360px, 32vw);
+    margin: 0;
+    color: #242424;
+    font-size: 0.56rem;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.wellme-experience--reader .wellme-landing-eu-text {
+    bottom: 56px;
+}
+
+.wellme-experience--reader .wellme-landing-agreement {
+    right: 28px;
+    bottom: 56px;
+    left: auto;
+    width: auto;
+    max-width: 320px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: right;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-content {
+    grid-template-columns: minmax(0, 1.02fr) minmax(390px, 0.98fr);
+    grid-template-rows: 1fr;
+    gap: 0;
+    padding: 0;
+    background: #d6d6d6;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    width: min(350px, 58%);
+    margin: 0;
+    padding: 0;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-title {
+    font-size: clamp(1.35rem, 2.1vw, 2rem);
+    letter-spacing: 0.22em;
+    line-height: 1.18;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-hero-media {
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-menu {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    width: min(420px, calc(100% - 84px));
+    margin: 0;
+    transform: translateY(-54px);
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip-label {
+    margin: 0 0 12px;
+    color: #111;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip-label::before {
+    content: "PARTNERS";
+    display: block;
+    margin-bottom: 6px;
+    color: #111;
+    font-size: 1.48rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-card {
+    min-height: 62px;
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: none;
+    color: #111;
+    text-align: left;
+    transform: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-card:hover,
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-card:focus-visible,
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-card[aria-expanded="true"] {
+    background: #050505;
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-logo {
+    width: 48px;
+    height: 38px;
+    padding: 5px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.95);
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-name {
+    color: currentColor;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-details {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    justify-self: center;
+    width: min(420px, calc(100% - 84px));
+    margin: 0 0 42px;
+    z-index: 5;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail {
+    max-width: none;
+    min-height: 132px;
+    margin: 0;
+    padding: 16px 18px 16px 92px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.16);
+    animation: wellme-fade-in 0.18s ease;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail[hidden] {
+    display: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-logo {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    width: 56px;
+    height: 46px;
+    margin: 0;
+    object-fit: contain;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-name {
+    margin: 0 32px 6px 0;
+    color: #111;
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-desc {
+    max-height: 48px;
+    margin: 0 0 8px;
+    overflow: auto;
+    color: #333;
+    font-size: 0.68rem;
+    line-height: 1.4;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-contacts {
+    gap: 4px;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-contact {
+    color: #222;
+    font-size: 0.64rem;
+    line-height: 1.3;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-contact a {
+    color: #0b5aa7;
+    overflow-wrap: anywhere;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-close {
+    top: 10px;
+    right: 10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
+    background: #050505;
+    color: #fff;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wellme-experience--reader .wellme-logo-spin {
+        animation: none !important;
+    }
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-landing-eu,
+    .wellme-experience--reader .wellme-landing-eu-text,
+    .wellme-experience--reader .wellme-landing-agreement {
+        display: none;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-content {
+        grid-template-columns: 1fr;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-hero-media,
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro,
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip,
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-details {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip {
+        align-self: end;
+        width: calc(100% - 40px);
+        transform: none;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-details {
+        display: none;
+    }
+}
