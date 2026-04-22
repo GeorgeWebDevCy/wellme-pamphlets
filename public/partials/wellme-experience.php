@@ -1,11 +1,12 @@
 <?php
 /**
- * Template: Full-screen experience slider — 4-slide presentation.
+ * Template: Full-screen experience slider — 5-slide presentation.
  *
- * Slide 1: WELLME Landing + Partners (logo, title, EU branding, clickable partner cards)
- * Slide 2: Wellme Overview (purpose, need, results)
- * Slide 3: Modules (6 clickable module cards)
- * Slide 4: Sum-Up (6 flip cards with module mottos)
+ * Slide 1: WELLME Landing (logo, title, EU branding)
+ * Slide 2: Partnership (clickable partner cards)
+ * Slide 3: Wellme Overview (purpose, need, results)
+ * Slide 4: Modules (6 clickable module cards → open pamphlets)
+ * Slide 5: Sum-Up (6 flip cards with module mottos)
  *
  * Variables available:
  *   $modules  array of WP_Post
@@ -15,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$total_slides = 4; // landing+partners, overview, modules, sum-up
+$total_slides     = 5; // landing, partnership, overview, modules, sum-up
 $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
 ?>
 <div
@@ -24,30 +25,74 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
     role="region"
     aria-label="<?php esc_attr_e( 'WELLME Presentation', 'wellme-pamphlets' ); ?>"
 >
-    <div class="wellme-reader-title" aria-hidden="true">
-        <?php echo esc_html( $experience_title ); ?>
-    </div>
+
+    <?php /* ── Mazda-style top navigation bar ─────────────────────── */ ?>
+    <nav class="wellme-exp-topnav" aria-label="<?php esc_attr_e( 'Presentation navigation', 'wellme-pamphlets' ); ?>">
+        <div class="wellme-exp-topnav-brand">
+            <span class="wellme-exp-topnav-brand-name"><?php echo esc_html( $experience_title ); ?></span>
+        </div>
+
+        <div class="wellme-exp-topnav-tabs" role="tablist">
+            <button class="wellme-exp-topnav-tab is-active" data-index="0"
+                    role="tab" aria-selected="true" aria-controls="wellme-experience-track">
+                <?php esc_html_e( 'WELLME', 'wellme-pamphlets' ); ?>
+            </button>
+            <button class="wellme-exp-topnav-tab" data-index="1"
+                    role="tab" aria-selected="false" aria-controls="wellme-experience-track">
+                <?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?>
+            </button>
+            <button class="wellme-exp-topnav-tab" data-index="2"
+                    role="tab" aria-selected="false" aria-controls="wellme-experience-track">
+                <?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?>
+            </button>
+            <button class="wellme-exp-topnav-tab" data-index="3"
+                    role="tab" aria-selected="false" aria-controls="wellme-experience-track">
+                <?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?>
+            </button>
+            <button class="wellme-exp-topnav-tab" data-index="4"
+                    role="tab" aria-selected="false" aria-controls="wellme-experience-track">
+                <?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?>
+            </button>
+        </div>
+
+        <div class="wellme-exp-topnav-actions">
+            <div class="wellme-exp-topnav-counter" aria-live="polite" aria-atomic="true">
+                <span class="wellme-exp-topnav-counter-current">1</span>
+                <span aria-hidden="true"> / </span>
+                <span class="wellme-exp-topnav-counter-total"><?php echo $total_slides; ?></span>
+            </div>
+        </div>
+    </nav>
 
     <?php /* ── Slides track ─────────────────────────────────────── */ ?>
     <div class="wellme-experience-track" id="wellme-experience-track">
 
-        <?php /* ── Slide 1: Landing + Partners ──────────────────── */ ?>
+        <?php /* ── Slide 1: Landing (branding only) ────────────── */ ?>
         <?php
-        $index = 0;
-        $is_first = true;
+        $index         = 0;
+        $is_first      = true;
+        $hide_partners = true;  // Partners are shown on Slide 2
         include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-landing.php';
+        unset( $hide_partners );
         ?>
 
-        <?php /* ── Slide 2: Overview ─────────────────────────── */ ?>
+        <?php /* ── Slide 2: Partnership ─────────────────────────── */ ?>
         <?php
-        $index = 1;
+        $index    = 1;
+        $is_first = false;
+        include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-partnership.php';
+        ?>
+
+        <?php /* ── Slide 3: Overview ──────────────────────────────── */ ?>
+        <?php
+        $index    = 2;
         $is_first = false;
         include WELLME_PAMPHLETS_PLUGIN_DIR . 'public/partials/wellme-slide-overview.php';
         ?>
 
-        <?php /* ── Slide 3: Modules ──────────────────────────── */ ?>
+        <?php /* ── Slide 4: Modules ──────────────────────────────── */ ?>
         <section class="wellme-experience-slide wellme-slide-modules"
-                 data-index="2"
+                 data-index="3"
                  aria-label="<?php esc_attr_e( 'Modules', 'wellme-pamphlets' ); ?>">
 
             <div class="wellme-modules-slide-bg" aria-hidden="true"></div>
@@ -80,6 +125,7 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
                             <?php if ( $subtitle ) : ?>
                             <p class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></p>
                             <?php endif; ?>
+                            <span class="wellme-module-inline-cta"><?php esc_html_e( 'Open Module', 'wellme-pamphlets' ); ?> &rarr;</span>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -87,9 +133,9 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
             </div>
         </section>
 
-        <?php /* ── Slide 4: Sum-Up (Flip Cards) ──────────────── */ ?>
+        <?php /* ── Slide 5: Sum-Up (Flip Cards) ──────────────── */ ?>
         <section class="wellme-experience-slide wellme-slide-sumup"
-                 data-index="3"
+                 data-index="4"
                  aria-label="<?php esc_attr_e( 'Sum-Up', 'wellme-pamphlets' ); ?>">
 
             <div class="wellme-sumup-bg" aria-hidden="true"></div>
@@ -181,20 +227,11 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
         <?php endfor; ?>
     </nav>
 
-    <?php /* ── Slide counter ─────────────────────────────────────── */ ?>
-    <div class="wellme-exp-counter" aria-live="polite" aria-atomic="true">
-        <span class="wellme-exp-counter-label"><?php esc_html_e( 'WELLME Presentation - page', 'wellme-pamphlets' ); ?></span>
+    <?php /* ── Slide counter (bottom right) ──────────────────────── */ ?>
+    <div class="wellme-exp-counter" aria-hidden="true">
         <span class="wellme-exp-counter-current">1</span>
-        <span class="wellme-exp-counter-separator" aria-hidden="true"> / </span>
+        <span aria-hidden="true"> / </span>
         <span class="wellme-exp-counter-total"><?php echo $total_slides; ?></span>
-    </div>
-
-    <?php /* ── Slide labels for accessibility ────────────────────── */ ?>
-    <div class="wellme-exp-slide-labels" aria-hidden="true">
-        <span data-label="0"><?php esc_html_e( 'WELLME', 'wellme-pamphlets' ); ?></span>
-        <span data-label="1"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></span>
-        <span data-label="2"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></span>
-        <span data-label="3"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
     </div>
 
     </div><!-- /.wellme-experience -->

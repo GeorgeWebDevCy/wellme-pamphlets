@@ -62,14 +62,16 @@ $eu_logo_url     = $eu_logo['url'] ?? '';
                 <?php esc_html_e( 'Erasmus+ KA220-YOU — Cooperation partnerships in youth', 'wellme-pamphlets' ); ?>
             </div>
 
+            <?php if ( empty( $hide_partners ) ) : ?>
             <div class="wellme-landing-scroll-hint" aria-hidden="true">
                 <span><?php esc_html_e( 'Our Partners', 'wellme-pamphlets' ); ?></span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
+            <?php endif; ?>
         </div>
 
         <?php /* ── Partners section (scrollable, below hero) ────────── */ ?>
-        <?php if ( ! empty( $partners ) ) : ?>
+        <?php if ( empty( $hide_partners ) && ! empty( $partners ) ) : ?>
         <div class="wellme-landing-partners">
             <h2 class="wellme-landing-partners-title"><?php esc_html_e( 'Partnership and Click', 'wellme-pamphlets' ); ?></h2>
 

@@ -442,6 +442,9 @@
 
         // ── Slide navigation ──────────────────────────────────
 
+        var topnavTabs    = Array.from(exp.querySelectorAll('.wellme-exp-topnav-tab'));
+        var topnavCounter = exp.querySelector('.wellme-exp-topnav-counter-current');
+
         function goTo(index) {
             if (index < 0 || index >= total) return;
 
@@ -449,6 +452,10 @@
             if (dots[current]) {
                 dots[current].classList.remove('is-active');
                 dots[current].setAttribute('aria-current', 'false');
+            }
+            if (topnavTabs[current]) {
+                topnavTabs[current].classList.remove('is-active');
+                topnavTabs[current].setAttribute('aria-selected', 'false');
             }
 
             current = index;
@@ -458,9 +465,14 @@
                 dots[current].classList.add('is-active');
                 dots[current].setAttribute('aria-current', 'true');
             }
+            if (topnavTabs[current]) {
+                topnavTabs[current].classList.add('is-active');
+                topnavTabs[current].setAttribute('aria-selected', 'true');
+            }
 
             track.style.transform = 'translateX(-' + (current * 100) + '%)';
             if (counter) counter.textContent = current + 1;
+            if (topnavCounter) topnavCounter.textContent = current + 1;
             if (prevBtn) prevBtn.hidden = current === 0;
             if (nextBtn) nextBtn.hidden = current === total - 1;
         }
@@ -472,6 +484,11 @@
 
         dots.forEach(function (dot, i) {
             dot.addEventListener('click', function () { goTo(i); });
+        });
+
+        // Top nav tab clicks
+        topnavTabs.forEach(function (tab, i) {
+            tab.addEventListener('click', function () { goTo(i); });
         });
 
         // Keyboard — arrows navigate slides; Escape closes popup
