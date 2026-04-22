@@ -10,7 +10,7 @@
  * Plugin Name:       WELLME Pamphlets
  * Plugin URI:        https://github.com/GeorgeWebDevCy/wellme-pamphlets
  * Description:       Interactive digital pamphlets for the WELLME EU project — 6 training modules for youth trainers.
- * Version:           1.2.30
+ * Version:           1.2.31
  * Author:            George Nicolaou
  * Author URI:        https://github.com/GeorgeWebDevCy
  * License:           GPL-2.0+
@@ -24,15 +24,10 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
-define( 'WELLME_PAMPHLETS_VERSION', '1.2.30' );
+define( 'WELLME_PAMPHLETS_VERSION', '1.2.31' );
 define( 'WELLME_PAMPHLETS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WELLME_PAMPHLETS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WELLME_PAMPHLETS_PLUGIN_FILE', __FILE__ );
-
-// TEMP: Include fix-modules (DELETE after running once)
-if ( file_exists( WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-fix-modules.php' ) ) {
-    require_once WELLME_PAMPHLETS_PLUGIN_DIR . 'admin/class-wellme-pamphlets-fix-modules.php';
-}
 
 /** Composer autoloader — loads plugin-update-checker and any future dependencies.
  */

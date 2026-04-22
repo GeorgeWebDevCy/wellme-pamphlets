@@ -4,6 +4,8 @@ refrences doc/
 # Scraper scripts and output (research tooling, not part of plugin)
 scrape-*.mjs
 .env
+*.sql
+db/
 __pycache__/
 *.pyc
 *.png

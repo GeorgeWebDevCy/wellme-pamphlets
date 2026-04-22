@@ -226,21 +226,45 @@ class Wellme_Pamphlets_Importer {
             throw new RuntimeException( $post_id->get_error_message() );
         }
 
-        $warnings = [];
+        $warnings                = [];
+        $preserve_existing_media = ! empty( $module['preserve_existing_media'] );
 
-        $cover_id  = $this->import_attachment_reference( $module['module_cover_image'] ?? '', $package_root, $post_id );
-        $icon_id   = $this->import_attachment_reference( $module['module_icon'] ?? '', $package_root, $post_id );
-        $gallery   = $this->import_gallery( $module['module_gallery'] ?? [], $package_root, $post_id );
-        $outcomes  = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
-        $steps     = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
-        $chapters  = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
+        $cover_id = '';
+        if ( array_key_exists( 'module_cover_image', $module ) ) {
+            $cover_id = $this->import_attachment_reference( $module['module_cover_image'], $package_root, $post_id );
+        } elseif ( $preserve_existing_media ) {
+            $cover_id = get_field( 'module_cover_image', $post_id, false ) ?: '';
+        }
+
+        $icon_id = '';
+        if ( array_key_exists( 'module_icon', $module ) ) {
+            $icon_id = $this->import_attachment_reference( $module['module_icon'], $package_root, $post_id );
+        } elseif ( $preserve_existing_media ) {
+            $icon_id = get_field( 'module_icon', $post_id, false ) ?: '';
+        }
+
+        $gallery = [];
+        if ( array_key_exists( 'module_gallery', $module ) ) {
+            $gallery = $this->import_gallery( $module['module_gallery'], $package_root, $post_id );
+        } elseif ( $preserve_existing_media ) {
+            $gallery = get_field( 'module_gallery', $post_id, false ) ?: [];
+        }
+
+        $outcomes             = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
+        $steps                = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
+        $chapters             = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
         $assessment_questions = $this->build_assessment_questions( $module['module_assessment_questions'] ?? [] );
-        $color     = sanitize_hex_color( $module['module_color'] ?? '' ) ?: '#005b96';
-        $subtitle  = sanitize_text_field( $module['module_subtitle'] ?? '' );
-        $motto     = sanitize_text_field( $module['module_motto'] ?? '' );
-        $video_url = esc_url_raw( $module['module_video_url'] ?? '' );
+        $reflection_questions = $this->build_reflection_questions( $module['module_reflection_questions'] ?? [] );
+        $color                = sanitize_hex_color( $module['module_color'] ?? '' ) ?: '#005b96';
+        $subtitle             = sanitize_text_field( $module['module_subtitle'] ?? '' );
+        $motto                = sanitize_text_field( $module['module_motto'] ?? '' );
+        $video_url            = esc_url_raw( $module['module_video_url'] ?? '' );
+        $eu_text              = sanitize_textarea_field( $module['module_eu_funding_text'] ?? '' );
+        $toc                  = sanitize_textarea_field( $module['module_table_of_contents'] ?? '' );
+        $introduction         = wp_kses_post( $module['module_introduction'] ?? '' );
+        $conclusion           = wp_kses_post( $module['module_conclusion'] ?? '' );
 
-        if ( ! $cover_id ) {
+        if ( ! $cover_id && ! $preserve_existing_media ) {
             $warnings[] = sprintf(
                 /* translators: %d: module number */
                 __( 'Module %d imported without a cover image.', 'wellme-pamphlets' ),
@@ -261,6 +285,11 @@ class Wellme_Pamphlets_Importer {
         update_field( 'module_exercise_steps', $steps, $post_id );
         update_field( 'module_chapters', $chapters, $post_id );
         update_field( 'module_assessment_questions', $assessment_questions, $post_id );
+        update_field( 'module_eu_funding_text', $eu_text, $post_id );
+        update_field( 'module_table_of_contents', $toc, $post_id );
+        update_field( 'module_introduction', $introduction, $post_id );
+        update_field( 'module_conclusion', $conclusion, $post_id );
+        update_field( 'module_reflection_questions', $reflection_questions, $post_id );
 
         if ( $cover_id ) {
             set_post_thumbnail( $post_id, $cover_id );
@@ -408,6 +437,35 @@ class Wellme_Pamphlets_Importer {
                 'assessment_question_options'        => $options,
                 'assessment_question_correct_option' => $correct_key,
                 'assessment_question_explanation'    => sanitize_text_field( $question['explanation'] ?? '' ),
+            ];
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Build repeater rows for reflection questions.
+     *
+     * @param array $questions Reflection question payloads.
+     *
+     * @return array
+     */
+    private function build_reflection_questions( array $questions ) {
+        $rows = [];
+
+        foreach ( $questions as $question ) {
+            if ( is_array( $question ) ) {
+                $text = sanitize_textarea_field( $question['reflection_question'] ?? '' );
+            } else {
+                $text = sanitize_textarea_field( $question );
+            }
+
+            if ( '' === $text ) {
+                continue;
+            }
+
+            $rows[] = [
+                'reflection_question' => $text,
             ];
         }
 
