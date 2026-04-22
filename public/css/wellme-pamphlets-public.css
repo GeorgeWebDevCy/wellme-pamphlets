@@ -7058,3 +7058,33 @@
         transform: none !important;
     }
 }
+
+/* FORCE VISIBLE SPIN ON THE CENTRAL WELLME LOGO */
+@keyframes wellme-hero-logo-visible-spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+        filter: drop-shadow(0 20px 28px rgba(0,0,0,0.18));
+    }
+    50% {
+        transform: rotate(180deg) scale(1.035);
+        filter: drop-shadow(0 24px 34px rgba(0,0,0,0.2));
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        filter: drop-shadow(0 20px 28px rgba(0,0,0,0.18));
+    }
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero img[src*="WellMe-Colour"],
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo.wellme-logo-spin {
+    animation: wellme-hero-logo-visible-spin 5.5s linear infinite !important;
+    transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero img[src*="WellMe-Colour"],
+    .wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo.wellme-logo-spin {
+        animation: none !important;
+        transform: none !important;
+    }
+}
