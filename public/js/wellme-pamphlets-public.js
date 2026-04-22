@@ -250,6 +250,7 @@
         if (activePartnershipSlide) {
             const selectedCard = activePartnershipSlide.querySelector('.wellme-partner-card[aria-expanded="true"]');
             const openDetail = activePartnershipSlide.querySelector('.wellme-partner-detail:not([hidden])');
+            const intro = activePartnershipSlide.querySelector('.wellme-partnership-intro');
             const partnerStrip = activePartnershipSlide.querySelector('.wellme-partner-strip');
             const partnerGrid = activePartnershipSlide.querySelector('.wellme-partners-grid');
             const openDetailStyle = openDetail ? window.getComputedStyle(openDetail) : null;
@@ -260,6 +261,7 @@
                 label: snapshot.label,
                 selectedPartnerIndex: selectedCard ? selectedCard.dataset.partnerIndex : '',
                 selectedPartnerName: selectedCard ? selectedCard.textContent.trim().replace(/\s+/g, ' ') : '',
+                introText: intro ? intro.textContent.trim().replace(/\s+/g, ' ').slice(0, 220) : '',
                 openDetailId: openDetail ? openDetail.id : '',
                 detailPosition: openDetailStyle ? openDetailStyle.position : '',
                 detailTop: detailRect ? Math.round(detailRect.top) : '',
@@ -965,6 +967,62 @@
 
     /* ── Partner Card Interactions (Landing slide) ─────────────── */
 
+    function resetPartnershipIntro(slide) {
+        const intro = slide ? slide.querySelector('.wellme-partnership-intro') : null;
+
+        if (!intro || !intro.dataset.defaultHtml) return;
+
+        intro.innerHTML = intro.dataset.defaultHtml;
+        slide.classList.remove('has-selected-partner');
+    }
+
+    function renderPartnershipIntro(slide, panel) {
+        const intro = slide ? slide.querySelector('.wellme-partnership-intro') : null;
+
+        if (!intro || !panel) return;
+        if (!intro.dataset.defaultHtml) {
+            intro.dataset.defaultHtml = intro.innerHTML;
+        }
+
+        const logo = panel.querySelector('.wellme-partner-detail-logo');
+        const name = panel.querySelector('.wellme-partner-detail-name');
+        const desc = panel.querySelector('.wellme-partner-detail-desc');
+        const contacts = panel.querySelector('.wellme-partner-detail-contacts');
+        const kicker = document.createElement('p');
+        const title = document.createElement('h2');
+
+        intro.innerHTML = '';
+
+        if (logo) {
+            const logoClone = logo.cloneNode(true);
+            logoClone.className = 'wellme-partnership-intro-logo';
+            intro.appendChild(logoClone);
+        }
+
+        kicker.className = 'wellme-partnership-kicker';
+        kicker.textContent = 'Partner Organisation';
+        intro.appendChild(kicker);
+
+        title.className = 'wellme-partnership-title';
+        title.textContent = name ? name.textContent.trim() : 'Partner';
+        intro.appendChild(title);
+
+        if (desc) {
+            const descClone = document.createElement('p');
+            descClone.className = 'wellme-partnership-lede';
+            descClone.textContent = desc.textContent.trim();
+            intro.appendChild(descClone);
+        }
+
+        if (contacts) {
+            const contactsClone = contacts.cloneNode(true);
+            contactsClone.className = 'wellme-partnership-intro-contacts';
+            intro.appendChild(contactsClone);
+        }
+
+        slide.classList.add('has-selected-partner');
+    }
+
     function initPartnershipCards(root) {
         root = root || document;
 
@@ -979,13 +1037,24 @@
                             document.getElementById('wellme-partner-detail-' + idx);
                 if (!panel) return;
 
-                var isOpen = !panel.hidden;
+                var isOpen = this.getAttribute('aria-expanded') === 'true' || !panel.hidden;
+                var readerSlide = this.closest('.wellme-experience--reader .wellme-slide-partnership');
 
                 // Close all partner details and reset cards
                 root.querySelectorAll('.wellme-partner-detail').forEach(function (d) { d.hidden = true; });
                 root.querySelectorAll('.wellme-partner-card, .wellme-partner-card--landing').forEach(function (c) {
                     c.setAttribute('aria-expanded', 'false');
                 });
+
+                if (readerSlide) {
+                    if (!isOpen) {
+                        renderPartnershipIntro(readerSlide, panel);
+                        this.setAttribute('aria-expanded', 'true');
+                    } else {
+                        resetPartnershipIntro(readerSlide);
+                    }
+                    return;
+                }
 
                 if (!isOpen) {
                     panel.hidden = false;
@@ -1009,6 +1078,12 @@
                     detail.hidden = true;
                     var idx = detail.id.replace('wellme-partner-detail-landing-', '').replace('wellme-partner-detail-', '');
                     var trigger = root.querySelector('.wellme-partner-card[data-partner-index="' + idx + '"], .wellme-partner-card--landing[data-partner-index="' + idx + '"]');
+                    var readerSlide = detail.closest('.wellme-experience--reader .wellme-slide-partnership');
+
+                    if (readerSlide) {
+                        resetPartnershipIntro(readerSlide);
+                    }
+
                     if (trigger) {
                         trigger.setAttribute('aria-expanded', 'false');
                         trigger.focus();

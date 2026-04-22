@@ -9,20 +9,10 @@ defined( 'ABSPATH' ) || exit;
 
 $partners      = get_field( 'partners', 'option' ) ?: [];
 $partner_count = is_array( $partners ) ? count( $partners ) : 0;
-$default_partner_index = 0;
+$default_partner_index = -1;
 $partnership_image = get_field( 'landing_hero_image', 'option' );
 $overview_image    = get_field( 'overview_image', 'option' );
 $partnership_image_url = $partnership_image['url'] ?? ( $overview_image['url'] ?? '' );
-
-if ( ! empty( $partners ) && is_array( $partners ) ) {
-    foreach ( $partners as $candidate_index => $candidate_partner ) {
-        $candidate_name = $candidate_partner['partner_name'] ?? '';
-        if ( false !== stripos( $candidate_name, 'partou' ) ) {
-            $default_partner_index = $candidate_index;
-            break;
-        }
-    }
-}
 
 if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
     foreach ( $modules as $partnership_module ) {
@@ -51,7 +41,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
 
         <div class="wellme-partnership-intro">
             <p class="wellme-partnership-kicker"><?php esc_html_e( 'European Partnership', 'wellme-pamphlets' ); ?></p>
-            <h2 class="wellme-partnership-title"><?php esc_html_e( 'Partnership and Click', 'wellme-pamphlets' ); ?></h2>
+            <h2 class="wellme-partnership-title"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></h2>
             <p class="wellme-partnership-lede">
                 <?php esc_html_e( 'WELLME brings trainers, educators and community organisations together around a practical wellbeing programme for youth work.', 'wellme-pamphlets' ); ?>
             </p>
