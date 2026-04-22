@@ -6668,3 +6668,151 @@
         display: none;
     }
 }
+
+/* MAZDA-STYLE COVER MOTION */
+@keyframes wellme-cover-photo-in {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 34px, 0) scale(0.975);
+    }
+    62% {
+        opacity: 1;
+        transform: translate3d(0, -3px, 0) scale(1.006);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes wellme-cover-photo-drift {
+    0% {
+        transform: translate3d(-9px, 0, 0) scale(1.018);
+    }
+    100% {
+        transform: translate3d(9px, -2px, 0) scale(1.045);
+    }
+}
+
+@keyframes wellme-cover-title-in {
+    0% {
+        opacity: 0;
+        letter-spacing: 0.34em;
+        transform: translate3d(0, -12px, 0);
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 0.22em;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes wellme-cover-brand-in {
+    0% {
+        opacity: 0;
+        transform: translate3d(12px, -10px, 0) scale(0.82) rotate(-12deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes wellme-cover-arrow-pulse {
+    0%, 100% {
+        opacity: 0.62;
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate3d(7px, 0, 0);
+    }
+}
+
+@keyframes wellme-cover-funding-in {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 8px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0) scale(0.975);
+    will-change: opacity, transform;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media {
+    animation: wellme-cover-photo-in 0.86s cubic-bezier(0.22, 0.72, 0.24, 1) 0.18s both;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media img {
+    will-change: transform;
+    transform-origin: center center;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media img {
+    animation: wellme-cover-photo-drift 7.8s ease-in-out 1.05s infinite alternate;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-title {
+    opacity: 0;
+    will-change: opacity, transform, letter-spacing;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-title {
+    animation: wellme-cover-title-in 0.72s cubic-bezier(0.25, 0.7, 0.2, 1) 0.05s both;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-logos {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-logos {
+    animation: wellme-cover-brand-in 0.72s cubic-bezier(0.25, 0.7, 0.2, 1) 0.32s both;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-logo-spin {
+    animation:
+        wellme-cover-brand-in 0.72s cubic-bezier(0.25, 0.7, 0.2, 1) 0.32s both,
+        wellme-logo-rotate 14s linear 1.04s infinite !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-eu,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-agreement {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-eu,
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-agreement {
+    animation: wellme-cover-funding-in 0.56s ease 0.74s both;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active ~ .wellme-exp-arrow--next,
+.wellme-experience--reader:has(.wellme-slide-landing.is-active) .wellme-exp-arrow--next {
+    animation: wellme-cover-arrow-pulse 1.85s ease-in-out 1.05s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media img,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-title,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-logos,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-eu,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-eu-text,
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-agreement,
+    .wellme-experience--reader .wellme-slide-landing.is-active .wellme-logo-spin,
+    .wellme-experience--reader:has(.wellme-slide-landing.is-active) .wellme-exp-arrow--next {
+        opacity: 1;
+        animation: none !important;
+        transform: none !important;
+    }
+}
