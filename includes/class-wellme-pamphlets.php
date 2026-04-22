@@ -90,6 +90,7 @@ class Wellme_Pamphlets {
     private function define_acf_hooks() {
         $acf = new Wellme_Pamphlets_ACF();
         $this->loader->add_action( 'acf/init', $acf, 'register_field_groups' );
+        $this->loader->add_action( 'acf/init', $acf, 'migrate_overview_legacy_fields_to_repeater', 20 );
     }
 
     private function define_shortcode_hooks() {

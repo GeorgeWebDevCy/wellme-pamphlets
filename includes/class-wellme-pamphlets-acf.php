@@ -11,6 +11,52 @@
  */
 class Wellme_Pamphlets_ACF {
 
+    public function migrate_overview_legacy_fields_to_repeater() {
+        if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! function_exists( 'get_field' ) || ! function_exists( 'update_field' ) ) {
+            return;
+        }
+
+        $existing_blocks = get_field( 'overview_blocks', 'option' );
+        if ( ! empty( $existing_blocks ) && is_array( $existing_blocks ) ) {
+            return;
+        }
+
+        $legacy_items = [
+            [
+                'label' => __( 'Purpose', 'wellme-pamphlets' ),
+                'title' => __( 'Why WELLME exists', 'wellme-pamphlets' ),
+                'body'  => get_field( 'overview_purpose', 'option' ) ?: get_option( 'options_overview_purpose' ),
+                'color' => '#27ae60',
+            ],
+            [
+                'label' => __( 'Need', 'wellme-pamphlets' ),
+                'title' => __( 'The challenge for youth trainers', 'wellme-pamphlets' ),
+                'body'  => get_field( 'overview_need', 'option' ) ?: get_option( 'options_overview_need' ),
+                'color' => '#1e88c8',
+            ],
+            [
+                'label' => __( 'Results', 'wellme-pamphlets' ),
+                'title' => __( 'Expected results', 'wellme-pamphlets' ),
+                'body'  => get_field( 'overview_results', 'option' ) ?: get_option( 'options_overview_results' ),
+                'color' => '#c6548f',
+            ],
+        ];
+
+        $blocks = [];
+
+        foreach ( $legacy_items as $item ) {
+            if ( empty( $item['body'] ) ) {
+                continue;
+            }
+
+            $blocks[] = $item;
+        }
+
+        if ( ! empty( $blocks ) ) {
+            update_field( 'field_wm_pres_overview_blocks', $blocks, 'option' );
+        }
+    }
+
     public function register_field_groups() {
         if ( ! function_exists( 'acf_add_local_field_group' ) ) {
             return;
@@ -148,43 +194,14 @@ class Wellme_Pamphlets_ACF {
                 [ 'key' => 'field_wm_pres_tab_slide3', 'label' => 'Slide 3 — Overview', 'type' => 'tab', 'placement' => 'top' ],
 
                 [
-                    'key'   => 'field_wm_pres_overview_purpose',
-                    'label' => 'Project Purpose',
-                    'name'  => 'overview_purpose',
-                    'type'  => 'wysiwyg',
-                    'tabs'  => 'all',
-                    'toolbar' => 'basic',
-                    'media_upload' => 0,
-                    'instructions' => 'What the WELLME project is about.',
-                ],
-                [
-                    'key'   => 'field_wm_pres_overview_need',
-                    'label' => 'Project Need',
-                    'name'  => 'overview_need',
-                    'type'  => 'wysiwyg',
-                    'tabs'  => 'all',
-                    'toolbar' => 'basic',
-                    'media_upload' => 0,
-                    'instructions' => 'Why this project is needed.',
-                ],
-                [
-                    'key'   => 'field_wm_pres_overview_results',
-                    'label' => 'Expected Results / Outcomes',
-                    'name'  => 'overview_results',
-                    'type'  => 'wysiwyg',
-                    'tabs'  => 'all',
-                    'toolbar' => 'basic',
-                    'media_upload' => 0,
-                    'instructions' => 'Expected results and outcomes of the project.',
-                ],
-                [
                     'key'          => 'field_wm_pres_overview_blocks',
                     'label'        => 'Overview Blocks',
                     'name'         => 'overview_blocks',
                     'type'         => 'repeater',
                     'layout'       => 'block',
+                    'collapsed'    => 'field_wm_pres_overview_block_title',
                     'button_label' => 'Add overview block',
-                    'instructions' => 'Optional repeatable Slide 3 blocks. If any blocks are added here, they replace the fixed Purpose / Need / Results fields on the public slide.',
+                    'instructions' => 'Add the Slide 3 information blocks here. Existing legacy Purpose / Need / Results values remain as a public fallback until blocks are added.',
                     'sub_fields'   => [
                         [
                             'key'          => 'field_wm_pres_overview_block_label',
