@@ -57,8 +57,32 @@ if (Test-Path $zipPath) {
     Remove-Item -LiteralPath $zipPath -Force
 }
 
-$packageContents = Join-Path $packageRoot "*"
-Compress-Archive -Path $packageContents -DestinationPath $zipPath -CompressionLevel Optimal
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+$archive = [System.IO.Compression.ZipFile]::Open(
+    $zipPath,
+    [System.IO.Compression.ZipArchiveMode]::Create
+)
+
+try {
+    Get-ChildItem -LiteralPath $packageRoot -Recurse -File |
+        Sort-Object FullName |
+        ForEach-Object {
+            $relativePath = $_.FullName.Substring($packageRoot.Length).TrimStart('\', '/')
+            $entryName = "wellme-pamphlets/" + ($relativePath -replace '\\', '/')
+
+            [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(
+                $archive,
+                $_.FullName,
+                $entryName,
+                [System.IO.Compression.CompressionLevel]::Optimal
+            ) | Out-Null
+        }
+}
+finally {
+    $archive.Dispose()
+}
 
 Remove-Item -LiteralPath $stagingRoot -Recurse -Force
 
