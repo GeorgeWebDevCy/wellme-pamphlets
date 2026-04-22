@@ -35,6 +35,61 @@
     }
 
     let wellmeDebugEnabled = isWellmeDebugEnabled();
+    let wellmeLogoSpinFrame = 0;
+
+    function wellmePrefersReducedMotion() {
+        return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+
+    function getWellmeHeroLogo() {
+        return document.querySelector(
+            '.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo'
+        );
+    }
+
+    function initWellmeLogoDirectSpin() {
+        const logo = getWellmeHeroLogo();
+
+        if (!logo || wellmeLogoSpinFrame || wellmePrefersReducedMotion()) return;
+
+        const duration = 5500;
+        const start = window.performance ? window.performance.now() : Date.now();
+
+        logo.dataset.wellmeDirectSpin = '1';
+        logo.style.setProperty('animation', 'none', 'important');
+        logo.style.transformOrigin = '50% 50%';
+        logo.style.willChange = 'transform';
+
+        function spin(now) {
+            const currentLogo = getWellmeHeroLogo();
+
+            if (!currentLogo || !document.body.contains(currentLogo)) {
+                wellmeLogoSpinFrame = 0;
+                return;
+            }
+
+            if (wellmePrefersReducedMotion()) {
+                currentLogo.dataset.wellmeDirectSpin = '0';
+                currentLogo.style.removeProperty('animation');
+                currentLogo.style.removeProperty('transform');
+                currentLogo.style.removeProperty('will-change');
+                wellmeLogoSpinFrame = 0;
+                return;
+            }
+
+            if (currentLogo.closest('.wellme-slide-landing.is-active')) {
+                const progress = (((now || Date.now()) - start) % duration) / duration;
+                const angle = progress * 360;
+                const scale = 1 + (0.025 * Math.sin(progress * Math.PI * 2));
+
+                currentLogo.style.transform = 'rotate(' + angle.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+            }
+
+            wellmeLogoSpinFrame = window.requestAnimationFrame(spin);
+        }
+
+        wellmeLogoSpinFrame = window.requestAnimationFrame(spin);
+    }
 
     function wellmeDebugElement(selector) {
         const el = document.querySelector(selector);
@@ -74,6 +129,7 @@
             className: el.className,
             id: el.id || '',
             src: el.currentSrc || el.src || '',
+            jsSpinActive: el.dataset.wellmeDirectSpin === '1',
             parentClass: el.parentElement ? el.parentElement.className : '',
             activeSlide: !!el.closest('.wellme-experience-slide.is-active'),
             inHeroMedia: !!el.closest('.wellme-landing-hero-media'),
@@ -130,13 +186,14 @@
                 duration: snapshot.heroImage.computed.animationDuration,
                 playState: snapshot.heroImage.computed.animationPlayState,
                 transform: snapshot.heroImage.computed.transform,
+                jsSpinActive: snapshot.heroImage.jsSpinActive,
                 width: snapshot.heroImage.rect.width,
                 height: snapshot.heroImage.rect.height,
                 reducedMotion: snapshot.reducedMotion,
                 activeSlide: snapshot.heroImage.activeSlide
             };
-            const hasAnimation = logoSummary.animationName && logoSummary.animationName !== 'none';
-            const isPlaying = logoSummary.playState === 'running';
+            const hasAnimation = logoSummary.jsSpinActive || (logoSummary.animationName && logoSummary.animationName !== 'none');
+            const isPlaying = logoSummary.jsSpinActive || logoSummary.playState === 'running';
             const logMethod = hasAnimation && isPlaying && logoSummary.width > 0 && logoSummary.height > 0
                 ? 'info'
                 : 'warn';
@@ -144,6 +201,7 @@
             console[logMethod](
                 '[WELLME Debug] logo summary: animation=' + logoSummary.animationName +
                 ', playState=' + logoSummary.playState +
+                ', jsSpin=' + logoSummary.jsSpinActive +
                 ', size=' + logoSummary.width + 'x' + logoSummary.height +
                 ', WellMe-Colour=' + logoSummary.isWellmeColourLogo,
                 logoSummary
@@ -1068,6 +1126,7 @@
 
         // If a standalone [wellme_pamphlet] shortcode is on the page (not in modal)
         initPamphletInteractions(document);
+        initWellmeLogoDirectSpin();
         initWellmeDebug();
     });
 
