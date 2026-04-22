@@ -7702,6 +7702,36 @@
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-selector {
     height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0 12px;
+    color: #111;
+}
+
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-selector::before {
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-selector::after {
+    content: none;
+    display: none;
+}
+
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-selector-label {
+    position: relative;
+    z-index: 1;
+    display: block;
+    color: #111;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-copy {

@@ -141,7 +141,7 @@ if ( empty( $overview_items ) ) {
                         role="tab"
                         aria-selected="<?php echo 0 === $item_index ? 'true' : 'false'; ?>"
                         aria-controls="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>">
-                    <span class="wellme-sr-only"><?php echo esc_html( $item['label'] ); ?></span>
+                    <span class="wellme-overview-selector-label"><?php echo esc_html( $item['label'] ); ?></span>
                 </button>
                 <?php endforeach; ?>
             </div>
