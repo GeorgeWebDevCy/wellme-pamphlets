@@ -6816,3 +6816,87 @@
         transform: none !important;
     }
 }
+
+/* MAZDA EMBED PARITY - turntable-style WELLME logo */
+@keyframes wellme-logo-turntable {
+    0% {
+        transform: rotateY(0deg) scale(1);
+        filter: drop-shadow(0 14px 18px rgba(0,0,0,0.14));
+    }
+    24% {
+        transform: rotateY(86deg) scale(0.96);
+        filter: drop-shadow(0 10px 12px rgba(0,0,0,0.1));
+    }
+    50% {
+        transform: rotateY(180deg) scale(1);
+        filter: drop-shadow(0 14px 18px rgba(0,0,0,0.14));
+    }
+    76% {
+        transform: rotateY(274deg) scale(0.96);
+        filter: drop-shadow(0 10px 12px rgba(0,0,0,0.1));
+    }
+    100% {
+        transform: rotateY(360deg) scale(1);
+        filter: drop-shadow(0 14px 18px rgba(0,0,0,0.14));
+    }
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-logos {
+    top: 42px;
+    right: 32px;
+    width: 112px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 900px;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-logos::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 68px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.14);
+    filter: blur(4px);
+    transform: translateX(-50%);
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-logo {
+    width: 104px;
+    height: 104px;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    backface-visibility: visible;
+    transform-style: preserve-3d;
+    transform-origin: center;
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-logo-spin {
+    animation: wellme-logo-turntable 5.2s linear 1.04s infinite !important;
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-logos {
+        top: 34px;
+        right: 18px;
+        width: 76px;
+        height: 76px;
+    }
+
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-logo {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wellme-experience--reader .wellme-slide-landing.is-active .wellme-logo-spin {
+        animation: none !important;
+        transform: none !important;
+    }
+}
