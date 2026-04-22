@@ -8516,3 +8516,44 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* SLIDE 4 TITLE FIT - prevent module names being clipped */
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-body {
+    padding: 20px 16px 16px;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-number {
+    margin-bottom: 9px;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-title {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.18;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: initial;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-subtitle {
+    font-size: 0.62rem;
+    line-height: 1.3;
+    -webkit-line-clamp: 2;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-cta {
+    min-height: 30px;
+    margin-top: auto;
+    margin-bottom: 9px;
+}
+
+@media (max-width: 1500px) {
+    .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-title {
+        font-size: 0.82rem;
+        letter-spacing: 0.07em;
+        line-height: 1.16;
+    }
+}
