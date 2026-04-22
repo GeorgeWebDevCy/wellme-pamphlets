@@ -289,6 +289,32 @@
             });
         }
 
+        const activeModulesSlide = document.querySelector('.wellme-slide-modules.is-active');
+        if (activeModulesSlide) {
+            const moduleCards = Array.from(activeModulesSlide.querySelectorAll('.wellme-module-inline-card'));
+            const selectedModule = activeModulesSlide.querySelector('.wellme-module-inline-card.is-active') || moduleCards[0];
+            const activeModulePanel = activeModulesSlide.querySelector('.wellme-module-detail-panel.is-active');
+            const modulesContent = activeModulesSlide.querySelector('.wellme-modules-slide-content');
+            const modulesVisual = activeModulesSlide.querySelector('.wellme-modules-reader-visual');
+            const modulePanelWrap = activeModulesSlide.querySelector('.wellme-modules-detail-panels');
+            const contentRect = modulesContent ? modulesContent.getBoundingClientRect() : null;
+            const visualRect = modulesVisual ? modulesVisual.getBoundingClientRect() : null;
+            const panelRect = modulePanelWrap ? modulePanelWrap.getBoundingClientRect() : null;
+
+            console.info('[WELLME Debug] modules summary:', {
+                label: snapshot.label,
+                cardCount: moduleCards.length,
+                selectedModuleId: selectedModule ? selectedModule.dataset.moduleId : '',
+                selectedModuleText: selectedModule ? selectedModule.textContent.trim().replace(/\s+/g, ' ').slice(0, 220) : '',
+                activePanelId: activeModulePanel ? activeModulePanel.id : '',
+                hiddenPanelCount: Array.from(activeModulesSlide.querySelectorAll('.wellme-module-detail-panel')).filter(function (panel) { return panel.hidden; }).length,
+                contentSize: contentRect ? Math.round(contentRect.width) + 'x' + Math.round(contentRect.height) : '',
+                visualSize: visualRect ? Math.round(visualRect.width) + 'x' + Math.round(visualRect.height) : '',
+                panelSize: panelRect ? Math.round(panelRect.width) + 'x' + Math.round(panelRect.height) : '',
+                contentOverflowY: modulesContent ? modulesContent.scrollHeight > modulesContent.clientHeight : false
+            });
+        }
+
         console.groupEnd();
     }
 
@@ -1121,68 +1147,137 @@
         var popupModnum = document.getElementById('wellme-popup-modnum');
         if (!overlay || !popupBody) return;
 
+        function findModuleCard(moduleId) {
+            return Array.from(document.querySelectorAll('.wellme-module-inline-card')).find(function (item) {
+                return item.dataset.moduleId === String(moduleId);
+            });
+        }
+
+        function activateModuleSelection(trigger) {
+            var slide = trigger.closest('.wellme-slide-modules');
+            var targetId = trigger.dataset.moduleTarget;
+
+            if (!slide || !targetId) return;
+
+            var controls = Array.from(slide.querySelectorAll('[data-module-target]'));
+            var panels = Array.from(slide.querySelectorAll('.wellme-module-detail-panel'));
+            var features = Array.from(slide.querySelectorAll('.wellme-modules-featured-item'));
+            var label = slide.querySelector('.wellme-modules-active-label');
+            var count = slide.querySelector('.wellme-modules-state-count');
+
+            controls.forEach(function (item) {
+                var active = item.dataset.moduleTarget === targetId;
+                item.classList.toggle('is-active', active);
+                item.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+
+            panels.forEach(function (panel) {
+                var active = panel.id === targetId;
+                panel.hidden = !active;
+                panel.classList.toggle('is-active', active);
+            });
+
+            features.forEach(function (feature) {
+                var active = feature.dataset.moduleFeature === targetId;
+                feature.hidden = !active;
+                feature.classList.toggle('is-active', active);
+            });
+
+            var sourceCard = slide.querySelector('.wellme-module-inline-card[data-module-target="' + targetId + '"]');
+            var sourceTitle = sourceCard ? sourceCard.querySelector('.wellme-module-inline-title') : null;
+            if (label && sourceTitle) label.textContent = sourceTitle.textContent.trim();
+            if (count) count.textContent = (trigger.dataset.moduleIndex || '1') + ' / ' + (trigger.dataset.moduleTotal || controls.length);
+
+            if (wellmeDebugEnabled && window.console) {
+                window.setTimeout(function () { wellmeDebugSnapshot('after module selection'); }, 80);
+            }
+        }
+
+        function openModulePopup(moduleId, trigger) {
+            if (!moduleId) return;
+
+            var sourceCard = findModuleCard(moduleId) || trigger;
+            var label = sourceCard ? sourceCard.querySelector('.wellme-module-inline-number, .wellme-module-detail-label') : null;
+            var title = sourceCard ? sourceCard.querySelector('.wellme-module-inline-title, h3') : null;
+            var subtitle = sourceCard ? sourceCard.querySelector('.wellme-module-inline-subtitle, .wellme-module-detail-subtitle') : null;
+            var desc = sourceCard ? sourceCard.querySelector('.wellme-module-inline-desc, .wellme-module-detail-desc') : null;
+
+            if (popupLabel && label) popupLabel.textContent = label.textContent;
+            if (popupTitle && title) popupTitle.textContent = title.textContent;
+            if (popupSubtitle && subtitle) popupSubtitle.textContent = subtitle.textContent;
+            if (popupDesc) popupDesc.textContent = desc ? desc.textContent : '';
+            if (popupModnum && label) popupModnum.textContent = label.textContent;
+            if (popupMoreInfo) popupMoreInfo.hidden = true;
+
+            overlay.removeAttribute('hidden');
+            overlay.getBoundingClientRect();
+            overlay.classList.add('is-visible');
+            document.body.style.overflow = 'hidden';
+
+            if (popupBody.dataset.loadedId === String(moduleId)) {
+                popupBody.scrollTop = 0;
+                return;
+            }
+
+            popupBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
+                ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
+                '</div>';
+
+            fetch(wellmePamphlets.ajaxUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    action: 'wellme_load_pamphlet',
+                    id:     moduleId,
+                    nonce:  wellmePamphlets.nonce,
+                }),
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.success) {
+                        popupBody.innerHTML = data.data.html;
+                        popupBody.dataset.loadedId = moduleId;
+                        initPamphletInteractions(popupBody);
+                        initScrollReveal();
+                    } else {
+                        popupBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
+                            (data.data || 'Error loading module.') + '</p>';
+                    }
+                })
+                .catch(function () {
+                    popupBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                });
+        }
+
+        document.querySelectorAll('.wellme-mazda-page-tab[data-module-target]').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                activateModuleSelection(this);
+            });
+        });
+
         document.querySelectorAll('.wellme-module-inline-card').forEach(function (card) {
             card.addEventListener('click', function () {
                 var moduleId = this.dataset.moduleId;
                 if (!moduleId) return;
 
-                // Get module info from card
-                var label = card.querySelector('.wellme-module-inline-number');
-                var title = card.querySelector('.wellme-module-inline-title');
-                var subtitle = card.querySelector('.wellme-module-inline-subtitle');
-                var desc = card.querySelector('.wellme-module-inline-desc');
-
-                if (popupLabel && label) popupLabel.textContent = label.textContent;
-                if (popupTitle && title) popupTitle.textContent = title.textContent;
-                if (popupSubtitle && subtitle) popupSubtitle.textContent = subtitle.textContent;
-                if (popupDesc) popupDesc.textContent = desc ? desc.textContent : '';
-                if (popupModnum && label) popupModnum.textContent = label.textContent;
-                if (popupMoreInfo) popupMoreInfo.hidden = true;
-
-                // Open popup
-                overlay.removeAttribute('hidden');
-                overlay.getBoundingClientRect();
-                overlay.classList.add('is-visible');
-                document.body.style.overflow = 'hidden';
-
-                // Cache check
-                if (popupBody.dataset.loadedId === String(moduleId)) {
-                    popupBody.scrollTop = 0;
+                if (this.dataset.moduleTarget) {
+                    activateModuleSelection(this);
                     return;
                 }
 
-                popupBody.innerHTML = '<div class="wellme-pamphlet-loading">' +
-                    ((typeof wellmePamphlets !== 'undefined' && wellmePamphlets.loading) || 'Loading\u2026') +
-                    '</div>';
-
-                fetch(wellmePamphlets.ajaxUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        action: 'wellme_load_pamphlet',
-                        id:     moduleId,
-                        nonce:  wellmePamphlets.nonce,
-                    }),
-                })
-                    .then(function (r) { return r.json(); })
-                    .then(function (data) {
-                        if (data.success) {
-                            popupBody.innerHTML = data.data.html;
-                            popupBody.dataset.loadedId = moduleId;
-                            initPamphletInteractions(popupBody);
-                            initScrollReveal();
-                        } else {
-                            popupBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
-                                (data.data || 'Error loading module.') + '</p>';
-                        }
-                    })
-                    .catch(function () {
-                        popupBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
-                    });
+                openModulePopup(moduleId, this);
             });
 
             card.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+            });
+        });
+
+        document.querySelectorAll('[data-module-open]').forEach(function (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openModulePopup(this.dataset.moduleOpen, this);
             });
         });
 
