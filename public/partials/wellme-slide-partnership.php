@@ -9,9 +9,20 @@ defined( 'ABSPATH' ) || exit;
 
 $partners      = get_field( 'partners', 'option' ) ?: [];
 $partner_count = is_array( $partners ) ? count( $partners ) : 0;
+$default_partner_index = 0;
 $partnership_image = get_field( 'landing_hero_image', 'option' );
 $overview_image    = get_field( 'overview_image', 'option' );
 $partnership_image_url = $partnership_image['url'] ?? ( $overview_image['url'] ?? '' );
+
+if ( ! empty( $partners ) && is_array( $partners ) ) {
+    foreach ( $partners as $candidate_index => $candidate_partner ) {
+        $candidate_name = $candidate_partner['partner_name'] ?? '';
+        if ( false !== stripos( $candidate_name, 'partou' ) ) {
+            $default_partner_index = $candidate_index;
+            break;
+        }
+    }
+}
 
 if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
     foreach ( $modules as $partnership_module ) {
@@ -94,7 +105,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                 <button type="button"
                         class="wellme-partner-card wellme-scroll-reveal"
                         data-partner-index="<?php echo esc_attr( $p_index ); ?>"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo $p_index === $default_partner_index ? 'true' : 'false'; ?>"
                         aria-controls="wellme-partner-detail-<?php echo esc_attr( $p_index ); ?>">
 
                     <?php if ( $logo_url ) : ?>
@@ -120,7 +131,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
             ?>
             <div class="wellme-partner-detail"
                  id="wellme-partner-detail-<?php echo esc_attr( $p_index ); ?>"
-                 hidden>
+                 <?php echo $p_index === $default_partner_index ? '' : 'hidden'; ?>>
                 <button class="wellme-partner-detail-close"
                         aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
 
