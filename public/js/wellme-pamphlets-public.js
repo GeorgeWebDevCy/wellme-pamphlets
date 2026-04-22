@@ -1141,6 +1141,8 @@
         var popupTitle = document.getElementById('wellme-popup-title');
         var popupLabel = document.getElementById('wellme-popup-label');
         var popupSubtitle = document.getElementById('wellme-popup-subtitle');
+        ensurePopupModuleNavControls(overlay);
+
         var popupMoreBtn  = document.getElementById('wellme-popup-more-btn');
         var popupMoreInfo = document.getElementById('wellme-popup-more-info');
         var popupDesc  = document.getElementById('wellme-popup-desc');
@@ -1148,6 +1150,39 @@
         var popupPrev = overlay ? overlay.querySelector('[data-popup-module-prev]') : null;
         var popupNext = overlay ? overlay.querySelector('[data-popup-module-next]') : null;
         if (!overlay || !popupBody) return;
+
+        function ensurePopupModuleNavControls(popup) {
+            if (!popup || popup.querySelector('.wellme-popup-back-btn')) return;
+
+            var actions = popup.querySelector('.wellme-popup-actions');
+            if (!actions) return;
+
+            var moreButton = popup.querySelector('#wellme-popup-more-btn');
+            var backButton = document.createElement('button');
+            var prevButton = document.createElement('button');
+            var nextButton = document.createElement('button');
+
+            backButton.type = 'button';
+            backButton.className = 'wellme-popup-back-btn';
+            backButton.setAttribute('data-close-popup', '');
+            backButton.textContent = 'Back to modules';
+
+            prevButton.type = 'button';
+            prevButton.className = 'wellme-popup-nav-btn wellme-popup-nav-btn--prev';
+            prevButton.setAttribute('data-popup-module-prev', '');
+            prevButton.setAttribute('aria-label', 'Previous module');
+            prevButton.innerHTML = '<span aria-hidden="true">&lsaquo;</span>';
+
+            nextButton.type = 'button';
+            nextButton.className = 'wellme-popup-nav-btn wellme-popup-nav-btn--next';
+            nextButton.setAttribute('data-popup-module-next', '');
+            nextButton.setAttribute('aria-label', 'Next module');
+            nextButton.innerHTML = '<span aria-hidden="true">&rsaquo;</span>';
+
+            actions.insertBefore(backButton, moreButton || actions.firstChild);
+            actions.insertBefore(prevButton, moreButton || null);
+            actions.insertBefore(nextButton, moreButton || null);
+        }
 
         function getModuleSequence() {
             return Array.from(document.querySelectorAll('.wellme-module-inline-card[data-module-id]')).map(function (card) {
@@ -1196,6 +1231,15 @@
             if (popupNext) {
                 popupNext.disabled = index < 0 || index >= modules.length - 1;
                 popupNext.setAttribute('aria-disabled', index < 0 || index >= modules.length - 1 ? 'true' : 'false');
+            }
+
+            if (wellmeDebugEnabled && window.console) {
+                window.console.log('[WELLME Debug] popup module nav:', {
+                    currentModuleId: String(moduleId),
+                    moduleIndex: index,
+                    moduleCount: modules.length,
+                    navControls: overlay.querySelectorAll('.wellme-popup-back-btn, [data-popup-module-prev], [data-popup-module-next]').length,
+                });
             }
         }
 
