@@ -18,6 +18,8 @@ $overview_image   = get_field( 'overview_image', 'option' );
 $wellme_logo_url    = $wellme_logo['url'] ?? '';
 $eu_logo_url        = $eu_logo['url'] ?? '';
 $landing_image_url  = $landing_image['url'] ?? ( $overview_image['url'] ?? '' );
+$hero_media_url     = $wellme_logo_url ?: $landing_image_url;
+$hero_media_is_logo = (bool) $wellme_logo_url;
 
 if ( ! $landing_image_url && ! empty( $modules ) && is_array( $modules ) ) {
     foreach ( $modules as $landing_module ) {
@@ -38,9 +40,11 @@ if ( ! $landing_image_url && ! empty( $modules ) && is_array( $modules ) ) {
 
     <div class="wellme-landing-scroll">
         <div class="wellme-landing-content wellme-scroll-reveal">
-            <?php if ( $landing_image_url ) : ?>
-            <div class="wellme-landing-hero-media" aria-hidden="true">
-                <img src="<?php echo esc_url( $landing_image_url ); ?>" alt="">
+            <?php if ( $hero_media_url ) : ?>
+            <div class="wellme-landing-hero-media<?php echo $hero_media_is_logo ? ' is-logo-hero' : ''; ?>" aria-hidden="true">
+                <img src="<?php echo esc_url( $hero_media_url ); ?>"
+                     alt=""
+                     class="<?php echo $hero_media_is_logo ? 'wellme-landing-hero-logo wellme-logo-spin' : ''; ?>">
             </div>
             <?php endif; ?>
 

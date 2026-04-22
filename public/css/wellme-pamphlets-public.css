@@ -6900,3 +6900,61 @@
         transform: none !important;
     }
 }
+
+/* SLIDE 1 HERO LOGO - the central Mazda-style rotating object */
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero {
+    left: 29%;
+    right: 29%;
+    top: 182px;
+    bottom: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    perspective: 1000px;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    width: min(280px, 58%);
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.16);
+    filter: blur(12px);
+    transform: translateX(-50%);
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero::after {
+    display: none;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-logo {
+    width: min(430px, 100%);
+    height: min(300px, 100%);
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    filter: drop-shadow(0 20px 28px rgba(0,0,0,0.18));
+}
+
+.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-logo-spin {
+    animation: wellme-logo-turntable 4.8s linear 0.7s infinite !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero + .wellme-landing-copy .wellme-landing-logos {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero {
+        left: 16%;
+        right: 16%;
+        top: 154px;
+        bottom: 128px;
+    }
+}
