@@ -46,6 +46,7 @@ class Wellme_Pamphlets_Public {
             'incorrect'     => __( 'Incorrect', 'wellme-pamphlets' ),
             'correctAnswer' => __( 'Correct answer:', 'wellme-pamphlets' ),
             'scorePrefix'   => __( 'Your score:', 'wellme-pamphlets' ),
+            'version'       => $this->version,
         ] );
     }
 

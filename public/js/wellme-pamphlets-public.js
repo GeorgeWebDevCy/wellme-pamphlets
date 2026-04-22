@@ -13,6 +13,172 @@
 (function () {
     'use strict';
 
+    function isWellmeDebugEnabled() {
+        const params = new URLSearchParams(window.location.search);
+        const flag = params.get('wellme_debug') || params.get('wellmeDebug');
+
+        try {
+            if (flag === '1' || flag === 'true') {
+                window.localStorage.setItem('wellmeDebug', '1');
+                return true;
+            }
+
+            if (flag === '0' || flag === 'false') {
+                window.localStorage.removeItem('wellmeDebug');
+                return false;
+            }
+
+            return window.localStorage.getItem('wellmeDebug') === '1';
+        } catch (e) {
+            return flag === '1' || flag === 'true';
+        }
+    }
+
+    let wellmeDebugEnabled = isWellmeDebugEnabled();
+
+    function wellmeDebugElement(selector) {
+        const el = document.querySelector(selector);
+
+        if (!el) {
+            return {
+                selector: selector,
+                found: false
+            };
+        }
+
+        const rect = el.getBoundingClientRect();
+        const computed = window.getComputedStyle(el);
+        let animations = [];
+
+        if (typeof el.getAnimations === 'function') {
+            animations = el.getAnimations().map(function (animation) {
+                const timing = animation.effect && typeof animation.effect.getTiming === 'function'
+                    ? animation.effect.getTiming()
+                    : {};
+
+                return {
+                    animationName: animation.animationName || '(css)',
+                    currentTime: animation.currentTime,
+                    playState: animation.playState,
+                    duration: timing.duration,
+                    delay: timing.delay,
+                    iterations: timing.iterations
+                };
+            });
+        }
+
+        return {
+            selector: selector,
+            found: true,
+            tag: el.tagName.toLowerCase(),
+            className: el.className,
+            id: el.id || '',
+            src: el.currentSrc || el.src || '',
+            parentClass: el.parentElement ? el.parentElement.className : '',
+            activeSlide: !!el.closest('.wellme-experience-slide.is-active'),
+            inHeroMedia: !!el.closest('.wellme-landing-hero-media'),
+            rect: {
+                x: Math.round(rect.x),
+                y: Math.round(rect.y),
+                width: Math.round(rect.width),
+                height: Math.round(rect.height)
+            },
+            computed: {
+                display: computed.display,
+                visibility: computed.visibility,
+                opacity: computed.opacity,
+                animationName: computed.animationName,
+                animationDuration: computed.animationDuration,
+                animationDelay: computed.animationDelay,
+                animationIterationCount: computed.animationIterationCount,
+                animationPlayState: computed.animationPlayState,
+                transform: computed.transform,
+                transformOrigin: computed.transformOrigin,
+                zIndex: computed.zIndex
+            },
+            animations: animations
+        };
+    }
+
+    function wellmeDebugSnapshot(label) {
+        if (!wellmeDebugEnabled || !window.console) return;
+
+        const localized = typeof wellmePamphlets !== 'undefined' ? wellmePamphlets : {};
+        const snapshot = {
+            label: label || 'snapshot',
+            version: localized.version || '(unknown)',
+            url: window.location.href,
+            readyState: document.readyState,
+            reducedMotion: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches),
+            activeSlide: (document.querySelector('.wellme-experience-slide.is-active') || {}).className || '',
+            hero: wellmeDebugElement('.wellme-landing-hero-media'),
+            heroImage: wellmeDebugElement('.wellme-landing-hero-media img'),
+            wellmeColourImage: wellmeDebugElement('img[src*="WellMe-Colour"], img[src*="WellMe-Colour.webp"]'),
+            logoSpin: wellmeDebugElement('.wellme-logo-spin'),
+            euLogo: wellmeDebugElement('.wellme-landing-eu'),
+            euText: wellmeDebugElement('.wellme-landing-eu-text'),
+            agreement: wellmeDebugElement('.wellme-landing-agreement')
+        };
+
+        console.groupCollapsed('[WELLME Debug] ' + snapshot.label + ' v' + snapshot.version);
+        console.log(snapshot);
+
+        if (snapshot.heroImage.found) {
+            console.table([{
+                selector: snapshot.heroImage.selector,
+                src: snapshot.heroImage.src,
+                animationName: snapshot.heroImage.computed.animationName,
+                duration: snapshot.heroImage.computed.animationDuration,
+                playState: snapshot.heroImage.computed.animationPlayState,
+                transform: snapshot.heroImage.computed.transform,
+                width: snapshot.heroImage.rect.width,
+                height: snapshot.heroImage.rect.height
+            }]);
+        }
+
+        console.groupEnd();
+    }
+
+    function initWellmeDebug() {
+        window.wellmeDebug = {
+            enabled: wellmeDebugEnabled,
+            inspect: function (label) {
+                wellmeDebugSnapshot(label || 'manual');
+            },
+            enable: function () {
+                try {
+                    window.localStorage.setItem('wellmeDebug', '1');
+                } catch (e) {}
+                wellmeDebugEnabled = true;
+                this.enabled = true;
+                wellmeDebugSnapshot('enabled');
+            },
+            disable: function () {
+                try {
+                    window.localStorage.removeItem('wellmeDebug');
+                } catch (e) {}
+                wellmeDebugEnabled = false;
+                this.enabled = false;
+                if (window.console) {
+                    console.info('[WELLME Debug] disabled');
+                }
+            }
+        };
+
+        if (!wellmeDebugEnabled) return;
+
+        console.info('[WELLME Debug] enabled. Use window.wellmeDebug.inspect() for a fresh snapshot, or ?wellme_debug=0 to disable.');
+        wellmeDebugSnapshot('dom-ready');
+        window.setTimeout(function () { wellmeDebugSnapshot('after 750ms'); }, 750);
+        window.setTimeout(function () { wellmeDebugSnapshot('after 2500ms'); }, 2500);
+
+        document.addEventListener('click', function (event) {
+            if (event.target.closest('.wellme-exp-topnav-tab, .wellme-exp-arrow, .wellme-exp-dot')) {
+                window.setTimeout(function () { wellmeDebugSnapshot('after slide navigation'); }, 350);
+            }
+        });
+    }
+
     /* ── Helpers ─────────────────────────────────────────────── */
 
     function show(el) {
@@ -821,6 +987,7 @@
 
         // If a standalone [wellme_pamphlet] shortcode is on the page (not in modal)
         initPamphletInteractions(document);
+        initWellmeDebug();
     });
 
 })();
