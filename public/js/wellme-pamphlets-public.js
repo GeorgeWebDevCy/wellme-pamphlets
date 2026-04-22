@@ -35,36 +35,37 @@
     }
 
     let wellmeDebugEnabled = isWellmeDebugEnabled();
-    let wellmeLogoSpinFrame = 0;
+    let wellmeLogoSpinInterval = 0;
 
     function wellmePrefersReducedMotion() {
         return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     }
 
     function getWellmeHeroLogo() {
-        return document.querySelector(
-            '.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo'
-        );
+        return document.querySelector('.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo') ||
+            document.querySelector('.wellme-experience--reader .wellme-slide-landing .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo');
     }
 
     function initWellmeLogoDirectSpin() {
         const logo = getWellmeHeroLogo();
 
-        if (!logo || wellmeLogoSpinFrame || wellmePrefersReducedMotion()) return;
+        if (!logo || wellmeLogoSpinInterval || wellmePrefersReducedMotion()) return;
 
         const duration = 5500;
         const start = window.performance ? window.performance.now() : Date.now();
 
         logo.dataset.wellmeDirectSpin = '1';
+        logo.dataset.wellmeSpinTicks = '0';
         logo.style.setProperty('animation', 'none', 'important');
         logo.style.transformOrigin = '50% 50%';
         logo.style.willChange = 'transform';
 
-        function spin(now) {
+        function spin() {
             const currentLogo = getWellmeHeroLogo();
 
             if (!currentLogo || !document.body.contains(currentLogo)) {
-                wellmeLogoSpinFrame = 0;
+                window.clearInterval(wellmeLogoSpinInterval);
+                wellmeLogoSpinInterval = 0;
                 return;
             }
 
@@ -73,22 +74,28 @@
                 currentLogo.style.removeProperty('animation');
                 currentLogo.style.removeProperty('transform');
                 currentLogo.style.removeProperty('will-change');
-                wellmeLogoSpinFrame = 0;
+                window.clearInterval(wellmeLogoSpinInterval);
+                wellmeLogoSpinInterval = 0;
                 return;
             }
 
             if (currentLogo.closest('.wellme-slide-landing.is-active')) {
-                const progress = (((now || Date.now()) - start) % duration) / duration;
+                const now = window.performance ? window.performance.now() : Date.now();
+                const progress = ((now - start) % duration) / duration;
                 const angle = progress * 360;
                 const scale = 1 + (0.025 * Math.sin(progress * Math.PI * 2));
+                const transform = 'rotate(' + angle.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
 
-                currentLogo.style.transform = 'rotate(' + angle.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+                currentLogo.dataset.wellmeDirectSpin = '1';
+                currentLogo.dataset.wellmeSpinTicks = String((Number(currentLogo.dataset.wellmeSpinTicks) || 0) + 1);
+                currentLogo.dataset.wellmeSpinTransform = transform;
+                currentLogo.style.setProperty('animation', 'none', 'important');
+                currentLogo.style.setProperty('transform', transform, 'important');
             }
-
-            wellmeLogoSpinFrame = window.requestAnimationFrame(spin);
         }
 
-        wellmeLogoSpinFrame = window.requestAnimationFrame(spin);
+        spin();
+        wellmeLogoSpinInterval = window.setInterval(spin, 16);
     }
 
     function wellmeDebugElement(selector) {
@@ -130,6 +137,9 @@
             id: el.id || '',
             src: el.currentSrc || el.src || '',
             jsSpinActive: el.dataset.wellmeDirectSpin === '1',
+            jsSpinTicks: el.dataset.wellmeSpinTicks || '',
+            inlineTransform: el.style.transform || '',
+            inlineTransformPriority: el.style.getPropertyPriority('transform') || '',
             parentClass: el.parentElement ? el.parentElement.className : '',
             activeSlide: !!el.closest('.wellme-experience-slide.is-active'),
             inHeroMedia: !!el.closest('.wellme-landing-hero-media'),
@@ -168,7 +178,7 @@
             reducedMotion: !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches),
             activeSlide: (document.querySelector('.wellme-experience-slide.is-active') || {}).className || '',
             hero: wellmeDebugElement('.wellme-landing-hero-media'),
-            heroImage: wellmeDebugElement('.wellme-landing-hero-media img'),
+            heroImage: wellmeDebugElement('.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero img, .wellme-landing-hero-media img'),
             wellmeColourImage: wellmeDebugElement('img[src*="WellMe-Colour"], img[src*="WellMe-Colour.webp"]'),
             logoSpin: wellmeDebugElement('.wellme-logo-spin'),
             euLogo: wellmeDebugElement('.wellme-landing-eu'),
@@ -187,6 +197,9 @@
                 playState: snapshot.heroImage.computed.animationPlayState,
                 transform: snapshot.heroImage.computed.transform,
                 jsSpinActive: snapshot.heroImage.jsSpinActive,
+                jsSpinTicks: snapshot.heroImage.jsSpinTicks,
+                inlineTransform: snapshot.heroImage.inlineTransform,
+                inlineTransformPriority: snapshot.heroImage.inlineTransformPriority,
                 width: snapshot.heroImage.rect.width,
                 height: snapshot.heroImage.rect.height,
                 reducedMotion: snapshot.reducedMotion,
@@ -225,6 +238,9 @@
                 duration: snapshot.heroImage.computed.animationDuration,
                 playState: snapshot.heroImage.computed.animationPlayState,
                 transform: snapshot.heroImage.computed.transform,
+                inlineTransform: snapshot.heroImage.inlineTransform,
+                transformPriority: snapshot.heroImage.inlineTransformPriority,
+                jsSpinTicks: snapshot.heroImage.jsSpinTicks,
                 width: snapshot.heroImage.rect.width,
                 height: snapshot.heroImage.rect.height
             }]);
@@ -236,7 +252,7 @@
     function wellmeDebugSampleLogoMotion(label) {
         if (!wellmeDebugEnabled || !window.console) return;
 
-        const logo = document.querySelector('.wellme-landing-hero-media img, .wellme-logo-spin');
+        const logo = getWellmeHeroLogo() || document.querySelector('.wellme-landing-hero-media img, .wellme-logo-spin');
 
         if (!logo) {
             console.warn('[WELLME Debug] motion sample: logo not found', { label: label || 'motion sample' });
@@ -251,8 +267,11 @@
                 samples.push({
                     delay: delay,
                     transform: computed.transform,
+                    inlineTransform: logo.style.transform || '',
+                    transformPriority: logo.style.getPropertyPriority('transform') || '',
                     animationName: computed.animationName,
-                    playState: computed.animationPlayState
+                    playState: computed.animationPlayState,
+                    jsSpinTicks: logo.dataset.wellmeSpinTicks || ''
                 });
 
                 if (samples.length === 3) {
