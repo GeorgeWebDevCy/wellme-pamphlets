@@ -28,6 +28,15 @@ defined( 'ABSPATH' ) || exit;
                     <p class="wellme-popup-subtitle" id="wellme-popup-subtitle"></p>
                 </div>
                 <div class="wellme-popup-actions">
+                    <button type="button" class="wellme-popup-back-btn" data-close-popup>
+                        <?php esc_html_e( 'Back to modules', 'wellme-pamphlets' ); ?>
+                    </button>
+                    <button type="button" class="wellme-popup-nav-btn wellme-popup-nav-btn--prev" data-popup-module-prev aria-label="<?php esc_attr_e( 'Previous module', 'wellme-pamphlets' ); ?>">
+                        <span aria-hidden="true">&lsaquo;</span>
+                    </button>
+                    <button type="button" class="wellme-popup-nav-btn wellme-popup-nav-btn--next" data-popup-module-next aria-label="<?php esc_attr_e( 'Next module', 'wellme-pamphlets' ); ?>">
+                        <span aria-hidden="true">&rsaquo;</span>
+                    </button>
                     <button class="wellme-popup-more-btn" id="wellme-popup-more-btn"><?php esc_html_e( 'More info', 'wellme-pamphlets' ); ?></button>
                     <a href="#" class="wellme-popup-close" data-close-popup aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</a>
                 </div>

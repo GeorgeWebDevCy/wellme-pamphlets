@@ -1145,12 +1145,66 @@
         var popupMoreInfo = document.getElementById('wellme-popup-more-info');
         var popupDesc  = document.getElementById('wellme-popup-desc');
         var popupModnum = document.getElementById('wellme-popup-modnum');
+        var popupPrev = overlay ? overlay.querySelector('[data-popup-module-prev]') : null;
+        var popupNext = overlay ? overlay.querySelector('[data-popup-module-next]') : null;
         if (!overlay || !popupBody) return;
+
+        function getModuleSequence() {
+            return Array.from(document.querySelectorAll('.wellme-module-inline-card[data-module-id]')).map(function (card) {
+                return {
+                    id: card.dataset.moduleId,
+                    trigger: card,
+                };
+            }).filter(function (item) {
+                return !!item.id;
+            });
+        }
 
         function findModuleCard(moduleId) {
             return Array.from(document.querySelectorAll('.wellme-module-inline-card')).find(function (item) {
                 return item.dataset.moduleId === String(moduleId);
             });
+        }
+
+        function getModuleNavTarget(moduleId, direction) {
+            var modules = getModuleSequence();
+            var index = modules.findIndex(function (item) {
+                return item.id === String(moduleId);
+            });
+            var targetIndex = index + direction;
+
+            if (index < 0 || targetIndex < 0 || targetIndex >= modules.length) {
+                return null;
+            }
+
+            return modules[targetIndex];
+        }
+
+        function updatePopupModuleNav(moduleId) {
+            var modules = getModuleSequence();
+            var index = modules.findIndex(function (item) {
+                return item.id === String(moduleId);
+            });
+
+            overlay.dataset.currentModuleId = String(moduleId);
+
+            if (popupPrev) {
+                popupPrev.disabled = index <= 0;
+                popupPrev.setAttribute('aria-disabled', index <= 0 ? 'true' : 'false');
+            }
+
+            if (popupNext) {
+                popupNext.disabled = index < 0 || index >= modules.length - 1;
+                popupNext.setAttribute('aria-disabled', index < 0 || index >= modules.length - 1 ? 'true' : 'false');
+            }
+        }
+
+        function openAdjacentModule(direction) {
+            var target = getModuleNavTarget(overlay.dataset.currentModuleId, direction);
+
+            if (!target) return;
+
+            openModulePopup(target.id, target.trigger);
         }
 
         function activateModuleSelection(trigger) {
@@ -1208,6 +1262,7 @@
             if (popupDesc) popupDesc.textContent = desc ? desc.textContent : '';
             if (popupModnum && label) popupModnum.textContent = label.textContent;
             if (popupMoreInfo) popupMoreInfo.hidden = true;
+            updatePopupModuleNav(moduleId);
 
             overlay.removeAttribute('hidden');
             overlay.getBoundingClientRect();
@@ -1216,6 +1271,7 @@
 
             if (popupBody.dataset.loadedId === String(moduleId)) {
                 popupBody.scrollTop = 0;
+                updatePopupModuleNav(moduleId);
                 return;
             }
 
@@ -1295,8 +1351,28 @@
             btn.addEventListener('click', function (e) { e.preventDefault(); closePopup(); });
         });
 
+        if (popupPrev) {
+            popupPrev.addEventListener('click', function () { openAdjacentModule(-1); });
+        }
+
+        if (popupNext) {
+            popupNext.addEventListener('click', function () { openAdjacentModule(1); });
+        }
+
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && overlay && !overlay.hidden) closePopup();
+            if (!overlay || overlay.hidden) return;
+            if (e.key === 'Escape') {
+                closePopup();
+                return;
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                openAdjacentModule(-1);
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                openAdjacentModule(1);
+            }
         });
 
         // More info toggle
