@@ -8427,3 +8427,92 @@
         grid-template-columns: repeat(2, minmax(132px, 1fr));
     }
 }
+
+/* SLIDE 4 WIDTH TUNING - wider cards and wider module pamphlets */
+.wellme-experience--reader .wellme-slide-modules .wellme-modules-slide-content {
+    padding-right: 44px !important;
+    padding-left: 44px !important;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-modules-page-tabs {
+    width: calc(100% + 88px);
+    margin-right: -44px;
+    margin-left: -44px;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-modules-grid-inline {
+    grid-template-columns: repeat(6, minmax(176px, 214px));
+    max-width: 1420px;
+    gap: clamp(18px, 1.75vw, 28px);
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card {
+    height: clamp(270px, 37vh, 352px);
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-body {
+    padding: 24px 16px 18px;
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-title {
+    font-size: clamp(0.92rem, 1.12vw, 1.08rem);
+}
+
+.wellme-experience--reader .wellme-slide-modules .wellme-module-inline-subtitle {
+    font-size: 0.68rem;
+}
+
+.wellme-popup-body .wellme-pamphlet {
+    width: min(1380px, calc(100vw - 54px));
+}
+
+.wellme-popup-body .wellme-section-inner {
+    max-width: 1080px;
+}
+
+.wellme-popup-body .wellme-section-cover {
+    grid-template-columns: minmax(0, 1.12fr) minmax(400px, 0.88fr);
+}
+
+.wellme-popup-body .wellme-pamphlet-section {
+    padding: clamp(38px, 4.6vw, 72px);
+}
+
+.wellme-popup-body .wellme-section-cover {
+    padding: 0;
+}
+
+@media (max-width: 1500px) {
+    .wellme-experience--reader .wellme-slide-modules .wellme-modules-grid-inline {
+        grid-template-columns: repeat(3, minmax(196px, 246px));
+    }
+
+    .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card {
+        height: 300px;
+    }
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-slide-modules .wellme-modules-slide-content {
+        padding-right: 24px !important;
+        padding-left: 24px !important;
+    }
+
+    .wellme-experience--reader .wellme-slide-modules .wellme-modules-page-tabs {
+        width: calc(100% + 48px);
+        margin-right: -24px;
+        margin-left: -24px;
+    }
+
+    .wellme-experience--reader .wellme-slide-modules .wellme-modules-grid-inline {
+        grid-template-columns: repeat(2, minmax(148px, 1fr));
+    }
+
+    .wellme-popup-body .wellme-pamphlet {
+        width: min(100%, calc(100vw - 28px));
+    }
+
+    .wellme-popup-body .wellme-section-cover {
+        grid-template-columns: 1fr;
+    }
+}
