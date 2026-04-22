@@ -20,7 +20,7 @@ $total_slides     = 5; // landing, partnership, overview, modules, sum-up
 $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
 $slide_nav_items  = [
     __( 'WELLME', 'wellme-pamphlets' ),
-    __( 'Partnership and Click', 'wellme-pamphlets' ),
+    __( 'Partnership', 'wellme-pamphlets' ),
     __( 'Overview', 'wellme-pamphlets' ),
     __( 'Modules', 'wellme-pamphlets' ),
     __( 'Sum-Up', 'wellme-pamphlets' ),
@@ -70,7 +70,7 @@ $slide_nav_media = [
             </button>
             <button class="wellme-exp-topnav-tab" data-index="1"
                     role="tab" aria-selected="false" aria-controls="wellme-experience-track">
-                <?php esc_html_e( 'Partnership and Click', 'wellme-pamphlets' ); ?>
+                <?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?>
             </button>
             <button class="wellme-exp-topnav-tab" data-index="2"
                     role="tab" aria-selected="false" aria-controls="wellme-experience-track">

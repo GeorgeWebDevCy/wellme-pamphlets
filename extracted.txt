@@ -1,0 +1,35 @@
+--- DOCUMENT TEXT ---
+Σχεδιασμός Pamphlets για WELLME project.
+Σκοπός: Οι εκπαιδευτές θα χρησιμοποιήσουν τα Pamphlets για να εφαρμόσουν την διήμερη εκπαίδευση στην Πολωνία. 
+Design: Θα κάνουμε συνδυασμό δύο διαφορετικών σχεδίων που είδαμε στον πιο κάτω σύνδεσμο:
+Μπες στο πιο κάτω λινκ και μετά ακολούθησε τις οδηγίες και τα comments 
+https://www.maglr.com/examples/digital-brochure?b283bd10_page=1
+Το slide 1: WELLME 
+Slide 2:Partnership
+Slide 3: Wellme Overview.   θα περιλαμβάνει Πληροφορίες για το wellme project. Σκοπός, ανάγκη, αποτελέσματα, κλπ.- μπορείς να σχεδιάσεις τα πεδία και θα βάλω αργότερα τα κείμενα μέσα.
+Slide 4: Modules.  Θα περιλαμβάνει τα 6 Modules σε στήλες όπως τα πιο κάτω μοντέλα αυτοκινήτων. 
+Σε κάθε κουτί βάλε και ένα Τίτλο: 
+Module 1-From Strength To Strength: Positive Psychology For Youth Trainers
+Module 2-Bounce Back Stronger
+Module 3-Fuel for Flourishing: Healthy Nutrition & Lifestyle in Youth Work
+Module 4-Move to Thrive: Integrating Physical Activity into Youth Wellbeing
+Module 5-Spaces that Connect: Designing Environments for Youth Belonging 
+Module 6-Bridges to Adulthood: Guiding Youth Transitions through Community Power
+Το κάθε Module θα είναι clickable και θα σου ανοίγει ξεχωριστό pamphlet  με design όπως πιο κάτω: https://www.maglr.com/examples/digital-brochure?b283bd10_page=1 
+Μας άρεσε το σχεδιαστικό του που είναι πιο οικείο και ιδιαίτερα τα πιο κάτω interactive elements. Έχουμε ετοιμάσει hands on Training Template για το κάθε Module . Δες την δομή του Module 5 και σχεδίασε το pamphlet ανάλογα. Κάθε Module και ένα Pamphlet  σύνολο 6. Μπορούν και τα 6 Pamphlets  να έχουν το ίδιο σχεδιασμό με  διαφορετικά πχ χρώματα /interactive elements εκτός και αν θεωρείς ότι κάποια πρέπει να είναι πολύ διαφορετικά γιατί έτσι αποτυπώνεται καλύτερα το νόημα. Feel creative!
+Τα πιο κάτω μας άρεσαν πολύ:
+Αυτό μπορείς να το αξιοποιήσεις για τα learning outcomes 
+Τα πιο κάτω για να δείξεις τα βήματα της κάθε άσκησης (exercise)  
+Slide 5 : Sum-Up. Αφού ολοκληρωθούν τα 6 Pamphlet επιστρέφουμε στο slide 5 
+Θα βάλουμε 6 φοτος που θα κανουν flip και πίσω τους θα εμφανίζεται το μότο από το κάθε module
+
+--- COMMENTS ---
+Comment by Centredot Centredot: Choose  Mazda
+
+Comment by Centredot Centredot: Add Wellme Logo rotating if possible. The project title and the EU logo+ text
+
+Comment by Centredot Centredot: Name slide 2:  Partnership and Click
+
+Comment by Centredot Centredot: Αυτό το Slide 2 θα παρουσιάζει τους εταιρους του έργου. Το κάθε κουτάκι να είναι Clickable και να βγαίνει κειμενο με πληροφορίες, και επικοινωνιακά στοιχεια πχ εμαιλ, διευθυνση, σελίδα
+
+Comment by Centredot Centredot: Choose  Partou

@@ -26,7 +26,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
 ?>
 <section class="wellme-experience-slide wellme-slide-partnership<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
-         aria-label="<?php esc_attr_e( 'Partnership and Click', 'wellme-pamphlets' ); ?>">
+         aria-label="<?php esc_attr_e( 'Partnership', 'wellme-pamphlets' ); ?>">
 
     <div class="wellme-partnership-bg" aria-hidden="true"></div>
     <div class="wellme-partnership-overlay" aria-hidden="true"></div>
