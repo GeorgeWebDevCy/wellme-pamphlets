@@ -120,6 +120,42 @@
             agreement: wellmeDebugElement('.wellme-landing-agreement')
         };
 
+        if (snapshot.heroImage.found) {
+            const logoSummary = {
+                label: snapshot.label,
+                src: snapshot.heroImage.src,
+                isWellmeColourLogo: snapshot.heroImage.src.indexOf('WellMe-Colour') !== -1,
+                className: snapshot.heroImage.className,
+                animationName: snapshot.heroImage.computed.animationName,
+                duration: snapshot.heroImage.computed.animationDuration,
+                playState: snapshot.heroImage.computed.animationPlayState,
+                transform: snapshot.heroImage.computed.transform,
+                width: snapshot.heroImage.rect.width,
+                height: snapshot.heroImage.rect.height,
+                reducedMotion: snapshot.reducedMotion,
+                activeSlide: snapshot.heroImage.activeSlide
+            };
+            const hasAnimation = logoSummary.animationName && logoSummary.animationName !== 'none';
+            const isPlaying = logoSummary.playState === 'running';
+            const logMethod = hasAnimation && isPlaying && logoSummary.width > 0 && logoSummary.height > 0
+                ? 'info'
+                : 'warn';
+
+            console[logMethod](
+                '[WELLME Debug] logo summary: animation=' + logoSummary.animationName +
+                ', playState=' + logoSummary.playState +
+                ', size=' + logoSummary.width + 'x' + logoSummary.height +
+                ', WellMe-Colour=' + logoSummary.isWellmeColourLogo,
+                logoSummary
+            );
+        } else {
+            console.warn('[WELLME Debug] logo summary: hero image not found', {
+                label: snapshot.label,
+                activeSlide: snapshot.activeSlide,
+                heroFound: snapshot.hero.found
+            });
+        }
+
         console.groupCollapsed('[WELLME Debug] ' + snapshot.label + ' v' + snapshot.version);
         console.log(snapshot);
 
