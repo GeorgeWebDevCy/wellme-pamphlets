@@ -491,6 +491,12 @@
             tab.addEventListener('click', function () { goTo(i); });
         });
 
+        exp.querySelectorAll('[data-experience-goto]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                goTo(parseInt(this.dataset.experienceGoto, 10));
+            });
+        });
+
         // Keyboard — arrows navigate slides; Escape closes popup
         document.addEventListener('keydown', function (e) {
             if (!popupOverlay.hidden) {
@@ -766,6 +772,42 @@
 
     /* ── Boot ────────────────────────────────────────────────── */
 
+    function initOverviewSelector() {
+        var overview = document.querySelector('.wellme-overview-content');
+        if (!overview) return;
+
+        var buttons = Array.from(overview.querySelectorAll('.wellme-overview-selector'));
+        var panels = Array.from(overview.querySelectorAll('.wellme-overview-section'));
+        var label = overview.querySelector('.wellme-overview-active-label');
+        var count = overview.querySelector('.wellme-overview-state-count');
+
+        if (!buttons.length || !panels.length) return;
+
+        function activate(button) {
+            var targetId = button.dataset.overviewTarget;
+
+            buttons.forEach(function (item) {
+                var active = item === button;
+                item.classList.toggle('is-active', active);
+                item.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+
+            panels.forEach(function (panel) {
+                panel.hidden = panel.id !== targetId;
+                if (!panel.hidden) panel.classList.add('is-visible');
+            });
+
+            if (label) label.textContent = button.dataset.overviewLabel || '';
+            if (count) {
+                count.textContent = (button.dataset.overviewIndex || '1') + ' / ' + (button.dataset.overviewTotal || buttons.length);
+            }
+        }
+
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () { activate(button); });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         initScrollReveal();
         initModuleGrid();
@@ -773,6 +815,7 @@
         initExperience();
         initPartnershipCards();
         initModuleInlineCards();
+        initOverviewSelector();
 
         // If a standalone [wellme_pamphlet] shortcode is on the page (not in modal)
         initPamphletInteractions(document);
