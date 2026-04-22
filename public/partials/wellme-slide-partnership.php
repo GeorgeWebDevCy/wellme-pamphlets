@@ -9,6 +9,19 @@ defined( 'ABSPATH' ) || exit;
 
 $partners      = get_field( 'partners', 'option' ) ?: [];
 $partner_count = is_array( $partners ) ? count( $partners ) : 0;
+$partnership_image = get_field( 'landing_hero_image', 'option' );
+$overview_image    = get_field( 'overview_image', 'option' );
+$partnership_image_url = $partnership_image['url'] ?? ( $overview_image['url'] ?? '' );
+
+if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
+    foreach ( $modules as $partnership_module ) {
+        $module_cover = get_field( 'module_cover_image', $partnership_module->ID );
+        if ( ! empty( $module_cover['url'] ) ) {
+            $partnership_image_url = $module_cover['url'];
+            break;
+        }
+    }
+}
 ?>
 <section class="wellme-experience-slide wellme-slide-partnership<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
@@ -32,6 +45,12 @@ $partner_count = is_array( $partners ) ? count( $partners ) : 0;
                 <?php esc_html_e( 'WELLME brings trainers, educators and community organisations together around a practical wellbeing programme for youth work.', 'wellme-pamphlets' ); ?>
             </p>
         </div>
+
+        <?php if ( $partnership_image_url ) : ?>
+        <div class="wellme-partnership-hero-media" aria-hidden="true">
+            <img src="<?php echo esc_url( $partnership_image_url ); ?>" alt="">
+        </div>
+        <?php endif; ?>
 
         <nav class="wellme-partnership-menu" aria-label="<?php esc_attr_e( 'Presentation shortcuts', 'wellme-pamphlets' ); ?>">
             <button type="button" class="wellme-partnership-choice" data-experience-goto="2">

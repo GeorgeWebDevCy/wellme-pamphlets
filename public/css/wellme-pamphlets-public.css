@@ -5075,3 +5075,177 @@
         column-count: 1;
     }
 }
+
+/* ============================================================
+   MAZDA MX-5 MATCH PASS - remove remaining reader drift
+   ============================================================ */
+
+.wellme-experience--reader {
+    --wellme-reader-nav-height: 0px;
+    --wellme-reader-page-width: min(1070px, calc(100vw - 370px));
+    background: #f4f4f4 !important;
+}
+
+.wellme-experience--reader .wellme-exp-dots,
+.wellme-experience--reader .wellme-exp-counter,
+.wellme-experience--reader .wellme-exp-topnav-actions {
+    display: none !important;
+}
+
+.wellme-experience--reader .wellme-experience-track {
+    transition: transform 0.58s cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.wellme-experience--reader .wellme-experience-slide {
+    padding: calc(var(--wellme-reader-top-height) + 42px) 92px 0;
+}
+
+.wellme-experience--reader .wellme-landing-scroll,
+.wellme-experience--reader .wellme-partnership-content,
+.wellme-experience--reader .wellme-overview-content {
+    height: min(755px, calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - 42px));
+}
+
+.wellme-experience--reader .wellme-logo-spin {
+    animation: none !important;
+    transform: none !important;
+}
+
+.wellme-experience--reader .wellme-landing-copy {
+    justify-content: flex-start;
+    gap: 18px;
+    padding: 30px 52px 0;
+}
+
+.wellme-experience--reader .wellme-landing-title {
+    order: 1;
+    margin: 0;
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    letter-spacing: 0.24em;
+}
+
+.wellme-experience--reader .wellme-landing-logos {
+    order: 2;
+}
+
+.wellme-experience--reader .wellme-landing-logo {
+    max-width: 72px;
+    max-height: 72px;
+}
+
+.wellme-experience--reader .wellme-landing-hero-media {
+    left: 6.5%;
+    right: 6.5%;
+    top: 148px;
+    bottom: 0;
+    background: #dedede;
+}
+
+.wellme-experience--reader .wellme-landing-hero-media img {
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.94;
+}
+
+.wellme-experience--reader .wellme-partnership-content {
+    grid-template-columns: minmax(260px, 0.32fr) minmax(0, 0.68fr);
+    grid-template-rows: auto minmax(180px, 0.36fr) auto auto;
+    padding: 20px 52px 38px;
+}
+
+.wellme-experience--reader .wellme-partnership-intro {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 16px;
+}
+
+.wellme-experience--reader .wellme-partnership-title {
+    font-size: clamp(1.7rem, 2.2vw, 2.25rem);
+}
+
+.wellme-experience--reader .wellme-partnership-hero-media {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 185px;
+    overflow: hidden;
+    background: #ededed;
+}
+
+.wellme-experience--reader .wellme-partnership-hero-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(0.12) contrast(1.03) brightness(1.05);
+}
+
+.wellme-experience--reader .wellme-partnership-menu {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 8px;
+}
+
+.wellme-experience--reader .wellme-partner-strip {
+    grid-row: 4;
+}
+
+.wellme-experience--reader .wellme-partner-card,
+.wellme-partnership-choice,
+.wellme-mazda-page-tab,
+.wellme-overview-selector,
+.wellme-experience--reader .wellme-exp-arrow {
+    transition-duration: 0.18s;
+    transition-timing-function: ease;
+}
+
+.wellme-experience--reader .wellme-exp-arrow {
+    top: calc(50% + 52px);
+}
+
+@media (max-width: 1120px) {
+    .wellme-experience--reader .wellme-experience-slide {
+        padding-left: 68px;
+        padding-right: 68px;
+    }
+
+    .wellme-experience--reader .wellme-partnership-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+    }
+
+    .wellme-experience--reader .wellme-partnership-intro,
+    .wellme-experience--reader .wellme-partnership-hero-media,
+    .wellme-experience--reader .wellme-partnership-menu,
+    .wellme-experience--reader .wellme-partner-strip {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-experience-slide {
+        padding: calc(var(--wellme-reader-top-height) + 16px) 17px 0;
+    }
+
+    .wellme-experience--reader .wellme-landing-scroll,
+    .wellme-experience--reader .wellme-partnership-content,
+    .wellme-experience--reader .wellme-overview-content {
+        height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - 18px);
+    }
+
+    .wellme-experience--reader .wellme-landing-copy {
+        padding: 24px 24px 0;
+    }
+
+    .wellme-experience--reader .wellme-landing-title {
+        font-size: clamp(1.55rem, 7vw, 2.2rem);
+    }
+
+    .wellme-experience--reader .wellme-landing-hero-media {
+        left: 0;
+        right: 0;
+        top: 130px;
+    }
+}
