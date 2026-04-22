@@ -175,11 +175,55 @@
         console.groupEnd();
     }
 
+    function wellmeDebugSampleLogoMotion(label) {
+        if (!wellmeDebugEnabled || !window.console) return;
+
+        const logo = document.querySelector('.wellme-landing-hero-media img, .wellme-logo-spin');
+
+        if (!logo) {
+            console.warn('[WELLME Debug] motion sample: logo not found', { label: label || 'motion sample' });
+            return;
+        }
+
+        const samples = [];
+
+        function capture(delay) {
+            window.setTimeout(function () {
+                const computed = window.getComputedStyle(logo);
+                samples.push({
+                    delay: delay,
+                    transform: computed.transform,
+                    animationName: computed.animationName,
+                    playState: computed.animationPlayState
+                });
+
+                if (samples.length === 3) {
+                    const moving = samples.some(function (sample) {
+                        return sample.transform !== samples[0].transform;
+                    });
+
+                    console[moving ? 'info' : 'warn']('[WELLME Debug] logo motion sample: moving=' + moving, {
+                        label: label || 'motion sample',
+                        moving: moving,
+                        samples: samples
+                    });
+                }
+            }, delay);
+        }
+
+        capture(0);
+        capture(350);
+        capture(700);
+    }
+
     function initWellmeDebug() {
         window.wellmeDebug = {
             enabled: wellmeDebugEnabled,
             inspect: function (label) {
                 wellmeDebugSnapshot(label || 'manual');
+            },
+            sampleLogoMotion: function (label) {
+                wellmeDebugSampleLogoMotion(label || 'manual');
             },
             enable: function () {
                 try {
@@ -205,6 +249,7 @@
 
         console.info('[WELLME Debug] enabled. Use window.wellmeDebug.inspect() for a fresh snapshot, or ?wellme_debug=0 to disable.');
         wellmeDebugSnapshot('dom-ready');
+        wellmeDebugSampleLogoMotion('dom-ready');
         window.setTimeout(function () { wellmeDebugSnapshot('after 750ms'); }, 750);
         window.setTimeout(function () { wellmeDebugSnapshot('after 2500ms'); }, 2500);
 
