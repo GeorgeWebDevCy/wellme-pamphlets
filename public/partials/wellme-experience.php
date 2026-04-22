@@ -131,9 +131,6 @@ $slide_nav_media = [
 
             <div class="wellme-modules-slide-content">
                 <?php if ( ! empty( $modules ) ) : ?>
-                <?php $first_module = reset( $modules ); ?>
-                <h2 class="wellme-modules-slide-title"><?php esc_html_e( 'Training Modules', 'wellme-pamphlets' ); ?></h2>
-
                 <nav class="wellme-mazda-page-tabs wellme-modules-page-tabs" aria-label="<?php esc_attr_e( 'Module page tabs', 'wellme-pamphlets' ); ?>">
                     <?php foreach ( $modules as $m_index => $module ) :
                         $number = (int) get_field( 'module_number', $module->ID );
@@ -141,125 +138,69 @@ $slide_nav_media = [
                     ?>
                     <button type="button"
                             class="wellme-mazda-page-tab<?php echo 0 === $m_index ? ' is-active' : ''; ?>"
-                            data-module-target="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>"
-                            data-module-index="<?php echo esc_attr( $m_index + 1 ); ?>"
-                            data-module-total="<?php echo esc_attr( count( $modules ) ); ?>"
-                            role="tab"
-                            aria-selected="<?php echo 0 === $m_index ? 'true' : 'false'; ?>"
-                            aria-controls="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>">
+                            data-module-open="<?php echo esc_attr( $module->ID ); ?>">
                         <?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?>
                     </button>
                     <?php endforeach; ?>
                 </nav>
 
-                <div class="wellme-modules-reader-layout">
-                    <div class="wellme-modules-reader-visual">
-                        <div class="wellme-modules-featured-media" aria-hidden="true">
-                            <?php foreach ( $modules as $m_index => $module ) :
-                                $number    = (int) get_field( 'module_number', $module->ID );
-                                $number    = $number ?: ( $m_index + 1 );
-                                $cover     = get_field( 'module_cover_image', $module->ID );
-                                $icon      = get_field( 'module_icon', $module->ID );
-                                $color     = get_field( 'module_color', $module->ID ) ?: '#005b96';
-                                $cover_url = $cover['sizes']['large'] ?? ( $cover['url'] ?? '' );
-                                $icon_url  = $icon['url'] ?? '';
-                            ?>
-                            <figure class="wellme-modules-featured-item<?php echo 0 === $m_index ? ' is-active' : ''; ?>"
-                                    style="--module-color: <?php echo esc_attr( $color ); ?>;"
-                                    data-module-feature="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>"
-                                    <?php echo 0 === $m_index ? '' : 'hidden'; ?>>
-                                <?php if ( $cover_url ) : ?>
-                                <img src="<?php echo esc_url( $cover_url ); ?>"
-                                     alt="<?php echo esc_attr( get_the_title( $module ) ); ?>">
-                                <?php elseif ( $icon_url ) : ?>
-                                <img src="<?php echo esc_url( $icon_url ); ?>"
-                                     alt="<?php echo esc_attr( get_the_title( $module ) ); ?>">
-                                <?php else : ?>
-                                <span><?php echo esc_html( (string) $number ); ?></span>
-                                <?php endif; ?>
-                            </figure>
-                            <?php endforeach; ?>
-                        </div>
+                <h2 class="wellme-modules-slide-title"><?php esc_html_e( 'Which Module Will You Choose?', 'wellme-pamphlets' ); ?></h2>
 
-                        <div class="wellme-modules-state">
-                            <span class="wellme-modules-state-kicker"><?php esc_html_e( 'WELLME Modules', 'wellme-pamphlets' ); ?></span>
-                            <strong class="wellme-modules-active-label"><?php echo esc_html( $first_module ? get_the_title( $first_module ) : __( 'Training Modules', 'wellme-pamphlets' ) ); ?></strong>
-                            <span class="wellme-modules-state-count"><?php echo esc_html( '1 / ' . count( $modules ) ); ?></span>
-                        </div>
-
-                        <div class="wellme-modules-grid-inline" role="tablist" aria-label="<?php esc_attr_e( 'Training modules', 'wellme-pamphlets' ); ?>">
+                <div class="wellme-modules-grid-inline" aria-label="<?php esc_attr_e( 'Training modules', 'wellme-pamphlets' ); ?>">
                     <?php foreach ( $modules as $m_index => $module ) :
                         $number    = (int) get_field( 'module_number', $module->ID );
                         $number    = $number ?: ( $m_index + 1 );
                         $subtitle  = get_field( 'module_subtitle', $module->ID );
                         $desc      = get_field( 'module_description', $module->ID );
                         $icon      = get_field( 'module_icon', $module->ID );
+                        $cover     = get_field( 'module_cover_image', $module->ID );
                         $color     = get_field( 'module_color', $module->ID ) ?: '#005b96';
                         $icon_url  = $icon['url'] ?? '';
+                        $cover_url = $cover['sizes']['large'] ?? ( $cover['url'] ?? '' );
                     ?>
-                            <button type="button"
-                                    class="wellme-module-inline-card wellme-scroll-reveal<?php echo 0 === $m_index ? ' is-active' : ''; ?>"
-                                    style="--module-color: <?php echo esc_attr( $color ); ?>;"
-                                    data-module-id="<?php echo esc_attr( $module->ID ); ?>"
-                                    data-module-target="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>"
-                                    data-module-index="<?php echo esc_attr( $m_index + 1 ); ?>"
-                                    data-module-total="<?php echo esc_attr( count( $modules ) ); ?>"
-                                    role="tab"
-                                    aria-selected="<?php echo 0 === $m_index ? 'true' : 'false'; ?>"
-                                    aria-controls="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>">
-                                <span class="wellme-module-inline-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
-                                <span class="wellme-module-inline-swatch" aria-hidden="true">
-                                    <?php if ( $icon_url ) : ?>
-                                    <img src="<?php echo esc_url( $icon_url ); ?>" alt="">
-                                    <?php else : ?>
-                                    <?php echo esc_html( (string) $number ); ?>
-                                    <?php endif; ?>
-                                </span>
-                                <span class="wellme-module-inline-title"><?php echo esc_html( get_the_title( $module ) ); ?></span>
-                                <?php if ( $subtitle ) : ?>
-                                <span class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></span>
+                    <article class="wellme-module-inline-card wellme-scroll-reveal"
+                             style="--module-color: <?php echo esc_attr( $color ); ?>;"
+                             data-module-id="<?php echo esc_attr( $module->ID ); ?>"
+                             role="button"
+                             tabindex="0"
+                             aria-label="<?php echo esc_attr( get_the_title( $module ) ); ?>">
+                        <div class="wellme-module-inline-media" aria-hidden="true">
+                            <?php if ( $cover_url ) : ?>
+                            <img class="wellme-module-inline-image"
+                                 src="<?php echo esc_url( $cover_url ); ?>"
+                                 alt="">
+                            <?php endif; ?>
+                            <span class="wellme-module-inline-media-fallback">
+                                <?php if ( $icon_url ) : ?>
+                                <img src="<?php echo esc_url( $icon_url ); ?>" alt="">
+                                <?php else : ?>
+                                <?php echo esc_html( (string) $number ); ?>
                                 <?php endif; ?>
-                                <?php if ( $desc ) : ?>
-                                <span class="wellme-module-inline-desc" hidden><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $desc ), 22 ) ); ?></span>
-                                <?php endif; ?>
-                            </button>
-                    <?php endforeach; ?>
+                            </span>
                         </div>
-                    </div>
 
-                    <div class="wellme-modules-detail-panels">
-                        <?php foreach ( $modules as $m_index => $module ) :
-                            $number   = (int) get_field( 'module_number', $module->ID );
-                            $number   = $number ?: ( $m_index + 1 );
-                            $subtitle = get_field( 'module_subtitle', $module->ID );
-                            $desc     = get_field( 'module_description', $module->ID );
-                            $motto    = get_field( 'module_motto', $module->ID );
-                            $color    = get_field( 'module_color', $module->ID ) ?: '#005b96';
-                        ?>
-                        <article id="wellme-module-panel-<?php echo esc_attr( $module->ID ); ?>"
-                                 class="wellme-module-detail-panel<?php echo 0 === $m_index ? ' is-active' : ''; ?>"
-                                 style="--module-color: <?php echo esc_attr( $color ); ?>;"
-                                 role="tabpanel"
-                                 <?php echo 0 === $m_index ? '' : 'hidden'; ?>>
-                            <span class="wellme-module-detail-label"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
-                            <h3><?php echo esc_html( get_the_title( $module ) ); ?></h3>
+                        <div class="wellme-module-inline-body">
+                            <span class="wellme-module-inline-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
+                            <h3 class="wellme-module-inline-title"><?php echo esc_html( get_the_title( $module ) ); ?></h3>
                             <?php if ( $subtitle ) : ?>
-                            <p class="wellme-module-detail-subtitle"><?php echo esc_html( $subtitle ); ?></p>
+                            <p class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></p>
+                            <?php elseif ( $desc ) : ?>
+                            <p class="wellme-module-inline-subtitle"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $desc ), 12 ) ); ?></p>
                             <?php endif; ?>
                             <?php if ( $desc ) : ?>
-                            <div class="wellme-module-detail-desc"><?php echo wp_kses_post( wpautop( $desc ) ); ?></div>
-                            <?php endif; ?>
-                            <?php if ( $motto ) : ?>
-                            <p class="wellme-module-detail-motto"><?php echo esc_html( $motto ); ?></p>
+                            <span class="wellme-module-inline-desc" hidden><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $desc ), 22 ) ); ?></span>
                             <?php endif; ?>
                             <button type="button"
-                                    class="wellme-module-detail-cta"
+                                    class="wellme-module-inline-cta"
                                     data-module-open="<?php echo esc_attr( $module->ID ); ?>">
                                 <?php esc_html_e( 'View Module', 'wellme-pamphlets' ); ?>
                             </button>
-                        </article>
-                        <?php endforeach; ?>
-                    </div>
+                            <span class="wellme-module-inline-badge">
+                                <?php echo esc_html( sprintf( '%02d', $number ) ); ?>
+                            </span>
+                        </div>
+                    </article>
+                    <?php endforeach; ?>
                 </div>
                 <?php else : ?>
                 <h2 class="wellme-modules-slide-title"><?php esc_html_e( 'Training Modules', 'wellme-pamphlets' ); ?></h2>
