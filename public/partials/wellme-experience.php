@@ -18,6 +18,13 @@ defined( 'ABSPATH' ) || exit;
 
 $total_slides     = 5; // landing, partnership, overview, modules, sum-up
 $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
+$slide_nav_items  = [
+    __( 'WELLME', 'wellme-pamphlets' ),
+    __( 'Partnership', 'wellme-pamphlets' ),
+    __( 'Overview', 'wellme-pamphlets' ),
+    __( 'Modules', 'wellme-pamphlets' ),
+    __( 'Sum-Up', 'wellme-pamphlets' ),
+];
 ?>
 <div
     class="wellme-experience wellme-experience--reader"
@@ -100,12 +107,18 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
 
             <div class="wellme-modules-slide-content">
                 <h2 class="wellme-modules-slide-title"><?php esc_html_e( 'Training Modules', 'wellme-pamphlets' ); ?></h2>
+                <p class="wellme-modules-slide-intro">
+                    <?php esc_html_e( 'Six interactive pamphlets for trainers to move from project context into hands-on practice.', 'wellme-pamphlets' ); ?>
+                </p>
                 <div class="wellme-modules-grid-inline">
                     <?php foreach ( $modules as $m_index => $module ) :
                         $number    = (int) get_field( 'module_number', $module->ID );
                         $subtitle  = get_field( 'module_subtitle', $module->ID );
+                        $desc      = get_field( 'module_description', $module->ID );
+                        $icon      = get_field( 'module_icon', $module->ID );
                         $color     = get_field( 'module_color', $module->ID ) ?: '#005b96';
                         $cover     = get_field( 'module_cover_image', $module->ID );
+                        $icon_url  = $icon['url'] ?? '';
                         $cover_url = $cover['url'] ?? '';
                     ?>
                     <div class="wellme-module-inline-card wellme-scroll-reveal"
@@ -115,9 +128,19 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
                          tabindex="0"
                          aria-label="<?php echo esc_attr( get_the_title( $module ) ); ?>">
 
-                        <?php if ( $cover_url ) : ?>
-                        <div class="wellme-module-inline-image" style="background-image: url('<?php echo esc_url( $cover_url ); ?>');"></div>
-                        <?php endif; ?>
+                        <div class="wellme-module-inline-media<?php echo $cover_url ? '' : ' is-empty'; ?>">
+                            <?php if ( $cover_url ) : ?>
+                            <div class="wellme-module-inline-image" style="background-image: url('<?php echo esc_url( $cover_url ); ?>');"></div>
+                            <?php endif; ?>
+
+                            <div class="wellme-module-inline-icon" aria-hidden="true">
+                                <?php if ( $icon_url ) : ?>
+                                <img src="<?php echo esc_url( $icon_url ); ?>" alt="">
+                                <?php else : ?>
+                                <span><?php echo esc_html( (string) $number ); ?></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
 
                         <div class="wellme-module-inline-body">
                             <span class="wellme-module-inline-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
@@ -125,7 +148,10 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
                             <?php if ( $subtitle ) : ?>
                             <p class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></p>
                             <?php endif; ?>
-                            <span class="wellme-module-inline-cta"><?php esc_html_e( 'Open Module', 'wellme-pamphlets' ); ?> &rarr;</span>
+                            <?php if ( $desc ) : ?>
+                            <p class="wellme-module-inline-desc"><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $desc ), 22 ) ); ?></p>
+                            <?php endif; ?>
+                            <span class="wellme-module-inline-cta"><?php esc_html_e( 'View Module', 'wellme-pamphlets' ); ?></span>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -223,7 +249,10 @@ $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wel
                 $d + 1
             ) ); ?>"
             aria-current="<?php echo $d === 0 ? 'true' : 'false'; ?>"
-        ></button>
+        >
+            <span class="wellme-exp-dot-number"><?php echo esc_html( (string) ( $d + 1 ) ); ?></span>
+            <span class="wellme-exp-dot-label"><?php echo esc_html( $slide_nav_items[ $d ] ?? (string) ( $d + 1 ) ); ?></span>
+        </button>
         <?php endfor; ?>
     </nav>
 

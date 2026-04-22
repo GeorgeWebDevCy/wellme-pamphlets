@@ -17,9 +17,22 @@ $project_title    = get_field( 'project_title', 'option' ) ?: __( 'WellMe — We
 $landing_subtitle = get_field( 'landing_subtitle', 'option' );
 $eu_funding_text  = get_field( 'eu_funding_text', 'option' );
 $partners         = get_field( 'partners', 'option' ) ?: [];
+$landing_image    = get_field( 'landing_hero_image', 'option' );
+$overview_image   = get_field( 'overview_image', 'option' );
 
 $wellme_logo_url = $wellme_logo['url'] ?? '';
 $eu_logo_url     = $eu_logo['url'] ?? '';
+$landing_image_url = $landing_image['url'] ?? ( $overview_image['url'] ?? '' );
+
+if ( ! $landing_image_url && ! empty( $modules ) && is_array( $modules ) ) {
+    foreach ( $modules as $landing_module ) {
+        $module_cover = get_field( 'module_cover_image', $landing_module->ID );
+        if ( ! empty( $module_cover['url'] ) ) {
+            $landing_image_url = $module_cover['url'];
+            break;
+        }
+    }
+}
 ?>
 <section class="wellme-experience-slide wellme-slide-landing<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
@@ -31,7 +44,13 @@ $eu_logo_url     = $eu_logo['url'] ?? '';
     <div class="wellme-landing-scroll">
 
         <div class="wellme-landing-content wellme-scroll-reveal">
+            <?php if ( $landing_image_url ) : ?>
+            <div class="wellme-landing-hero-media" aria-hidden="true">
+                <img src="<?php echo esc_url( $landing_image_url ); ?>" alt="">
+            </div>
+            <?php endif; ?>
 
+            <div class="wellme-landing-copy">
             <?php if ( $wellme_logo_url ) : ?>
             <div class="wellme-landing-logos">
                 <img src="<?php echo esc_url( $wellme_logo_url ); ?>"
@@ -60,6 +79,8 @@ $eu_logo_url     = $eu_logo['url'] ?? '';
 
             <div class="wellme-landing-agreement">
                 <?php esc_html_e( 'Erasmus+ KA220-YOU — Cooperation partnerships in youth', 'wellme-pamphlets' ); ?>
+            </div>
+
             </div>
 
             <?php if ( empty( $hide_partners ) ) : ?>

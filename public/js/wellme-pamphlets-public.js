@@ -682,12 +682,13 @@
                 var label = card.querySelector('.wellme-module-inline-number');
                 var title = card.querySelector('.wellme-module-inline-title');
                 var subtitle = card.querySelector('.wellme-module-inline-subtitle');
+                var desc = card.querySelector('.wellme-module-inline-desc');
 
                 if (popupLabel && label) popupLabel.textContent = label.textContent;
                 if (popupTitle && title) popupTitle.textContent = title.textContent;
                 if (popupSubtitle && subtitle) popupSubtitle.textContent = subtitle.textContent;
-                if (popupDesc) popupDesc.textContent = '';
-                if (popupModnum) popupModnum.textContent = '';
+                if (popupDesc) popupDesc.textContent = desc ? desc.textContent : '';
+                if (popupModnum && label) popupModnum.textContent = label.textContent;
                 if (popupMoreInfo) popupMoreInfo.hidden = true;
 
                 // Open popup
