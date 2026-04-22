@@ -1236,26 +1236,21 @@
 
             panels.forEach(function (panel) {
                 var active = panel.id === targetId;
-                panel.hidden = false;
+                panel.hidden = !active;
                 panel.classList.toggle('is-active', active);
-                panel.classList.add('is-visible');
+                if (active) panel.classList.add('is-visible');
             });
 
             if (label) label.textContent = button.dataset.overviewLabel || '';
             if (count) {
                 count.textContent = (button.dataset.overviewIndex || '1') + ' / ' + (button.dataset.overviewTotal || buttons.length);
             }
-
-            var target = document.getElementById(targetId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
         }
 
         panels.forEach(function (panel, index) {
-            panel.hidden = false;
+            panel.hidden = index !== 0;
             panel.classList.toggle('is-active', index === 0);
-            panel.classList.add('is-visible');
+            if (index === 0) panel.classList.add('is-visible');
         });
 
         buttons.forEach(function (button) {

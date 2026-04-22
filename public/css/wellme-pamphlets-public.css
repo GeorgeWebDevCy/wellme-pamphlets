@@ -7566,20 +7566,22 @@
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: block;
     height: 100%;
     overflow: hidden;
 }
 
-.wellme-experience--reader .wellme-slide-overview .wellme-overview-section,
-.wellme-experience--reader .wellme-slide-overview .wellme-overview-section[hidden] {
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-section {
     display: block !important;
 }
 
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-section[hidden] {
+    display: none !important;
+}
+
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section {
-    padding: 12px 15px 13px;
+    min-height: 100%;
+    padding: 18px 20px 20px;
     border-left: 4px solid var(--overview-color, #1e88c8);
     background: #fff;
     box-shadow: 0 12px 28px rgba(0,0,0,0.08);
@@ -7592,20 +7594,20 @@
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section-label {
     display: inline-flex;
     width: auto;
-    margin: 0 0 7px;
-    padding: 4px 7px;
+    margin: 0 0 12px;
+    padding: 5px 8px;
     border: 1px solid #d7dde4;
     color: #111;
-    font-size: 0.58rem;
+    font-size: 0.62rem;
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section h3 {
-    margin: 0 0 7px;
+    margin: 0 0 14px;
     color: #111;
-    font-size: clamp(0.88rem, 1.12vw, 1.08rem);
+    font-size: clamp(1.05rem, 1.4vw, 1.28rem);
     font-weight: 700;
     letter-spacing: 0.06em;
     line-height: 1.35;
@@ -7614,13 +7616,13 @@
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section-body {
     color: #222;
-    font-size: clamp(0.68rem, 0.78vw, 0.78rem);
-    line-height: 1.48;
+    font-size: clamp(0.82rem, 0.95vw, 0.95rem);
+    line-height: 1.62;
     column-count: auto;
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section-body p {
-    margin: 0 0 0.55em;
+    margin: 0 0 0.75em;
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section-body p:last-child {

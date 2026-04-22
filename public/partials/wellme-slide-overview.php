@@ -158,6 +158,7 @@ if ( empty( $overview_items ) ) {
                 <section class="wellme-overview-section wellme-scroll-reveal"
                          id="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>"
                          role="tabpanel"
+                         <?php echo 0 === $item_index ? '' : 'hidden'; ?>
                          style="--overview-color: <?php echo esc_attr( $item['color'] ); ?>;">
                     <span class="wellme-overview-section-label"><?php echo esc_html( $item['label'] ); ?></span>
                     <h3><?php echo esc_html( $item['title'] ); ?></h3>
