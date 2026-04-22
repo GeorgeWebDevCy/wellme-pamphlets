@@ -495,6 +495,7 @@ def main() -> int:
     args.output_root.mkdir(parents=True, exist_ok=True)
 
     manifest = {
+        "schema_version": 2,
         "source": {
             "type": "wp3.1-hands-on-training-docx",
             "doc_root": str(args.doc_root),
