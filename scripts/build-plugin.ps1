@@ -17,11 +17,15 @@ $includePaths = @(
     "public",
     "vendor",
     "index.php",
-    "README.md",
     "composer.json",
     "composer.lock",
     "uninstall.php",
     "wellme-pamphlets.php"
+)
+
+$optionalPaths = @(
+    "README.md",
+    "DOCUMENTATION.md"
 )
 
 if (Test-Path $stagingRoot) {
@@ -39,6 +43,14 @@ foreach ($relativePath in $includePaths) {
     }
 
     Copy-Item -LiteralPath $sourcePath -Destination $packageRoot -Recurse -Force
+}
+
+foreach ($relativePath in $optionalPaths) {
+    $sourcePath = Join-Path $projectRoot $relativePath
+
+    if (Test-Path $sourcePath) {
+        Copy-Item -LiteralPath $sourcePath -Destination $packageRoot -Recurse -Force
+    }
 }
 
 if (Test-Path $zipPath) {
