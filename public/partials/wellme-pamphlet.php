@@ -141,8 +141,8 @@ $display_introduction_items = array_values(
     <?php if ( ! empty( $outcomes ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-outcomes">
         <div class="wellme-section-inner wellme-scroll-reveal">
-            <h2><?php esc_html_e( 'Learning Outcomes', 'wellme-pamphlets' ); ?></h2>
-            <p class="wellme-outcomes-intro"><?php esc_html_e( 'Click on each outcome to learn more.', 'wellme-pamphlets' ); ?></p>
+            <h2><?php esc_html_e( 'Module Activity', 'wellme-pamphlets' ); ?></h2>
+            <p class="wellme-outcomes-intro"><?php esc_html_e( 'Click on each activity item to learn more.', 'wellme-pamphlets' ); ?></p>
             <div class="wellme-outcomes-links">
                 <?php foreach ( $outcomes as $i => $outcome ) :
                     $icon_url = $outcome['outcome_icon']['url'] ?? '';

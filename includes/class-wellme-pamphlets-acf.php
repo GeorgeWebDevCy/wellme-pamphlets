@@ -708,7 +708,7 @@ class Wellme_Pamphlets_ACF {
                     'label'        => 'Introduction Items',
                     'name'         => 'module_introduction_items',
                     'type'         => 'repeater',
-                    'instructions' => 'Each item becomes a clickable introduction card that opens inline detail, matching the Learning Outcomes pattern.',
+                    'instructions' => 'Each item becomes a clickable introduction card that opens inline detail, matching the Module Activity pattern.',
                     'min'          => 0,
                     'max'          => 10,
                     'layout'       => 'block',
