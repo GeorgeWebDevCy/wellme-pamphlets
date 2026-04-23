@@ -182,7 +182,7 @@ if ( ! empty( $assessment_questions ) ) {
     <?php if ( ! empty( $steps ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-steps">
         <div class="wellme-section-inner wellme-scroll-reveal">
-            <h2><?php esc_html_e( 'Exercise Steps', 'wellme-pamphlets' ); ?></h2>
+            <h2><?php esc_html_e( 'Activity Steps', 'wellme-pamphlets' ); ?></h2>
 
             <p class="wellme-exercise-hint"><?php esc_html_e( 'Click the numbered dots on the image to explore each step.', 'wellme-pamphlets' ); ?></p>
 

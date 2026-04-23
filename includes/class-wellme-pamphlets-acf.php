@@ -373,17 +373,17 @@ class Wellme_Pamphlets_ACF {
                     ],
                 ],
 
-                // ── Exercise Steps ─────────────────────────────────────────────
+                // ── Activity Steps ─────────────────────────────────────────────
 
                 [
                     'key'       => 'field_wm_tab_steps',
-                    'label'     => 'Exercise Steps',
+                    'label'     => 'Activity Steps',
                     'type'      => 'tab',
                     'placement' => 'top',
                 ],
                 [
                     'key'          => 'field_wm_exercise_steps',
-                    'label'        => 'Exercise Steps',
+                    'label'        => 'Activity Steps',
                     'name'         => 'module_exercise_steps',
                     'type'         => 'repeater',
                     'instructions' => 'Each step gets a numbered pulsing hotspot dot. Clicking it opens a panel with the step content (Outremer pattern).',
