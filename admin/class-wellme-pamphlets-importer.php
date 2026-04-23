@@ -253,6 +253,7 @@ class Wellme_Pamphlets_Importer {
         $outcomes             = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
         $steps                = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
         $chapters             = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
+        $activity_aims        = $this->build_activity_aims( $module['module_activity_aims'] ?? [] );
         $assessment_questions = $this->build_assessment_questions( $module['module_assessment_questions'] ?? [] );
         $reflection_questions = $this->build_reflection_questions( $module['module_reflection_questions'] ?? [] );
         $color                = sanitize_hex_color( $module['module_color'] ?? '' ) ?: '#005b96';
@@ -284,6 +285,7 @@ class Wellme_Pamphlets_Importer {
         update_field( 'module_learning_outcomes', $outcomes, $post_id );
         update_field( 'module_exercise_steps', $steps, $post_id );
         update_field( 'module_chapters', $chapters, $post_id );
+        update_field( 'module_activity_aims', $activity_aims, $post_id );
         update_field( 'module_assessment_questions', $assessment_questions, $post_id );
         update_field( 'module_eu_funding_text', $eu_text, $post_id );
         update_field( 'module_table_of_contents', $toc, $post_id );
@@ -393,6 +395,21 @@ class Wellme_Pamphlets_Importer {
         }
 
         return $rows;
+    }
+
+    /**
+     * Build the module activity aims group.
+     *
+     * @param array $aims Activity aims payload.
+     *
+     * @return array
+     */
+    private function build_activity_aims( array $aims ) {
+        return [
+            'activity_aim'           => wp_kses_post( $aims['activity_aim'] ?? '' ),
+            'activity_youth_worker'  => wp_kses_post( $aims['activity_youth_worker'] ?? '' ),
+            'activity_wellme_goals'  => wp_kses_post( $aims['activity_wellme_goals'] ?? '' ),
+        ];
     }
 
     /**

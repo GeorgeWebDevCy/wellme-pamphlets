@@ -20,6 +20,15 @@ class Wellme_Pamphlets_ACF {
         return $field;
     }
 
+    public function prepare_module_wellme_goals_label( $field ) {
+        $module_number = $this->get_current_module_number();
+        $field['label'] = $module_number
+            ? sprintf( __( 'Module %d WellMe Goals', 'wellme-pamphlets' ), $module_number )
+            : __( 'Module WellMe Goals', 'wellme-pamphlets' );
+
+        return $field;
+    }
+
     private function get_current_module_number() {
         $post_id = 0;
 
@@ -605,6 +614,43 @@ class Wellme_Pamphlets_ACF {
                     'label'     => 'Module Activity',
                     'type'      => 'tab',
                     'placement' => 'top',
+                ],
+                [
+                    'key'          => 'field_wm_activity_aims',
+                    'label'        => 'Aims',
+                    'name'         => 'module_activity_aims',
+                    'type'         => 'group',
+                    'instructions' => 'Content shown as three tabs at the top of the Module Activity section.',
+                    'layout'       => 'block',
+                    'sub_fields'   => [
+                        [
+                            'key'          => 'field_wm_activity_aim',
+                            'label'        => 'Aim',
+                            'name'         => 'activity_aim',
+                            'type'         => 'wysiwyg',
+                            'tabs'         => 'all',
+                            'toolbar'      => 'full',
+                            'media_upload' => 1,
+                        ],
+                        [
+                            'key'          => 'field_wm_activity_youth_worker',
+                            'label'        => 'Youth Worker',
+                            'name'         => 'activity_youth_worker',
+                            'type'         => 'wysiwyg',
+                            'tabs'         => 'all',
+                            'toolbar'      => 'full',
+                            'media_upload' => 1,
+                        ],
+                        [
+                            'key'          => 'field_wm_activity_wellme_goals',
+                            'label'        => 'Module WellMe Goals',
+                            'name'         => 'activity_wellme_goals',
+                            'type'         => 'wysiwyg',
+                            'tabs'         => 'all',
+                            'toolbar'      => 'full',
+                            'media_upload' => 1,
+                        ],
+                    ],
                 ],
                 [
                     'key'          => 'field_wm_chapters',

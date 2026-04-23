@@ -230,6 +230,54 @@
 .wellme-cover-description { font-size: .9rem; opacity: .75; margin: 0; }
 
 /* ── Chapter navigation ────────────────────────────────────── */
+.wellme-activity-aims {
+    margin-bottom: 30px;
+    padding: 18px;
+    border: 1px solid #e3e7ed;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.wellme-activity-aims-title {
+    margin: 0 0 14px;
+    color: #111821;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.wellme-activity-aim-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.wellme-activity-aim-tab {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #d8dde3;
+    background: #fff;
+    color: #111821;
+    font-weight: 700;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: background var(--wellme-transition), border-color var(--wellme-transition), color var(--wellme-transition);
+}
+
+.wellme-activity-aim-tab:hover,
+.wellme-activity-aim-tab.is-active {
+    border-color: var(--module-color, var(--wellme-primary));
+    background: var(--module-color, var(--wellme-primary));
+    color: #fff;
+}
+
+.wellme-activity-aim-panel { animation: wellme-fade-in 0.3s ease; }
+.wellme-activity-aim-panel[hidden] { display: none; }
+.wellme-activity-aim-content > :first-child { margin-top: 0; }
+.wellme-activity-aim-content > :last-child { margin-bottom: 0; }
+
 .wellme-chapter-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
 
 .wellme-chapter-btn {
@@ -3749,6 +3797,11 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     gap: 10px;
 }
 
+.wellme-popup-body .wellme-activity-aim-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .wellme-popup-body .wellme-chapter-btn {
     min-height: 46px;
     border-radius: 8px;
@@ -3895,6 +3948,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     .wellme-experience--reader .wellme-modules-grid-inline,
     .wellme-experience--reader .wellme-flipcards-grid--experience,
     .wellme-experience--reader .wellme-partners-grid,
+    .wellme-popup-body .wellme-activity-aim-tabs,
     .wellme-popup-body .wellme-chapter-nav,
     .wellme-popup-body .wellme-outcomes-links {
         grid-template-columns: 1fr;

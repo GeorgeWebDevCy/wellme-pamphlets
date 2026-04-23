@@ -21,6 +21,7 @@ $video_url    = get_field( 'module_video_url',    $module->ID );
 $outcomes     = get_field( 'module_learning_outcomes', $module->ID ) ?: [];
 $steps        = get_field( 'module_exercise_steps',    $module->ID ) ?: [];
 $chapters     = get_field( 'module_chapters',          $module->ID ) ?: [];
+$activity_aims = get_field( 'module_activity_aims',    $module->ID ) ?: [];
 $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
 $eu_text      = get_field( 'module_eu_funding_text',   $module->ID );
 $toc          = get_field( 'module_table_of_contents', $module->ID );
@@ -29,6 +30,33 @@ $conclusion   = get_field( 'module_conclusion',        $module->ID );
 $reflection   = get_field( 'module_reflection_questions', $module->ID ) ?: [];
 $assessment_questions = Wellme_Pamphlets_Assessment::get_module_questions( $module->ID );
 $display_chapters     = $chapters;
+$activity_aim_tabs     = [
+    [
+        'key'     => 'aim',
+        'title'   => __( 'Aim', 'wellme-pamphlets' ),
+        'content' => $activity_aims['activity_aim'] ?? '',
+    ],
+    [
+        'key'     => 'youth-worker',
+        'title'   => __( 'Youth Worker', 'wellme-pamphlets' ),
+        'content' => $activity_aims['activity_youth_worker'] ?? '',
+    ],
+    [
+        'key'     => 'wellme-goals',
+        'title'   => $number
+            ? sprintf( __( 'Module %d WellMe Goals', 'wellme-pamphlets' ), $number )
+            : __( 'Module WellMe Goals', 'wellme-pamphlets' ),
+        'content' => $activity_aims['activity_wellme_goals'] ?? '',
+    ],
+];
+$activity_aim_tabs     = array_values(
+    array_filter(
+        $activity_aim_tabs,
+        static function ( $tab ) {
+            return '' !== trim( wp_strip_all_tags( (string) $tab['content'] ) );
+        }
+    )
+);
 
 if ( ! empty( $assessment_questions ) ) {
     $display_chapters = array_values(
@@ -92,7 +120,7 @@ if ( ! empty( $assessment_questions ) ) {
     <?php endif; ?>
 
     <?php /* ── Chapter navigation ─────────────────────────────────── */ ?>
-    <?php if ( ! empty( $display_chapters ) ) : ?>
+    <?php if ( ! empty( $activity_aim_tabs ) || ! empty( $display_chapters ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-chapters">
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2>
@@ -104,6 +132,38 @@ if ( ! empty( $assessment_questions ) ) {
                 );
                 ?>
             </h2>
+            <?php if ( ! empty( $activity_aim_tabs ) ) : ?>
+            <div class="wellme-activity-aims">
+                <h3 class="wellme-activity-aims-title"><?php esc_html_e( 'Aims', 'wellme-pamphlets' ); ?></h3>
+                <nav class="wellme-activity-aim-tabs" aria-label="<?php esc_attr_e( 'Activity aims', 'wellme-pamphlets' ); ?>">
+                    <?php foreach ( $activity_aim_tabs as $tab ) :
+                        $aim_panel_id = 'wellme-activity-aim-panel-' . $module->ID . '-' . $tab['key'];
+                    ?>
+                    <button type="button"
+                            class="wellme-activity-aim-tab"
+                            data-aim-tab="<?php echo esc_attr( $tab['key'] ); ?>"
+                            aria-controls="<?php echo esc_attr( $aim_panel_id ); ?>">
+                        <?php echo esc_html( $tab['title'] ); ?>
+                    </button>
+                    <?php endforeach; ?>
+                </nav>
+
+                <?php foreach ( $activity_aim_tabs as $tab ) :
+                    $aim_panel_id = 'wellme-activity-aim-panel-' . $module->ID . '-' . $tab['key'];
+                ?>
+                <div class="wellme-activity-aim-panel"
+                     id="<?php echo esc_attr( $aim_panel_id ); ?>"
+                     data-aim-tab="<?php echo esc_attr( $tab['key'] ); ?>"
+                     hidden>
+                    <div class="wellme-activity-aim-content">
+                        <?php echo wp_kses_post( $tab['content'] ); ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if ( ! empty( $display_chapters ) ) : ?>
             <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module chapters', 'wellme-pamphlets' ); ?>">
                 <?php foreach ( $display_chapters as $i => $chapter ) : ?>
                 <button class="wellme-chapter-btn"
@@ -182,6 +242,7 @@ if ( ! empty( $assessment_questions ) ) {
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </section>
     <?php endif; ?>
