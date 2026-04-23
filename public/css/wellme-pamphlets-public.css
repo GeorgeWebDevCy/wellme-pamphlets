@@ -2762,6 +2762,24 @@
     opacity: 0.85;
 }
 
+#left-area .wellme-pamphlet ul,
+.entry-content .wellme-pamphlet ul,
+.et-l--body .wellme-pamphlet ul,
+.et-l--footer .wellme-pamphlet ul,
+.et-l--header .wellme-pamphlet ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+#left-area .wellme-pamphlet li,
+.entry-content .wellme-pamphlet li,
+.et-l--body .wellme-pamphlet li,
+.et-l--footer .wellme-pamphlet li,
+.et-l--header .wellme-pamphlet li {
+    list-style: none;
+}
+
 /* Introduction section */
 .wellme-section-introduction .wellme-introduction-content {
     font-size: 0.95rem;
