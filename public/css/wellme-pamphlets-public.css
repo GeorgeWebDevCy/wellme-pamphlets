@@ -1215,49 +1215,6 @@
 }
 .wellme-popup-close:hover { background: #ddd; }
 
-/* More info button (Maglr style) */
-.wellme-popup-more-btn {
-    display: inline-block;
-    padding: 10px 24px;
-    background: var(--wellme-brand-gradient);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s;
-    align-self: flex-start;
-}
-.wellme-popup-more-btn:hover {
-    transform: translateY(-2px);
-}
-
-.wellme-popup-more-info {
-    background: #f8f9fc;
-    border-radius: 8px;
-    padding: 20px;
-    animation: wellme-fade-in 0.3s ease;
-}
-.wellme-popup-more-info[hidden] { display: none; }
-
-.wellme-popup-more-row {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.wellme-popup-more-col p {
-    margin: 0 0 8px;
-    font-size: 0.85rem;
-    color: #555;
-    line-height: 1.6;
-}
-
-.wellme-popup-more-col strong {
-    color: #1a1a2e;
-}
-
 /* Bottom close button (Maglr style) */
 .wellme-popup-bottom {
     padding: 20px 28px;
@@ -3677,14 +3634,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     pointer-events: none;
 }
 
-.wellme-popup-more-btn {
-    margin: 0;
-    padding: 10px 15px;
-    border-radius: 999px;
-    background: #111821;
-    color: #fff;
-}
-
 .wellme-popup-close {
     position: static;
     width: 38px;
@@ -3692,28 +3641,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     border-radius: 50%;
     background: #f1f3f6;
     color: #111821;
-}
-
-.wellme-popup-more-info {
-    position: absolute;
-    top: 74px;
-    right: 24px;
-    z-index: 4;
-    width: min(420px, calc(100vw - 48px));
-    padding: 18px 20px;
-    border: 1px solid #d8dde3;
-    border-radius: 8px;
-    background: #fff;
-}
-
-.wellme-popup-more-info p {
-    margin: 0 0 8px;
-    color: #4f5a67;
-    line-height: 1.55;
-}
-
-.wellme-popup-more-info p:last-child {
-    margin-bottom: 0;
 }
 
 .wellme-popup-left {

@@ -91,6 +91,7 @@ class Wellme_Pamphlets {
         $acf = new Wellme_Pamphlets_ACF();
         $this->loader->add_action( 'acf/init', $acf, 'register_field_groups' );
         $this->loader->add_action( 'acf/init', $acf, 'migrate_overview_legacy_fields_to_repeater', 20 );
+        $this->loader->add_action( 'acf/init', $acf, 'migrate_sumup_module_fields_to_repeater', 25 );
     }
 
     private function define_shortcode_hooks() {

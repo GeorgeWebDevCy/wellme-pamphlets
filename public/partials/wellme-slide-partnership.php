@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $partners      = get_field( 'partners', 'option' ) ?: [];
 $partner_count = is_array( $partners ) ? count( $partners ) : 0;
 $default_partner_index = -1;
+$sumup_nav_label = $sumup_nav_label ?? ( get_field( 'sumup_nav_label', 'option' ) ?: __( 'Sum-Up', 'wellme-pamphlets' ) );
 $partnership_image = get_field( 'landing_hero_image', 'option' );
 $overview_image    = get_field( 'overview_image', 'option' );
 $partnership_image_url = $partnership_image['url'] ?? ( $overview_image['url'] ?? '' );
@@ -36,7 +37,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
             <button type="button" class="wellme-mazda-page-tab is-active" data-experience-goto="1"><?php esc_html_e( 'Partnership', 'wellme-pamphlets' ); ?></button>
             <button type="button" class="wellme-mazda-page-tab" data-experience-goto="2"><?php esc_html_e( 'Overview', 'wellme-pamphlets' ); ?></button>
             <button type="button" class="wellme-mazda-page-tab" data-experience-goto="3"><?php esc_html_e( 'Modules', 'wellme-pamphlets' ); ?></button>
-            <button type="button" class="wellme-mazda-page-tab" data-experience-goto="4"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></button>
+            <button type="button" class="wellme-mazda-page-tab" data-experience-goto="4"><?php echo esc_html( $sumup_nav_label ); ?></button>
         </nav>
 
         <div class="wellme-partnership-intro">
@@ -68,7 +69,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
 
             <button type="button" class="wellme-partnership-choice" data-experience-goto="4">
                 <span class="wellme-partnership-choice-number">03</span>
-                <span class="wellme-partnership-choice-title"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></span>
+                <span class="wellme-partnership-choice-title"><?php echo esc_html( $sumup_nav_label ); ?></span>
                 <span class="wellme-partnership-choice-text"><?php esc_html_e( 'Module mottos and final calls to action.', 'wellme-pamphlets' ); ?></span>
             </button>
         </nav>

@@ -18,12 +18,17 @@ defined( 'ABSPATH' ) || exit;
 
 $total_slides     = 5; // landing, partnership, overview, modules, sum-up
 $experience_title = get_field( 'project_title', 'option' ) ?: __( 'WELLME', 'wellme-pamphlets' );
+$sumup_nav_label  = get_field( 'sumup_nav_label', 'option' ) ?: __( 'Sum-Up', 'wellme-pamphlets' );
+$sumup_title      = get_field( 'sumup_title', 'option' ) ?: $sumup_nav_label;
+$sumup_subtitle   = get_field( 'sumup_subtitle', 'option' ) ?: __( 'Click each card to reveal the module motto.', 'wellme-pamphlets' );
+$sumup_cards_raw  = get_field( 'sumup_cards', 'option' ) ?: [];
+$sumup_cards      = [];
 $slide_nav_items  = [
     __( 'WELLME', 'wellme-pamphlets' ),
     __( 'Partnership', 'wellme-pamphlets' ),
     __( 'Overview', 'wellme-pamphlets' ),
     __( 'Modules', 'wellme-pamphlets' ),
-    __( 'Sum-Up', 'wellme-pamphlets' ),
+    $sumup_nav_label,
 ];
 
 $landing_image = get_field( 'landing_hero_image', 'option' );
@@ -49,6 +54,51 @@ $slide_nav_media = [
     $module_cover_urls[0] ?? $fallback_nav_image,
     $module_cover_urls[1] ?? ( $module_cover_urls[0] ?? $fallback_nav_image ),
 ];
+
+if ( ! empty( $sumup_cards_raw ) && is_array( $sumup_cards_raw ) ) {
+    foreach ( $sumup_cards_raw as $card_index => $card ) {
+        $card_image     = $card['card_image'] ?? [];
+        $card_image_url = $card_image['sizes']['medium'] ?? ( $card_image['url'] ?? '' );
+        $card_label     = trim( wp_strip_all_tags( $card['card_label'] ?? '' ) );
+        $card_title     = trim( wp_strip_all_tags( $card['card_title'] ?? '' ) );
+        $card_motto     = trim( wp_strip_all_tags( $card['card_motto'] ?? '' ) );
+
+        if ( '' === $card_label && '' === $card_title && '' === $card_motto && '' === $card_image_url ) {
+            continue;
+        }
+
+        $card_fallback_label = $card_label ?: sprintf( __( 'Card %d', 'wellme-pamphlets' ), $card_index + 1 );
+
+        $sumup_cards[] = [
+            'label'     => $card_fallback_label,
+            'title'     => $card_title ?: $card_fallback_label,
+            'motto'     => $card_motto,
+            'image_url' => $card_image_url,
+            'color'     => ! empty( $card['card_color'] ) ? $card['card_color'] : '#005b96',
+        ];
+    }
+}
+
+if ( empty( $sumup_cards ) && ! empty( $modules ) && is_array( $modules ) ) {
+    foreach ( $modules as $module_index => $module ) {
+        $number    = (int) get_field( 'module_number', $module->ID );
+        $number    = $number ?: ( $module_index + 1 );
+        $cover     = get_field( 'module_cover_image', $module->ID );
+        $cover_url = $cover['sizes']['medium'] ?? ( $cover['url'] ?? '' );
+
+        $sumup_cards[] = [
+            'label'     => sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ),
+            'title'     => get_the_title( $module ),
+            'motto'     => get_field( 'module_motto', $module->ID ) ?: '',
+            'image_url' => $cover_url,
+            'color'     => get_field( 'module_color', $module->ID ) ?: '#005b96',
+        ];
+    }
+}
+
+if ( ! empty( $sumup_cards[0]['image_url'] ) ) {
+    $slide_nav_media[4] = $sumup_cards[0]['image_url'];
+}
 ?>
 <div
     class="wellme-experience wellme-experience--reader"
@@ -82,7 +132,7 @@ $slide_nav_media = [
             </button>
             <button class="wellme-exp-topnav-tab" data-index="4"
                     role="tab" aria-selected="false" aria-controls="wellme-experience-track">
-                <?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?>
+                <?php echo esc_html( $sumup_nav_label ); ?>
             </button>
         </div>
 
@@ -212,43 +262,49 @@ $slide_nav_media = [
         <?php /* ── Slide 5: Sum-Up (Flip Cards) ──────────────── */ ?>
         <section class="wellme-experience-slide wellme-slide-sumup"
                  data-index="4"
-                 aria-label="<?php esc_attr_e( 'Sum-Up', 'wellme-pamphlets' ); ?>">
+                 aria-label="<?php echo esc_attr( $sumup_nav_label ); ?>">
 
             <div class="wellme-sumup-bg" aria-hidden="true"></div>
             <div class="wellme-sumup-overlay" aria-hidden="true"></div>
 
             <div class="wellme-sumup-content">
-                <h2 class="wellme-sumup-title"><?php esc_html_e( 'Sum-Up', 'wellme-pamphlets' ); ?></h2>
-                <p class="wellme-sumup-subtitle"><?php esc_html_e( 'Click each card to reveal the module motto.', 'wellme-pamphlets' ); ?></p>
+                <h2 class="wellme-sumup-title"><?php echo esc_html( $sumup_title ); ?></h2>
+                <?php if ( $sumup_subtitle ) : ?>
+                <p class="wellme-sumup-subtitle"><?php echo esc_html( $sumup_subtitle ); ?></p>
+                <?php endif; ?>
 
                 <div class="wellme-flipcards-grid wellme-flipcards-grid--experience">
-                    <?php foreach ( $modules as $module ) :
-                        $number    = (int) get_field( 'module_number',       $module->ID );
-                        $motto     = get_field( 'module_motto',        $module->ID );
-                        $color     = get_field( 'module_color',        $module->ID ) ?: '#005b96';
-                        $cover     = get_field( 'module_cover_image',  $module->ID );
-                        $cover_url = $cover['sizes']['medium'] ?? ( $cover['url'] ?? '' );
+                    <?php foreach ( $sumup_cards as $card ) :
+                        $card_label     = $card['label'] ?? '';
+                        $card_title     = ! empty( $card['title'] ) ? $card['title'] : $card_label;
+                        $card_motto     = $card['motto'] ?? '';
+                        $card_color     = ! empty( $card['color'] ) ? $card['color'] : '#005b96';
+                        $card_image_url = $card['image_url'] ?? '';
                     ?>
                     <div class="wellme-flipcard wellme-scroll-reveal"
-                         style="--module-color: <?php echo esc_attr( $color ); ?>;"
+                         style="--module-color: <?php echo esc_attr( $card_color ); ?>;"
                          role="button"
                          tabindex="0"
-                         aria-label="<?php echo esc_attr( sprintf( __( 'Module %d: %s — click to reveal motto', 'wellme-pamphlets' ), $number, get_the_title( $module ) ) ); ?>">
+                         aria-label="<?php echo esc_attr( sprintf( __( '%1$s: %2$s - click to reveal motto', 'wellme-pamphlets' ), $card_label, $card_title ) ); ?>">
 
                         <div class="wellme-flipcard-inner">
                             <div class="wellme-flipcard-front">
-                                <?php if ( $cover_url ) : ?>
-                                <div class="wellme-flipcard-image" style="background-image: url('<?php echo esc_url( $cover_url ); ?>');"></div>
+                                <?php if ( $card_image_url ) : ?>
+                                <div class="wellme-flipcard-image" style="background-image: url('<?php echo esc_url( $card_image_url ); ?>');"></div>
                                 <?php endif; ?>
                                 <div class="wellme-flipcard-front-body">
-                                    <span class="wellme-flipcard-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
-                                    <h3 class="wellme-flipcard-title"><?php echo esc_html( get_the_title( $module ) ); ?></h3>
+                                    <?php if ( $card_label ) : ?>
+                                    <span class="wellme-flipcard-number"><?php echo esc_html( $card_label ); ?></span>
+                                    <?php endif; ?>
+                                    <h3 class="wellme-flipcard-title"><?php echo esc_html( $card_title ); ?></h3>
                                 </div>
                             </div>
                             <div class="wellme-flipcard-back">
-                                <span class="wellme-flipcard-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
-                                <?php if ( $motto ) : ?>
-                                <p class="wellme-flipcard-motto">&ldquo;<?php echo esc_html( $motto ); ?>&rdquo;</p>
+                                <?php if ( $card_label ) : ?>
+                                <span class="wellme-flipcard-number"><?php echo esc_html( $card_label ); ?></span>
+                                <?php endif; ?>
+                                <?php if ( $card_motto ) : ?>
+                                <p class="wellme-flipcard-motto">&ldquo;<?php echo esc_html( $card_motto ); ?>&rdquo;</p>
                                 <?php else : ?>
                                 <p class="wellme-flipcard-motto wellme-placeholder"><?php esc_html_e( 'Motto coming soon.', 'wellme-pamphlets' ); ?></p>
                                 <?php endif; ?>

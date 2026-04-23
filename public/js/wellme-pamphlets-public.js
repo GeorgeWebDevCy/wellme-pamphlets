@@ -896,9 +896,6 @@
             var popupTitle = document.getElementById('wellme-popup-title');
             var popupLabel = document.getElementById('wellme-popup-label');
             var popupSubtitle = document.getElementById('wellme-popup-subtitle');
-            var popupMoreInfo = document.getElementById('wellme-popup-more-info');
-            var popupDesc = document.getElementById('wellme-popup-desc');
-            var popupModnum = document.getElementById('wellme-popup-modnum');
 
             if (!popupOverlay || !popupBody) return;
 
@@ -965,14 +962,6 @@
                 btn.addEventListener('click', function (e) { e.preventDefault(); closePopupOverlay(); });
             });
 
-            // More info toggle
-            var moreBtn = document.getElementById('wellme-popup-more-btn');
-            var moreInfo = document.getElementById('wellme-popup-more-info');
-            if (moreBtn && moreInfo) {
-                moreBtn.addEventListener('click', function () {
-                    moreInfo.hidden = !moreInfo.hidden;
-                });
-            }
         }
 
     }
@@ -1118,10 +1107,6 @@
         var popupSubtitle = document.getElementById('wellme-popup-subtitle');
         ensurePopupModuleNavControls(overlay);
 
-        var popupMoreBtn  = document.getElementById('wellme-popup-more-btn');
-        var popupMoreInfo = document.getElementById('wellme-popup-more-info');
-        var popupDesc  = document.getElementById('wellme-popup-desc');
-        var popupModnum = document.getElementById('wellme-popup-modnum');
         if (!overlay || !popupBody) return;
 
         function ensurePopupModuleNavControls(popup) {
@@ -1130,7 +1115,7 @@
             var actions = popup.querySelector('.wellme-popup-actions');
             if (!actions) return;
 
-            var moreButton = popup.querySelector('#wellme-popup-more-btn');
+            var closeButton = popup.querySelector('.wellme-popup-close');
             var backButton = document.createElement('button');
             var prevButton = document.createElement('button');
             var nextButton = document.createElement('button');
@@ -1152,9 +1137,9 @@
             nextButton.setAttribute('aria-label', 'Next module');
             nextButton.innerHTML = '<span aria-hidden="true">&rsaquo;</span>';
 
-            actions.insertBefore(backButton, moreButton || actions.firstChild);
-            actions.insertBefore(prevButton, moreButton || null);
-            actions.insertBefore(nextButton, moreButton || null);
+            actions.insertBefore(backButton, closeButton || actions.firstChild);
+            actions.insertBefore(prevButton, closeButton || null);
+            actions.insertBefore(nextButton, closeButton || null);
         }
 
         function getConfiguredModuleSequence() {
@@ -1384,11 +1369,9 @@
             var label = sourceCard ? sourceCard.querySelector('.wellme-module-inline-number, .wellme-module-detail-label') : null;
             var title = sourceCard ? sourceCard.querySelector('.wellme-module-inline-title, h3') : null;
             var subtitle = sourceCard ? sourceCard.querySelector('.wellme-module-inline-subtitle, .wellme-module-detail-subtitle') : null;
-            var desc = sourceCard ? sourceCard.querySelector('.wellme-module-inline-desc, .wellme-module-detail-desc') : null;
             var labelText = label ? label.textContent : (moduleItem ? moduleItem.label : '');
             var titleText = title ? title.textContent : (moduleItem ? moduleItem.title : '');
             var subtitleText = subtitle ? subtitle.textContent : (moduleItem ? moduleItem.subtitle : '');
-            var descText = desc ? desc.textContent : (moduleItem ? moduleItem.desc : '');
 
             logPopupModuleNav('open requested', {
                 requestedModuleId: String(moduleId),
@@ -1401,9 +1384,6 @@
             if (popupLabel && labelText) popupLabel.textContent = labelText;
             if (popupTitle && titleText) popupTitle.textContent = titleText;
             if (popupSubtitle) popupSubtitle.textContent = subtitleText || '';
-            if (popupDesc) popupDesc.textContent = descText || '';
-            if (popupModnum && labelText) popupModnum.textContent = labelText;
-            if (popupMoreInfo) popupMoreInfo.hidden = true;
             updatePopupModuleNav(moduleId);
 
             overlay.removeAttribute('hidden');
@@ -1565,12 +1545,6 @@
             }
         });
 
-        // More info toggle
-        if (popupMoreBtn && popupMoreInfo) {
-            popupMoreBtn.addEventListener('click', function () {
-                popupMoreInfo.hidden = !popupMoreInfo.hidden;
-            });
-        }
     }
 
     /* ── Boot ────────────────────────────────────────────────── */

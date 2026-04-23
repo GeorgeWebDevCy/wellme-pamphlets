@@ -60,16 +60,8 @@ if ( ! empty( $modules ) && is_array( $modules ) ) {
                     <button type="button" class="wellme-popup-nav-btn wellme-popup-nav-btn--next" data-popup-module-next aria-label="<?php esc_attr_e( 'Next module', 'wellme-pamphlets' ); ?>">
                         <span aria-hidden="true">&rsaquo;</span>
                     </button>
-                    <button class="wellme-popup-more-btn" id="wellme-popup-more-btn"><?php esc_html_e( 'More info', 'wellme-pamphlets' ); ?></button>
                     <a href="#" class="wellme-popup-close" data-close-popup aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</a>
                 </div>
-            </div>
-
-            <div class="wellme-popup-more-info" id="wellme-popup-more-info" hidden>
-                <p><strong><?php esc_html_e( 'Description', 'wellme-pamphlets' ); ?></strong></p>
-                <p id="wellme-popup-desc"></p>
-                <p><strong><?php esc_html_e( 'Module', 'wellme-pamphlets' ); ?></strong></p>
-                <p id="wellme-popup-modnum"></p>
             </div>
         </div>
 

@@ -57,6 +57,50 @@ class Wellme_Pamphlets_ACF {
         }
     }
 
+    public function migrate_sumup_module_fields_to_repeater() {
+        if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! function_exists( 'get_field' ) || ! function_exists( 'update_field' ) ) {
+            return;
+        }
+
+        $existing_cards = get_field( 'sumup_cards', 'option' );
+        if ( ! empty( $existing_cards ) && is_array( $existing_cards ) ) {
+            return;
+        }
+
+        $modules = get_posts( [
+            'post_type'      => 'wellme_module',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'orderby'        => 'meta_value_num',
+            'meta_key'       => 'module_number',
+            'order'          => 'ASC',
+        ] );
+
+        if ( empty( $modules ) ) {
+            return;
+        }
+
+        $cards = [];
+
+        foreach ( $modules as $index => $module ) {
+            $number = (int) get_field( 'module_number', $module->ID );
+            $number = $number ?: ( $index + 1 );
+            $image  = get_field( 'module_cover_image', $module->ID );
+
+            $cards[] = [
+                'card_label' => sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ),
+                'card_title' => get_the_title( $module ),
+                'card_motto' => get_field( 'module_motto', $module->ID ) ?: '',
+                'card_image' => $image['ID'] ?? '',
+                'card_color' => get_field( 'module_color', $module->ID ) ?: '#005b96',
+            ];
+        }
+
+        if ( ! empty( $cards ) ) {
+            update_field( 'field_wm_pres_sumup_cards', $cards, 'option' );
+        }
+    }
+
     public function register_field_groups() {
         if ( ! function_exists( 'acf_add_local_field_group' ) ) {
             return;
@@ -243,6 +287,82 @@ class Wellme_Pamphlets_ACF {
                     'return_format'=> 'array',
                     'preview_size' => 'medium',
                     'instructions' => 'Optional image for the overview slide.',
+                ],
+
+                // Slide 5: Sum-Up.
+
+                [ 'key' => 'field_wm_pres_tab_slide5', 'label' => 'Slide 5 - Sum-Up', 'type' => 'tab', 'placement' => 'top' ],
+
+                [
+                    'key'           => 'field_wm_pres_sumup_nav_label',
+                    'label'         => 'Navigation Label',
+                    'name'          => 'sumup_nav_label',
+                    'type'          => 'text',
+                    'default_value' => 'Sum-Up',
+                    'instructions'  => 'Short label used in the presentation navigation and slide dots.',
+                ],
+                [
+                    'key'           => 'field_wm_pres_sumup_title',
+                    'label'         => 'Slide Title',
+                    'name'          => 'sumup_title',
+                    'type'          => 'text',
+                    'default_value' => 'Sum-Up',
+                ],
+                [
+                    'key'           => 'field_wm_pres_sumup_subtitle',
+                    'label'         => 'Slide Subtitle',
+                    'name'          => 'sumup_subtitle',
+                    'type'          => 'text',
+                    'default_value' => 'Click each card to reveal the module motto.',
+                ],
+                [
+                    'key'          => 'field_wm_pres_sumup_cards',
+                    'label'        => 'Sum-Up Cards',
+                    'name'         => 'sumup_cards',
+                    'type'         => 'repeater',
+                    'layout'       => 'block',
+                    'collapsed'    => 'field_wm_pres_sumup_card_title',
+                    'button_label' => 'Add Sum-Up card',
+                    'instructions' => 'Edit the cards shown on the Sum-Up slide. If this is left empty, the slide falls back to the module titles, cover images, colours, and mottos.',
+                    'sub_fields'   => [
+                        [
+                            'key'          => 'field_wm_pres_sumup_card_label',
+                            'label'        => 'Card Label',
+                            'name'         => 'card_label',
+                            'type'         => 'text',
+                            'instructions' => 'For example: Module 1.',
+                        ],
+                        [
+                            'key'   => 'field_wm_pres_sumup_card_title',
+                            'label' => 'Card Title',
+                            'name'  => 'card_title',
+                            'type'  => 'text',
+                        ],
+                        [
+                            'key'   => 'field_wm_pres_sumup_card_motto',
+                            'label' => 'Card Motto / Back Text',
+                            'name'  => 'card_motto',
+                            'type'  => 'textarea',
+                            'rows'  => 3,
+                        ],
+                        [
+                            'key'           => 'field_wm_pres_sumup_card_image',
+                            'label'         => 'Card Image',
+                            'name'          => 'card_image',
+                            'type'          => 'image',
+                            'return_format' => 'array',
+                            'preview_size'  => 'medium',
+                        ],
+                        [
+                            'key'           => 'field_wm_pres_sumup_card_color',
+                            'label'         => 'Accent Colour',
+                            'name'          => 'card_color',
+                            'type'          => 'color_picker',
+                            'default_value' => '#005b96',
+                            'enable_opacity' => 0,
+                            'return_format' => 'string',
+                        ],
+                    ],
                 ],
             ],
         ] );
