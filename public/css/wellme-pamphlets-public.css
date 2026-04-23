@@ -51,15 +51,13 @@
     border-radius: var(--wellme-radius);
     overflow: hidden;
     cursor: pointer;
-    box-shadow: var(--wellme-shadow);
     background: #fff;
-    transition: transform var(--wellme-transition), box-shadow var(--wellme-transition);
+    transition: transform var(--wellme-transition);
     outline-offset: 3px;
 }
 .wellme-module-card:hover,
 .wellme-module-card:focus-visible {
     transform: translateY(-6px);
-    box-shadow: var(--wellme-shadow-hover);
 }
 .wellme-module-card:focus-visible {
     outline: 3px solid var(--module-color, var(--wellme-primary));
@@ -152,7 +150,6 @@
     height: 100%;
     background: #fff;
     overflow-y: auto;
-    box-shadow: -4px 0 40px rgba(0,0,0,.2);
     animation: wellme-slide-in var(--wellme-transition) both;
 }
 
@@ -285,14 +282,13 @@
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease, border-left-width 0.3s ease;
+    transition: background 0.3s ease, transform 0.25s ease, border-color 0.3s ease, border-left-width 0.3s ease;
 }
 .wellme-outcome-link:hover,
 .wellme-outcome-link[aria-expanded="true"] {
     background: var(--wellme-brand-gradient);
     color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(0,0,0,.15);
     border-color: color-mix(in srgb, var(--wellme-secondary) 60%, white);
 }
 .wellme-outcome-link[aria-expanded="true"] {
@@ -427,11 +423,10 @@
     color: #fff;
     font-size: 18px;
     font-weight: 700;
-    box-shadow: 0 4px 16px rgba(0,0,0,.35), 0 0 0 4px rgba(255,255,255,.3);
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .2s ease;
 }
 .wellme-hotspot-dot:hover .wellme-hotspot-number,
-.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number { transform: scale(1.2); box-shadow: 0 4px 20px rgba(0,0,0,.4), 0 0 0 6px rgba(255,255,255,.5); }
+.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number { transform: scale(1.2); }
 
 .wellme-hotspot-pulse {
     position: absolute;
@@ -549,12 +544,10 @@
     border: 1px solid #dbe4ef;
     border-radius: var(--wellme-radius);
     background: #fff;
-    box-shadow: 0 14px 30px rgba(8, 17, 31, 0.06);
 }
 
 .wellme-assessment-question.is-unanswered {
     border-color: color-mix(in srgb, var(--wellme-secondary) 45%, #dbe4ef);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--wellme-secondary) 10%, transparent);
 }
 
 .wellme-assessment-question.is-correct {
@@ -610,14 +603,13 @@
     border: 1px solid #dbe4ef;
     border-radius: 14px;
     background: #f8fbff;
-    transition: border-color var(--wellme-transition), background var(--wellme-transition), transform var(--wellme-transition), box-shadow var(--wellme-transition);
+    transition: border-color var(--wellme-transition), background var(--wellme-transition), transform var(--wellme-transition);
     cursor: pointer;
 }
 
 .wellme-assessment-option:hover {
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--wellme-primary) 42%, #dbe4ef);
-    box-shadow: 0 10px 20px rgba(8, 17, 31, 0.06);
 }
 
 .wellme-assessment-option input {
@@ -710,13 +702,12 @@
     font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform var(--wellme-transition), box-shadow var(--wellme-transition), border-color var(--wellme-transition), background var(--wellme-transition), color var(--wellme-transition);
+    transition: transform var(--wellme-transition), border-color var(--wellme-transition), background var(--wellme-transition), color var(--wellme-transition);
 }
 
 .wellme-assessment-submit {
     background: var(--wellme-brand-gradient);
     color: #fff;
-    box-shadow: 0 14px 30px rgba(8, 17, 31, 0.12);
 }
 
 .wellme-assessment-submit:hover,
@@ -820,7 +811,6 @@
     -webkit-backface-visibility: hidden;
     border-radius: var(--wellme-radius);
     overflow: hidden;
-    box-shadow: var(--wellme-shadow);
 }
 
 .wellme-flipcard-front { background: #1a1a2e; }
@@ -1236,13 +1226,11 @@
     font-size: 0.9rem;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
     align-self: flex-start;
-    box-shadow: 0 6px 20px rgba(0,0,0,.12);
 }
 .wellme-popup-more-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 
 .wellme-popup-more-info {
@@ -1352,7 +1340,6 @@
 .wellme-exp-number {
     background: color-mix(in srgb, var(--wellme-primary) 22%, rgba(255,255,255,0.08));
     border: 1px solid color-mix(in srgb, var(--wellme-secondary) 48%, rgba(255,255,255,0.32));
-    box-shadow: 0 12px 30px rgba(8, 17, 31, 0.22);
 }
 
 .wellme-exp-subtitle {
@@ -1367,8 +1354,7 @@
 .wellme-exp-explore-btn {
     border: 2px solid color-mix(in srgb, var(--wellme-secondary) 78%, white);
     background: var(--wellme-brand-gradient-strong);
-    box-shadow: 0 18px 42px rgba(8, 17, 31, 0.28);
-    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    transition: transform 0.2s ease, filter 0.25s ease;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -1382,7 +1368,6 @@
     border-color: color-mix(in srgb, var(--wellme-secondary) 78%, white);
     transform: translateY(-2px);
     filter: saturate(1.08) brightness(1.04);
-    box-shadow: 0 22px 46px rgba(8, 17, 31, 0.34);
 }
 
 .wellme-exp-explore-btn:focus-visible {
@@ -1394,7 +1379,6 @@
     background: rgba(8, 17, 31, 0.28);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 12px 28px rgba(8, 17, 31, 0.22);
 }
 
 .wellme-exp-arrow:hover {
@@ -1422,7 +1406,6 @@
 .wellme-exp-dot.is-active {
     background: var(--wellme-secondary);
     border-color: var(--wellme-secondary);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--wellme-primary) 18%, transparent);
 }
 
 .wellme-exp-dot:hover {
@@ -1713,7 +1696,6 @@
     max-width: 90vw;
     height: 100vh;
     background: #fff;
-    box-shadow: -4px 0 32px rgba(0,0,0,.18);
     z-index: 10001;
     padding: 48px 36px 36px;
     overflow-y: auto;
@@ -1915,7 +1897,6 @@
     margin: 0 auto;
     position: relative;
     animation: wellme-fade-in 0.3s ease;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
 }
 
 .wellme-partner-detail[hidden] { display: none; }
@@ -2054,7 +2035,6 @@
 .wellme-overview-image img {
     width: 100%;
     border-radius: var(--wellme-radius);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 .wellme-overview-sections {
@@ -2176,7 +2156,7 @@
     border-radius: var(--wellme-radius);
     overflow: hidden;
     cursor: pointer;
-    transition: background 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     text-align: left;
@@ -2187,7 +2167,6 @@
     background: rgba(255, 255, 255, 0.12);
     transform: translateY(-4px);
     border-color: var(--module-color, var(--wellme-primary));
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 .wellme-module-inline-card:focus-visible {
@@ -2388,7 +2367,6 @@
     border-radius: 2px;
     background: #fff;
     color: #17202a;
-    box-shadow: 0 22px 55px rgba(20, 28, 38, 0.12);
     scrollbar-width: thin;
     scrollbar-color: #b8c0ca transparent;
 }
@@ -2495,7 +2473,6 @@
     border-radius: 6px;
     background: #f8fafc;
     color: #17202a;
-    box-shadow: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -2508,7 +2485,6 @@
 .wellme-experience--reader .wellme-module-inline-card:focus-visible {
     background: #fff;
     border-color: var(--wellme-secondary);
-    box-shadow: 0 12px 28px rgba(20, 28, 38, 0.11);
 }
 
 .wellme-experience--reader .wellme-partner-name--landing,
@@ -2531,7 +2507,6 @@
 
 .wellme-experience--reader .wellme-overview-image img {
     border-radius: 4px;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-overview-sections {
@@ -2543,7 +2518,6 @@
     border: 1px solid #d7dde4;
     border-radius: 6px;
     background: #f8fafc;
-    box-shadow: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -2568,7 +2542,6 @@
 .wellme-experience--reader .wellme-flipcard-front,
 .wellme-experience--reader .wellme-flipcard-back {
     border-radius: 6px;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-flipcard-front {
@@ -2588,7 +2561,6 @@
     border-radius: 0;
     background: transparent;
     color: #17202a;
-    box-shadow: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -2638,7 +2610,6 @@
 .wellme-experience--reader .wellme-exp-dot.is-active {
     background: #101820;
     border-color: #101820;
-    box-shadow: none;
     transform: scale(1.25);
 }
 
@@ -2717,7 +2688,6 @@
     .wellme-experience--reader .wellme-sumup-content {
         aspect-ratio: 0.78 / 1;
         max-width: calc(100vw - 68px);
-        box-shadow: 0 14px 32px rgba(20, 28, 38, 0.11);
     }
 
     .wellme-experience--reader .wellme-partnership-content,
@@ -3120,7 +3090,6 @@
     height: var(--wellme-reader-top-height);
     background: #ffffff;
     border-bottom: 1px solid #d8dde3;
-    box-shadow: 0 1px 0 rgba(18, 24, 31, 0.04);
 }
 
 .wellme-experience--reader .wellme-exp-topnav-brand {
@@ -3172,7 +3141,6 @@
     border-radius: 4px;
     background: #fff;
     color: #151b23;
-    box-shadow: 0 22px 52px rgba(21, 27, 35, 0.14);
 }
 
 .wellme-experience--reader .wellme-partnership-content,
@@ -3298,14 +3266,12 @@
     border: 1px solid #d9e1e8;
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 10px 24px rgba(21, 27, 35, 0.06);
 }
 
 .wellme-experience--reader .wellme-partner-card:hover,
 .wellme-experience--reader .wellme-partner-card:focus-visible {
     transform: translateY(-3px);
     border-color: #1e88c8;
-    box-shadow: 0 16px 32px rgba(21, 27, 35, 0.12);
 }
 
 .wellme-experience--reader .wellme-partner-name {
@@ -3386,14 +3352,12 @@
     border: 1px solid #d9e1e8;
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 10px 22px rgba(21, 27, 35, 0.08);
 }
 
 .wellme-experience--reader .wellme-module-inline-card:hover,
 .wellme-experience--reader .wellme-module-inline-card:focus-visible {
     transform: translateY(-4px);
     border-color: var(--module-color, #1e88c8);
-    box-shadow: 0 18px 34px rgba(21, 27, 35, 0.14);
 }
 
 .wellme-module-inline-media {
@@ -3429,7 +3393,6 @@
     border: 2px solid var(--module-color, #1e88c8);
     color: var(--module-color, #1e88c8);
     font-weight: 800;
-    box-shadow: 0 8px 18px rgba(21, 27, 35, 0.16);
 }
 
 .wellme-module-inline-icon img {
@@ -3507,7 +3470,6 @@
     padding: 0 96px;
     border-radius: 0;
     background: #05070a;
-    box-shadow: 0 -1px 0 rgba(255,255,255,0.08);
 }
 
 .wellme-experience--reader .wellme-exp-dot {
@@ -3550,7 +3512,6 @@
 }
 
 .wellme-experience--reader .wellme-exp-dot.is-active {
-    box-shadow: inset 0 3px 0 #ffffff;
 }
 
 .wellme-experience--reader .wellme-exp-counter {
@@ -3651,7 +3612,6 @@
     border-radius: 999px;
     background: #fff;
     color: #111821;
-    box-shadow: none;
     cursor: pointer;
     transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
@@ -3695,7 +3655,6 @@
     border-radius: 999px;
     background: #111821;
     color: #fff;
-    box-shadow: none;
 }
 
 .wellme-popup-close {
@@ -3717,7 +3676,6 @@
     border: 1px solid #d8dde3;
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 18px 42px rgba(21, 27, 35, 0.16);
 }
 
 .wellme-popup-more-info p {
@@ -3756,7 +3714,6 @@
     border: 1px solid #d4dbe3;
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 16px 38px rgba(21, 27, 35, 0.1);
 }
 
 .wellme-popup-body .wellme-pamphlet-section + .wellme-pamphlet-section {
@@ -4076,14 +4033,13 @@
 }
 
 .wellme-experience--reader .wellme-exp-dot {
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .wellme-experience--reader .wellme-exp-dot:hover,
 .wellme-experience--reader .wellme-exp-dot:focus-visible {
     background: #1c2633;
     color: #fff;
-    box-shadow: inset 0 3px 0 #ffffff;
 }
 
 .wellme-experience--reader .wellme-landing-scroll {
@@ -4289,8 +4245,7 @@
     color: #111821;
     text-align: left;
     cursor: pointer;
-    box-shadow: 0 12px 26px rgba(21, 27, 35, 0.07);
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .wellme-partnership-choice:hover,
@@ -4298,7 +4253,6 @@
     transform: translateY(-3px);
     border-color: #111821;
     background: #f9fbfc;
-    box-shadow: 0 18px 34px rgba(21, 27, 35, 0.13);
 }
 
 .wellme-partnership-choice-number {
@@ -4442,15 +4396,13 @@
     border-radius: 50%;
     background: var(--overview-color, #1e88c8);
     cursor: pointer;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.22);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .wellme-overview-selector:hover,
 .wellme-overview-selector:focus-visible,
 .wellme-overview-selector.is-active {
     transform: translateY(-2px);
-    box-shadow: 0 0 0 5px rgba(255,255,255,0.2), 0 14px 28px rgba(0,0,0,0.26);
 }
 
 .wellme-overview-selector.is-active {
@@ -4482,7 +4434,6 @@
     border: 0;
     border-radius: 0;
     background: transparent;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-overview-section::before {
@@ -4585,7 +4536,6 @@
     padding: 0 28px;
     background: #020d18;
     border-bottom: 0;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-exp-topnav-brand {
@@ -4669,7 +4619,6 @@
     border-radius: 0;
     background: #fff;
     color: #080d12;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-landing-scroll {
@@ -4855,7 +4804,6 @@
     border: 1px solid #d8d8d8;
     border-radius: 0;
     background: #f5f5f5;
-    box-shadow: none;
     text-align: center;
 }
 
@@ -4864,7 +4812,6 @@
     transform: translateY(-2px);
     border-color: #111;
     background: #fff;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
 }
 
 .wellme-partnership-choice-number {
@@ -4899,7 +4846,6 @@
     min-height: 96px;
     border-radius: 0;
     background: #fff;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-partner-card:hover,
@@ -4975,14 +4921,12 @@
     width: 35px;
     height: 35px;
     border: 1px solid #fff;
-    box-shadow: 0 0 0 1px #bdbdbd;
 }
 
 .wellme-overview-selector:hover,
 .wellme-overview-selector:focus-visible,
 .wellme-overview-selector.is-active {
     transform: translateY(-2px);
-    box-shadow: 0 0 0 2px #111, 0 8px 16px rgba(0,0,0,0.16);
 }
 
 .wellme-experience--reader .wellme-overview-copy {
@@ -5263,7 +5207,6 @@
     height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-control-height));
     border: 0;
     border-radius: 0;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-landing-scroll {
@@ -5398,7 +5341,6 @@
     border-radius: 0;
     background: #fff;
     color: #111;
-    box-shadow: none;
     text-align: left;
 }
 
@@ -5407,7 +5349,6 @@
     transform: none;
     background: #080808;
     color: #fff;
-    box-shadow: none;
 }
 
 .wellme-partnership-choice-number,
@@ -5511,14 +5452,12 @@
     height: 74px;
     border-radius: 0;
     border: 0;
-    box-shadow: none;
 }
 
 .wellme-overview-selector:hover,
 .wellme-overview-selector:focus-visible,
 .wellme-overview-selector.is-active {
     transform: none;
-    box-shadow: inset 0 0 0 3px #111;
 }
 
 .wellme-experience--reader .wellme-overview-copy {
@@ -5625,7 +5564,6 @@
 .wellme-experience--reader .wellme-exp-dot.is-active {
     background: #fff;
     color: #111;
-    box-shadow: inset 0 -3px 0 #d31f32;
 }
 
 .wellme-experience--reader .wellme-exp-counter {
@@ -6056,7 +5994,6 @@
     height: calc((var(--wellme-vh, 1vh) * 100) - var(--wellme-reader-top-height) - var(--wellme-reader-control-height));
     border: 0;
     border-radius: 0;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-landing-copy {
@@ -6174,7 +6111,6 @@
     border-radius: 0;
     background: #fff;
     color: #111;
-    box-shadow: none;
     text-align: left;
 }
 
@@ -6273,7 +6209,6 @@
     height: 74px;
     border-radius: 0;
     border: 0;
-    box-shadow: none;
 }
 
 .wellme-experience--reader .wellme-overview-copy {
@@ -6606,7 +6541,6 @@
     border: 0;
     border-radius: 0;
     background: #fff;
-    box-shadow: none;
     color: #111;
     text-align: left;
     transform: none;
@@ -6657,7 +6591,6 @@
     padding: 16px 18px 16px 92px;
     border-radius: 0;
     background: rgba(255,255,255,0.96);
-    box-shadow: 0 18px 42px rgba(0,0,0,0.16);
     animation: wellme-fade-in 0.18s ease;
 }
 
@@ -7216,7 +7149,6 @@
     margin: 0;
     padding: 0;
     color: #fff;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.38);
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-kicker {
@@ -7234,7 +7166,6 @@
     font-weight: 600;
     letter-spacing: 0.28em;
     line-height: 1.35;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.38);
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-lede {
@@ -7270,7 +7201,6 @@
     border: 0;
     border-radius: 0;
     background: rgba(255,255,255,0.98);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.1);
     color: #111;
 }
 
@@ -7387,7 +7317,6 @@
     border: 0;
     border-radius: 0;
     background: rgba(255,255,255,0.86);
-    box-shadow: none;
     color: #111;
     text-align: left;
     backdrop-filter: none;
@@ -7482,7 +7411,6 @@
     overflow: auto;
     background: rgba(0,0,0,0.48);
     border-left: 3px solid rgba(255,255,255,0.82);
-    box-shadow: 0 22px 42px rgba(0,0,0,0.22);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
 }
@@ -7661,11 +7589,9 @@
     padding: 18px 20px 20px;
     border-left: 4px solid var(--overview-color, #1e88c8);
     background: #fff;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section.is-active {
-    box-shadow: 0 16px 34px rgba(0,0,0,0.13);
 }
 
 .wellme-experience--reader .wellme-slide-overview .wellme-overview-section-label {
@@ -8006,7 +7932,6 @@
         linear-gradient(145deg, rgba(255,255,255,0.16), rgba(0,0,0,0.24)),
         var(--module-color, #005b96);
     color: #111;
-    box-shadow: none;
     cursor: pointer;
     overflow: hidden;
     text-align: left;
@@ -8019,7 +7944,6 @@
         linear-gradient(145deg, rgba(255,255,255,0.24), rgba(0,0,0,0.18)),
         var(--module-color, #005b96);
     border-color: transparent;
-    box-shadow: none;
     transform: translateY(-2px);
 }
 
@@ -8095,7 +8019,6 @@
     padding: 24px 26px 26px;
     border-left: 4px solid var(--module-color, #005b96);
     background: #fff;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 
@@ -8296,7 +8219,6 @@
     border-radius: 0;
     background: #151515;
     color: #fff;
-    box-shadow: none;
     cursor: pointer;
     overflow: hidden;
     text-align: left;
@@ -8307,7 +8229,6 @@
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:focus-visible {
     background: #151515;
     border-color: transparent;
-    box-shadow: none;
     transform: translateY(-4px);
 }
 
