@@ -10,38 +10,6 @@
  * @subpackage Wellme_Pamphlets/includes
  */
 class Wellme_Pamphlets_ACF {
-
-    public function prepare_module_wellme_goals_label( $field ) {
-        $module_number = $this->get_current_module_number();
-        $field['label'] = $module_number
-            ? sprintf( __( 'Module %d WellMe Goals', 'wellme-pamphlets' ), $module_number )
-            : __( 'Module WellMe Goals', 'wellme-pamphlets' );
-
-        return $field;
-    }
-
-    private function get_current_module_number() {
-        $post_id = 0;
-
-        if ( isset( $_GET['post'] ) ) {
-            $post_id = absint( $_GET['post'] );
-        } elseif ( isset( $_POST['post_ID'] ) ) {
-            $post_id = absint( $_POST['post_ID'] );
-        } else {
-            global $post;
-
-            if ( $post instanceof WP_Post ) {
-                $post_id = (int) $post->ID;
-            }
-        }
-
-        if ( ! $post_id || 'wellme_module' !== get_post_type( $post_id ) ) {
-            return 0;
-        }
-
-        return (int) get_post_meta( $post_id, 'module_number', true );
-    }
-
     public function migrate_overview_legacy_fields_to_repeater() {
         if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! function_exists( 'get_field' ) || ! function_exists( 'update_field' ) ) {
             return;
@@ -600,85 +568,6 @@ class Wellme_Pamphlets_ACF {
 
                 // ── Chapters ───────────────────────────────────────────────────
 
-                [
-                    'key'       => 'field_wm_tab_chapters',
-                    'label'     => 'Activity Content',
-                    'type'      => 'tab',
-                    'placement' => 'top',
-                ],
-                [
-                    'key'          => 'field_wm_activity_aims',
-                    'label'        => 'Aims',
-                    'name'         => 'module_activity_aims',
-                    'type'         => 'group',
-                    'instructions' => 'Content shown as three tabs at the top of the Module Activity section.',
-                    'layout'       => 'block',
-                    'sub_fields'   => [
-                        [
-                            'key'          => 'field_wm_activity_aim',
-                            'label'        => 'Aim',
-                            'name'         => 'activity_aim',
-                            'type'         => 'wysiwyg',
-                            'tabs'         => 'all',
-                            'toolbar'      => 'full',
-                            'media_upload' => 1,
-                        ],
-                        [
-                            'key'          => 'field_wm_activity_youth_worker',
-                            'label'        => 'Youth Worker',
-                            'name'         => 'activity_youth_worker',
-                            'type'         => 'wysiwyg',
-                            'tabs'         => 'all',
-                            'toolbar'      => 'full',
-                            'media_upload' => 1,
-                        ],
-                        [
-                            'key'          => 'field_wm_activity_wellme_goals',
-                            'label'        => 'Module WellMe Goals',
-                            'name'         => 'activity_wellme_goals',
-                            'type'         => 'wysiwyg',
-                            'tabs'         => 'all',
-                            'toolbar'      => 'full',
-                            'media_upload' => 1,
-                        ],
-                    ],
-                ],
-                [
-                    'key'          => 'field_wm_chapters',
-                    'label'        => 'Activity Tabs',
-                    'name'         => 'module_chapters',
-                    'type'         => 'repeater',
-                    'instructions' => 'Each chapter becomes a navigation button inside the pamphlet (Partou chapter-nav pattern).',
-                    'min'          => 0,
-                    'max'          => 10,
-                    'layout'       => 'block',
-                    'button_label' => 'Add Chapter',
-                    'sub_fields'   => [
-                        [
-                            'key'   => 'field_wm_chapter_title',
-                            'label' => 'Chapter Title',
-                            'name'  => 'chapter_title',
-                            'type'  => 'text',
-                        ],
-                        [
-                            'key'     => 'field_wm_chapter_content',
-                            'label'   => 'Chapter Content',
-                            'name'    => 'chapter_content',
-                            'type'    => 'wysiwyg',
-                            'tabs'    => 'all',
-                            'toolbar' => 'full',
-                            'media_upload' => 1,
-                        ],
-                        [
-                            'key'   => 'field_wm_chapter_image',
-                            'label' => 'Chapter Image',
-                            'name'  => 'chapter_image',
-                            'type'  => 'image',
-                            'return_format' => 'array',
-                            'preview_size'  => 'medium',
-                        ],
-                    ],
-                ],
 
                 // ── Media ──────────────────────────────────────────────────────
 

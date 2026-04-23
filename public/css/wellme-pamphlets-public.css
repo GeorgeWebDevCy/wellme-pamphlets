@@ -230,33 +230,6 @@
 .wellme-cover-description { font-size: .9rem; opacity: .75; margin: 0; }
 
 /* ── Chapter navigation ────────────────────────────────────── */
-.wellme-activity-aim-content > :first-child { margin-top: 0; }
-.wellme-activity-aim-content > :last-child { margin-bottom: 0; }
-
-.wellme-chapter-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-
-.wellme-chapter-btn {
-    padding: 10px 18px;
-    border-radius: 24px;
-    border: 2px solid var(--wellme-primary);
-    background: transparent;
-    color: var(--wellme-primary);
-    font-weight: 600;
-    font-size: .96rem;
-    cursor: pointer;
-    transition: background var(--wellme-transition), color var(--wellme-transition);
-}
-.wellme-chapter-btn:hover,
-.wellme-chapter-btn.is-active {
-    background: var(--wellme-brand-gradient);
-    border-color: transparent;
-    color: #fff;
-}
-
-.wellme-chapter-panel { animation: wellme-fade-in 0.3s ease; }
-.wellme-chapter-panel[hidden] { display: none; }
-.wellme-chapter-image { width: 100%; border-radius: var(--wellme-radius); margin-bottom: 20px; }
-
 /* ── Learning outcomes (Partou pattern — large link cards) ──── */
 .wellme-outcomes-intro {
     margin: 0 0 20px;
@@ -3764,27 +3737,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     text-transform: uppercase;
 }
 
-.wellme-popup-body .wellme-chapter-nav {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.wellme-popup-body .wellme-chapter-btn {
-    min-height: 46px;
-    border-radius: 8px;
-    border: 1px solid #d8dde3;
-    background: #fff;
-    color: #111821;
-}
-
-.wellme-popup-body .wellme-chapter-btn:hover,
-.wellme-popup-body .wellme-chapter-btn.is-active {
-    border-color: var(--module-color, #1e88c8);
-    background: var(--module-color, #1e88c8);
-    color: #fff;
-}
-
 .wellme-popup-body .wellme-outcomes-links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3916,7 +3868,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     .wellme-experience--reader .wellme-modules-grid-inline,
     .wellme-experience--reader .wellme-flipcards-grid--experience,
     .wellme-experience--reader .wellme-partners-grid,
-    .wellme-popup-body .wellme-chapter-nav,
     .wellme-popup-body .wellme-outcomes-links {
         grid-template-columns: 1fr;
     }

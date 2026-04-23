@@ -20,8 +20,6 @@ $motto        = get_field( 'module_motto',        $module->ID );
 $video_url    = get_field( 'module_video_url',    $module->ID );
 $outcomes     = get_field( 'module_learning_outcomes', $module->ID ) ?: [];
 $steps        = get_field( 'module_exercise_steps',    $module->ID ) ?: [];
-$chapters     = get_field( 'module_chapters',          $module->ID ) ?: [];
-$activity_aims = get_field( 'module_activity_aims',    $module->ID ) ?: [];
 $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
 $eu_text      = get_field( 'module_eu_funding_text',   $module->ID );
 $toc          = get_field( 'module_table_of_contents', $module->ID );
@@ -30,7 +28,6 @@ $introduction_items = get_field( 'module_introduction_items', $module->ID ) ?: [
 $conclusion   = get_field( 'module_conclusion',        $module->ID );
 $reflection   = get_field( 'module_reflection_questions', $module->ID ) ?: [];
 $assessment_questions = Wellme_Pamphlets_Assessment::get_module_questions( $module->ID );
-$display_chapters     = $chapters;
 $display_introduction_items = array_values(
     array_filter(
         $introduction_items,
@@ -42,46 +39,6 @@ $display_introduction_items = array_values(
         }
     )
 );
-$activity_aim_tabs     = [
-    [
-        'key'     => 'aim',
-        'title'   => __( 'Aim', 'wellme-pamphlets' ),
-        'content' => $activity_aims['activity_aim'] ?? '',
-    ],
-    [
-        'key'     => 'youth-worker',
-        'title'   => __( 'Youth Worker', 'wellme-pamphlets' ),
-        'content' => $activity_aims['activity_youth_worker'] ?? '',
-    ],
-    [
-        'key'     => 'wellme-goals',
-        'title'   => $number
-            ? sprintf( __( 'Module %d WellMe Goals', 'wellme-pamphlets' ), $number )
-            : __( 'Module WellMe Goals', 'wellme-pamphlets' ),
-        'content' => $activity_aims['activity_wellme_goals'] ?? '',
-    ],
-];
-$activity_aim_tabs     = array_values(
-    array_filter(
-        $activity_aim_tabs,
-        static function ( $tab ) {
-            return '' !== trim( wp_strip_all_tags( (string) $tab['content'] ) );
-        }
-    )
-);
-
-if ( ! empty( $assessment_questions ) ) {
-    $display_chapters = array_values(
-        array_filter(
-            $chapters,
-            static function ( $chapter ) {
-                $title = strtolower( wp_strip_all_tags( $chapter['chapter_title'] ?? '' ) );
-
-                return false === strpos( $title, 'assessment' ) && false === strpos( $title, 'answer' );
-            }
-        )
-    );
-}
 ?>
 <div class="wellme-pamphlet" style="--module-color: <?php echo esc_attr( $color ); ?>;" data-module-id="<?php echo esc_attr( $module->ID ); ?>">
 
@@ -180,80 +137,6 @@ if ( ! empty( $assessment_questions ) ) {
     <?php endif; ?>
 
     <?php /* ── Chapter navigation ─────────────────────────────────── */ ?>
-    <?php if ( ! empty( $activity_aim_tabs ) || ! empty( $display_chapters ) ) : ?>
-    <section class="wellme-pamphlet-section wellme-section-chapters">
-        <div class="wellme-section-inner wellme-scroll-reveal">
-            <h2>
-                <?php
-                echo esc_html(
-                    $number
-                        ? sprintf( __( 'Module %d Activity', 'wellme-pamphlets' ), $number )
-                        : __( 'Module Activity', 'wellme-pamphlets' )
-                );
-                ?>
-            </h2>
-            <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module activity tabs', 'wellme-pamphlets' ); ?>">
-                <?php
-                $activity_tab_index = 0;
-                foreach ( $activity_aim_tabs as $tab ) :
-                    $panel_index  = $activity_tab_index++;
-                    $aim_panel_id = 'wellme-chapter-panel-' . $module->ID . '-aim-' . $tab['key'];
-                ?>
-                <button type="button"
-                        class="wellme-chapter-btn wellme-chapter-btn--aim"
-                        data-chapter="<?php echo esc_attr( $panel_index ); ?>"
-                        aria-controls="<?php echo esc_attr( $aim_panel_id ); ?>">
-                    <?php echo esc_html( $tab['title'] ); ?>
-                </button>
-                <?php endforeach; ?>
-                <?php foreach ( $display_chapters as $i => $chapter ) :
-                    $panel_index = $activity_tab_index++;
-                ?>
-                <button type="button"
-                        class="wellme-chapter-btn"
-                        data-chapter="<?php echo esc_attr( $panel_index ); ?>"
-                        aria-controls="wellme-chapter-panel-<?php echo esc_attr( $module->ID . '-' . $i ); ?>">
-                    <?php echo esc_html( $chapter['chapter_title'] ); ?>
-                </button>
-                <?php endforeach; ?>
-            </nav>
-
-            <?php
-            $activity_tab_index = 0;
-            foreach ( $activity_aim_tabs as $tab ) :
-                $panel_index  = $activity_tab_index++;
-                $aim_panel_id = 'wellme-chapter-panel-' . $module->ID . '-aim-' . $tab['key'];
-            ?>
-            <div class="wellme-chapter-panel wellme-chapter-panel--aim"
-                 id="<?php echo esc_attr( $aim_panel_id ); ?>"
-                 data-chapter="<?php echo esc_attr( $panel_index ); ?>"
-                 hidden>
-                <div class="wellme-activity-aim-content">
-                    <?php echo wp_kses_post( $tab['content'] ); ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
-
-            <?php foreach ( $display_chapters as $i => $chapter ) :
-                $ch_img = $chapter['chapter_image']['url'] ?? '';
-                $panel_index = $activity_tab_index++;
-            ?>
-            <div class="wellme-chapter-panel"
-                 id="wellme-chapter-panel-<?php echo esc_attr( $module->ID . '-' . $i ); ?>"
-                 data-chapter="<?php echo esc_attr( $panel_index ); ?>"
-                 hidden>
-                <?php if ( $ch_img ) : ?>
-                <img src="<?php echo esc_url( $ch_img ); ?>" alt="" class="wellme-chapter-image">
-                <?php endif; ?>
-                <div class="wellme-chapter-content">
-                    <?php echo wp_kses_post( $chapter['chapter_content'] ); ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-    <?php endif; ?>
-
     <?php /* ── Learning outcomes (Partou pattern) ─────────────────── */ ?>
     <?php if ( ! empty( $outcomes ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-outcomes">

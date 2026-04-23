@@ -501,40 +501,12 @@
 
     function initPamphletInteractions(root) {
         root = root || document;
-        initChapterNav(root);
         initOutcomePanels(root);
         initHotspots(root);
         initAssessments(root);
     }
 
     /* ── Chapter Navigation ──────────────────────────────────── */
-
-    function initChapterNav(root) {
-        root.querySelectorAll('.wellme-chapter-nav').forEach(function (nav) {
-            var btns   = nav.querySelectorAll('.wellme-chapter-btn');
-            var parent = nav.closest('.wellme-section-chapters');
-            if (!parent) return;
-            var panels = parent.querySelectorAll('.wellme-chapter-panel');
-
-            function activate(index) {
-                btns.forEach(function (b, i) {
-                    b.classList.toggle('is-active', i === index);
-                    b.setAttribute('aria-expanded', i === index ? 'true' : 'false');
-                });
-                panels.forEach(function (p) {
-                    var pi = parseInt(p.dataset.chapter, 10);
-                    pi === index ? show(p) : hide(p);
-                });
-            }
-
-            btns.forEach(function (btn, i) {
-                btn.addEventListener('click', function () { activate(i); });
-            });
-
-            // Open first chapter by default
-            if (btns.length) activate(0);
-        });
-    }
 
     /* ── Outcome Link Cards (Partou pattern — inline panels) ──── */
 

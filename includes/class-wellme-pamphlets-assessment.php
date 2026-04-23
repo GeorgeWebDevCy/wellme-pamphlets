@@ -12,23 +12,12 @@ class Wellme_Pamphlets_Assessment {
     /**
      * Get structured assessment questions for a module.
      *
-     * Falls back to parsing legacy Assessment/Correct Answers chapter content
-     * so existing imports can become interactive without a full re-import.
-     *
      * @param int $module_id Module post ID.
      *
      * @return array<int,array<string,mixed>>
      */
     public static function get_module_questions( $module_id ) {
-        $questions = self::normalize_questions( get_field( 'module_assessment_questions', $module_id ) ?: [] );
-
-        if ( ! empty( $questions ) ) {
-            return $questions;
-        }
-
-        $chapters = get_field( 'module_chapters', $module_id ) ?: [];
-
-        return self::extract_questions_from_chapters( $chapters );
+        return self::normalize_questions( get_field( 'module_assessment_questions', $module_id ) ?: [] );
     }
 
     /**

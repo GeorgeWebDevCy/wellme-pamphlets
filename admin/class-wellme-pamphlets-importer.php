@@ -253,8 +253,6 @@ class Wellme_Pamphlets_Importer {
         $introduction_items   = $this->build_introduction_items( $module['module_introduction_items'] ?? [], $package_root, $post_id );
         $outcomes             = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
         $steps                = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
-        $chapters             = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
-        $activity_aims        = $this->build_activity_aims( $module['module_activity_aims'] ?? [] );
         $assessment_questions = $this->build_assessment_questions( $module['module_assessment_questions'] ?? [] );
         $reflection_questions = $this->build_reflection_questions( $module['module_reflection_questions'] ?? [] );
         $color                = sanitize_hex_color( $module['module_color'] ?? '' ) ?: '#005b96';
@@ -286,8 +284,6 @@ class Wellme_Pamphlets_Importer {
         update_field( 'module_introduction_items', $introduction_items, $post_id );
         update_field( 'module_learning_outcomes', $outcomes, $post_id );
         update_field( 'module_exercise_steps', $steps, $post_id );
-        update_field( 'module_chapters', $chapters, $post_id );
-        update_field( 'module_activity_aims', $activity_aims, $post_id );
         update_field( 'module_assessment_questions', $assessment_questions, $post_id );
         update_field( 'module_eu_funding_text', $eu_text, $post_id );
         update_field( 'module_table_of_contents', $toc, $post_id );
@@ -397,50 +393,6 @@ class Wellme_Pamphlets_Importer {
         }
 
         return $rows;
-    }
-
-    /**
-     * Build repeater rows for chapters.
-     *
-     * @param array  $chapters     Chapter payloads.
-     * @param string $package_root Package root path.
-     * @param int    $post_id      Parent post ID.
-     *
-     * @return array
-     */
-    private function build_chapters( array $chapters, $package_root, $post_id ) {
-        $rows = [];
-
-        foreach ( $chapters as $chapter ) {
-            $title = sanitize_text_field( $chapter['chapter_title'] ?? '' );
-
-            if ( '' === $title ) {
-                continue;
-            }
-
-            $rows[] = [
-                'chapter_title'   => $title,
-                'chapter_content' => wp_kses_post( $chapter['chapter_content'] ?? '' ),
-                'chapter_image'   => $this->import_attachment_reference( $chapter['chapter_image'] ?? '', $package_root, $post_id ) ?: '',
-            ];
-        }
-
-        return $rows;
-    }
-
-    /**
-     * Build the module activity aims group.
-     *
-     * @param array $aims Activity aims payload.
-     *
-     * @return array
-     */
-    private function build_activity_aims( array $aims ) {
-        return [
-            'activity_aim'           => wp_kses_post( $aims['activity_aim'] ?? '' ),
-            'activity_youth_worker'  => wp_kses_post( $aims['activity_youth_worker'] ?? '' ),
-            'activity_wellme_goals'  => wp_kses_post( $aims['activity_wellme_goals'] ?? '' ),
-        ];
     }
 
     /**
