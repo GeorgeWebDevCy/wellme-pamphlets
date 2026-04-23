@@ -95,7 +95,15 @@ if ( ! empty( $assessment_questions ) ) {
     <?php if ( ! empty( $display_chapters ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-chapters">
         <div class="wellme-section-inner wellme-scroll-reveal">
-            <h2><?php esc_html_e( 'Chapters', 'wellme-pamphlets' ); ?></h2>
+            <h2>
+                <?php
+                echo esc_html(
+                    $number
+                        ? sprintf( __( 'Module %d Activity', 'wellme-pamphlets' ), $number )
+                        : __( 'Module Activity', 'wellme-pamphlets' )
+                );
+                ?>
+            </h2>
             <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module chapters', 'wellme-pamphlets' ); ?>">
                 <?php foreach ( $display_chapters as $i => $chapter ) : ?>
                 <button class="wellme-chapter-btn"

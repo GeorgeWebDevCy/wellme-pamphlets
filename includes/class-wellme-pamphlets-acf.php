@@ -11,6 +11,37 @@
  */
 class Wellme_Pamphlets_ACF {
 
+    public function prepare_module_activity_label( $field ) {
+        $module_number = $this->get_current_module_number();
+        $field['label'] = $module_number
+            ? sprintf( __( 'Module %d Activity', 'wellme-pamphlets' ), $module_number )
+            : __( 'Module Activity', 'wellme-pamphlets' );
+
+        return $field;
+    }
+
+    private function get_current_module_number() {
+        $post_id = 0;
+
+        if ( isset( $_GET['post'] ) ) {
+            $post_id = absint( $_GET['post'] );
+        } elseif ( isset( $_POST['post_ID'] ) ) {
+            $post_id = absint( $_POST['post_ID'] );
+        } else {
+            global $post;
+
+            if ( $post instanceof WP_Post ) {
+                $post_id = (int) $post->ID;
+            }
+        }
+
+        if ( ! $post_id || 'wellme_module' !== get_post_type( $post_id ) ) {
+            return 0;
+        }
+
+        return (int) get_post_meta( $post_id, 'module_number', true );
+    }
+
     public function migrate_overview_legacy_fields_to_repeater() {
         if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! function_exists( 'get_field' ) || ! function_exists( 'update_field' ) ) {
             return;
@@ -571,13 +602,13 @@ class Wellme_Pamphlets_ACF {
 
                 [
                     'key'       => 'field_wm_tab_chapters',
-                    'label'     => 'Chapters',
+                    'label'     => 'Module Activity',
                     'type'      => 'tab',
                     'placement' => 'top',
                 ],
                 [
                     'key'          => 'field_wm_chapters',
-                    'label'        => 'Chapters',
+                    'label'        => 'Module Activity',
                     'name'         => 'module_chapters',
                     'type'         => 'repeater',
                     'instructions' => 'Each chapter becomes a navigation button inside the pamphlet (Partou chapter-nav pattern).',
