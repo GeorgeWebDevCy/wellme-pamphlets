@@ -35,6 +35,7 @@
     }
 
     let wellmeDebugEnabled = isWellmeDebugEnabled();
+    let wellmePopupNavInspector = null;
 
     function getWellmeHeroLogo() {
         return document.querySelector('.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo') ||
@@ -310,6 +311,16 @@
             enabled: wellmeDebugEnabled,
             inspect: function (label) {
                 wellmeDebugSnapshot(label || 'manual');
+            },
+            popupNav: function (label) {
+                if (typeof wellmePopupNavInspector === 'function') {
+                    wellmePopupNavInspector(label || 'manual');
+                    return;
+                }
+
+                if (window.console) {
+                    console.warn('[WELLME Debug] popup nav inspector is not available on this page');
+                }
             },
             sampleLogoMotion: function (label) {
                 wellmeDebugSampleLogoMotion(label || 'manual');
@@ -1090,8 +1101,6 @@
         var popupMoreInfo = document.getElementById('wellme-popup-more-info');
         var popupDesc  = document.getElementById('wellme-popup-desc');
         var popupModnum = document.getElementById('wellme-popup-modnum');
-        var popupPrev = overlay ? overlay.querySelector('[data-popup-module-prev]') : null;
-        var popupNext = overlay ? overlay.querySelector('[data-popup-module-next]') : null;
         if (!overlay || !popupBody) return;
 
         function ensurePopupModuleNavControls(popup) {
@@ -1155,6 +1164,14 @@
         function getTextFromElement(root, selector) {
             var element = root ? root.querySelector(selector) : null;
             return element ? element.textContent.trim() : '';
+        }
+
+        function getPopupPrevButton() {
+            return overlay.querySelector('[data-popup-module-prev]');
+        }
+
+        function getPopupNextButton() {
+            return overlay.querySelector('[data-popup-module-next]');
         }
 
         function getModuleSequence() {
@@ -1222,11 +1239,49 @@
             return modules[targetIndex];
         }
 
+        function getPopupNavDebugSnapshot(extra) {
+            var modules = getModuleSequence();
+            var currentId = overlay.dataset.currentModuleId || popupBody.dataset.loadedId || '';
+            var index = modules.findIndex(function (item) {
+                return item.id === String(currentId);
+            });
+            var prev = getPopupPrevButton();
+            var next = getPopupNextButton();
+            var snapshot = {
+                currentModuleId: currentId,
+                loadedModuleId: popupBody.dataset.loadedId || '',
+                moduleIndex: index,
+                moduleCount: modules.length,
+                moduleIds: modules.map(function (item) { return item.id; }),
+                configuredModuleCount: getConfiguredModuleSequence().length,
+                cardModuleCount: document.querySelectorAll('.wellme-module-inline-card[data-module-id]').length,
+                overlayHidden: overlay.hidden,
+                overlayVisibleClass: overlay.classList.contains('is-visible'),
+                prevFound: !!prev,
+                prevDisabled: prev ? prev.disabled : null,
+                prevAriaDisabled: prev ? prev.getAttribute('aria-disabled') : null,
+                nextFound: !!next,
+                nextDisabled: next ? next.disabled : null,
+                nextAriaDisabled: next ? next.getAttribute('aria-disabled') : null,
+                navControlCount: overlay.querySelectorAll('.wellme-popup-back-btn, [data-popup-module-prev], [data-popup-module-next]').length,
+            };
+
+            return Object.assign(snapshot, extra || {});
+        }
+
+        function logPopupModuleNav(label, extra) {
+            if (!wellmeDebugEnabled || !window.console) return;
+
+            window.console.info('[WELLME Debug] popup nav: ' + label, getPopupNavDebugSnapshot(extra));
+        }
+
         function updatePopupModuleNav(moduleId) {
             var modules = getModuleSequence();
             var index = modules.findIndex(function (item) {
                 return item.id === String(moduleId);
             });
+            var popupPrev = getPopupPrevButton();
+            var popupNext = getPopupNextButton();
 
             overlay.dataset.currentModuleId = String(moduleId);
 
@@ -1240,18 +1295,20 @@
                 popupNext.setAttribute('aria-disabled', index < 0 || index >= modules.length - 1 ? 'true' : 'false');
             }
 
-            if (wellmeDebugEnabled && window.console) {
-                window.console.log('[WELLME Debug] popup module nav:', {
-                    currentModuleId: String(moduleId),
-                    moduleIndex: index,
-                    moduleCount: modules.length,
-                    navControls: overlay.querySelectorAll('.wellme-popup-back-btn, [data-popup-module-prev], [data-popup-module-next]').length,
-                });
-            }
+            logPopupModuleNav('state updated', {
+                requestedModuleId: String(moduleId),
+            });
         }
 
         function openAdjacentModule(direction) {
-            var target = getModuleNavTarget(overlay.dataset.currentModuleId, direction);
+            var currentId = overlay.dataset.currentModuleId || popupBody.dataset.loadedId || '';
+            var target = getModuleNavTarget(currentId, direction);
+
+            logPopupModuleNav('adjacent requested', {
+                direction: direction,
+                requestedFromModuleId: currentId,
+                targetModuleId: target ? target.id : '',
+            });
 
             if (!target) return;
 
@@ -1312,6 +1369,14 @@
             var subtitleText = subtitle ? subtitle.textContent : (moduleItem ? moduleItem.subtitle : '');
             var descText = desc ? desc.textContent : (moduleItem ? moduleItem.desc : '');
 
+            logPopupModuleNav('open requested', {
+                requestedModuleId: String(moduleId),
+                triggerTag: trigger ? trigger.tagName : '',
+                triggerClass: trigger ? trigger.className : '',
+                sourceFound: !!sourceCard,
+                sequenceItemFound: !!moduleItem,
+            });
+
             if (popupLabel && labelText) popupLabel.textContent = labelText;
             if (popupTitle && titleText) popupTitle.textContent = titleText;
             if (popupSubtitle) popupSubtitle.textContent = subtitleText || '';
@@ -1351,15 +1416,30 @@
                         popupBody.dataset.loadedId = moduleId;
                         initPamphletInteractions(popupBody);
                         initScrollReveal();
+                        logPopupModuleNav('ajax loaded', {
+                            loadedModuleId: String(moduleId),
+                        });
                     } else {
                         popupBody.innerHTML = '<p style="padding:40px;color:#c00;">' +
                             (data.data || 'Error loading module.') + '</p>';
+                        logPopupModuleNav('ajax error', {
+                            requestedModuleId: String(moduleId),
+                            error: data.data || 'Error loading module.',
+                        });
                     }
                 })
                 .catch(function () {
                     popupBody.innerHTML = '<p style="padding:40px;color:#c00;">Could not load module.</p>';
+                    logPopupModuleNav('ajax failed', {
+                        requestedModuleId: String(moduleId),
+                    });
                 });
         }
+
+        wellmePopupNavInspector = function (label) {
+            logPopupModuleNav(label || 'manual');
+        };
+        logPopupModuleNav('initialized');
 
         document.querySelectorAll('.wellme-mazda-page-tab[data-module-target]').forEach(function (tab) {
             tab.addEventListener('click', function () {
@@ -1407,13 +1487,26 @@
             btn.addEventListener('click', function (e) { e.preventDefault(); closePopup(); });
         });
 
-        if (popupPrev) {
-            popupPrev.addEventListener('click', function () { openAdjacentModule(-1); });
-        }
+        overlay.addEventListener('click', function (event) {
+            var prevButton = event.target.closest('[data-popup-module-prev]');
+            var nextButton = event.target.closest('[data-popup-module-next]');
 
-        if (popupNext) {
-            popupNext.addEventListener('click', function () { openAdjacentModule(1); });
-        }
+            if (!prevButton && !nextButton) return;
+
+            event.preventDefault();
+
+            if (prevButton && prevButton.disabled) {
+                logPopupModuleNav('prev click ignored', { reason: 'disabled' });
+                return;
+            }
+
+            if (nextButton && nextButton.disabled) {
+                logPopupModuleNav('next click ignored', { reason: 'disabled' });
+                return;
+            }
+
+            openAdjacentModule(prevButton ? -1 : 1);
+        });
 
         document.addEventListener('keydown', function (e) {
             if (!overlay || overlay.hidden) return;
