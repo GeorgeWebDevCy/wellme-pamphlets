@@ -26,10 +26,22 @@ $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
 $eu_text      = get_field( 'module_eu_funding_text',   $module->ID );
 $toc          = get_field( 'module_table_of_contents', $module->ID );
 $introduction = get_field( 'module_introduction',      $module->ID );
+$introduction_items = get_field( 'module_introduction_items', $module->ID ) ?: [];
 $conclusion   = get_field( 'module_conclusion',        $module->ID );
 $reflection   = get_field( 'module_reflection_questions', $module->ID ) ?: [];
 $assessment_questions = Wellme_Pamphlets_Assessment::get_module_questions( $module->ID );
 $display_chapters     = $chapters;
+$display_introduction_items = array_values(
+    array_filter(
+        $introduction_items,
+        static function ( $item ) {
+            $title  = trim( wp_strip_all_tags( (string) ( $item['intro_title'] ?? '' ) ) );
+            $detail = trim( wp_strip_all_tags( (string) ( $item['intro_detail'] ?? '' ) ) );
+
+            return '' !== $title || '' !== $detail;
+        }
+    )
+);
 $activity_aim_tabs     = [
     [
         'key'     => 'aim',
@@ -108,13 +120,61 @@ if ( ! empty( $assessment_questions ) ) {
     </section>
 
     <?php /* ── Introduction (Theoretical Background) ──────────────── */ ?>
-    <?php if ( $introduction ) : ?>
+    <?php if ( ! empty( $display_introduction_items ) || $introduction ) : ?>
     <section class="wellme-pamphlet-section wellme-section-introduction">
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Introduction', 'wellme-pamphlets' ); ?></h2>
+            <?php if ( ! empty( $display_introduction_items ) ) : ?>
+            <p class="wellme-outcomes-intro"><?php esc_html_e( 'Click on each introduction item to learn more.', 'wellme-pamphlets' ); ?></p>
+            <div class="wellme-outcomes-links wellme-introduction-links">
+                <?php foreach ( $display_introduction_items as $i => $item ) :
+                    $icon_url = $item['intro_icon']['url'] ?? '';
+                    $panel_id = 'wellme-introduction-panel-' . $module->ID . '-' . $i;
+                    $title    = $item['intro_title'] ?: sprintf( __( 'Introduction %d', 'wellme-pamphlets' ), $i + 1 );
+                    $detail   = strip_tags( $item['intro_detail'] ?? '' );
+                    $preview  = wp_trim_words( $detail, 15, '...' );
+                ?>
+                <a class="wellme-outcome-link wellme-introduction-link"
+                   href="#<?php echo esc_attr( $panel_id ); ?>"
+                   data-target="<?php echo esc_attr( $panel_id ); ?>"
+                   aria-expanded="false"
+                   aria-controls="<?php echo esc_attr( $panel_id ); ?>">
+                    <?php if ( $icon_url ) : ?>
+                    <img src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true" class="wellme-outcome-icon">
+                    <?php endif; ?>
+                    <span class="wellme-outcome-link-body">
+                        <span class="wellme-outcome-link-title"><?php echo esc_html( $title ); ?></span>
+                        <?php if ( $preview ) : ?>
+                        <span class="wellme-outcome-link-desc"><?php echo esc_html( $preview ); ?></span>
+                        <?php endif; ?>
+                    </span>
+                </a>
+                <?php endforeach; ?>
+            </div>
+
+            <?php foreach ( $display_introduction_items as $i => $item ) :
+                $panel_id = 'wellme-introduction-panel-' . $module->ID . '-' . $i;
+                $title    = $item['intro_title'] ?: sprintf( __( 'Introduction %d', 'wellme-pamphlets' ), $i + 1 );
+            ?>
+            <div class="wellme-outcome-detail-inline wellme-introduction-detail-inline"
+                 id="<?php echo esc_attr( $panel_id ); ?>"
+                 role="region"
+                 aria-label="<?php echo esc_attr( $title ); ?>"
+                 hidden>
+                <div class="wellme-outcome-detail-header">
+                    <h3><?php echo esc_html( $title ); ?></h3>
+                    <button class="wellme-outcome-detail-close" aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
+                </div>
+                <div class="wellme-outcome-detail-body">
+                    <?php echo wp_kses_post( $item['intro_detail'] ?? '' ); ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+            <?php else : ?>
             <div class="wellme-introduction-content">
                 <?php echo wp_kses_post( $introduction ); ?>
             </div>
+            <?php endif; ?>
         </div>
     </section>
     <?php endif; ?>

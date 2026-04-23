@@ -548,8 +548,8 @@
 
                 var isOpen = !panel.hidden;
 
-                // Close all other outcome panels and reset links
-                var parent = this.closest('.wellme-section-outcomes');
+                // Close sibling panels and reset links in the current section.
+                var parent = this.closest('.wellme-section-outcomes, .wellme-section-introduction');
                 if (parent) {
                     parent.querySelectorAll('.wellme-outcome-detail-inline').forEach(hide);
                     parent.querySelectorAll('.wellme-outcome-link').forEach(function (l) {

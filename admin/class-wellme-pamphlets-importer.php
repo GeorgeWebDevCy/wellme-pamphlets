@@ -250,6 +250,7 @@ class Wellme_Pamphlets_Importer {
             $gallery = get_field( 'module_gallery', $post_id, false ) ?: [];
         }
 
+        $introduction_items   = $this->build_introduction_items( $module['module_introduction_items'] ?? [], $package_root, $post_id );
         $outcomes             = $this->build_outcomes( $module['module_learning_outcomes'] ?? [], $package_root, $post_id );
         $steps                = $this->build_steps( $module['module_exercise_steps'] ?? [], $package_root, $post_id );
         $chapters             = $this->build_chapters( $module['module_chapters'] ?? [], $package_root, $post_id );
@@ -282,6 +283,7 @@ class Wellme_Pamphlets_Importer {
         update_field( 'module_motto', $motto, $post_id );
         update_field( 'module_video_url', $video_url, $post_id );
         update_field( 'module_gallery', $gallery, $post_id );
+        update_field( 'module_introduction_items', $introduction_items, $post_id );
         update_field( 'module_learning_outcomes', $outcomes, $post_id );
         update_field( 'module_exercise_steps', $steps, $post_id );
         update_field( 'module_chapters', $chapters, $post_id );
@@ -306,6 +308,35 @@ class Wellme_Pamphlets_Importer {
             'status'        => $status,
             'warnings'      => $warnings,
         ];
+    }
+
+    /**
+     * Build repeater rows for introduction items.
+     *
+     * @param array  $items        Introduction item payloads.
+     * @param string $package_root Package root path.
+     * @param int    $post_id      Parent post ID.
+     *
+     * @return array
+     */
+    private function build_introduction_items( array $items, $package_root, $post_id ) {
+        $rows = [];
+
+        foreach ( $items as $item ) {
+            $title = sanitize_text_field( $item['intro_title'] ?? '' );
+
+            if ( '' === $title ) {
+                continue;
+            }
+
+            $rows[] = [
+                'intro_title'  => $title,
+                'intro_detail' => wp_kses_post( $item['intro_detail'] ?? '' ),
+                'intro_icon'   => $this->import_attachment_reference( $item['intro_icon'] ?? '', $package_root, $post_id ) ?: '',
+            ];
+        }
+
+        return $rows;
     }
 
     /**
