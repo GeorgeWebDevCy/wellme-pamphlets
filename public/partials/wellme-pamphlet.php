@@ -132,54 +132,55 @@ if ( ! empty( $assessment_questions ) ) {
                 );
                 ?>
             </h2>
-            <?php if ( ! empty( $activity_aim_tabs ) ) : ?>
-            <div class="wellme-activity-aims">
-                <h3 class="wellme-activity-aims-title"><?php esc_html_e( 'Aims', 'wellme-pamphlets' ); ?></h3>
-                <nav class="wellme-activity-aim-tabs" aria-label="<?php esc_attr_e( 'Activity aims', 'wellme-pamphlets' ); ?>">
-                    <?php foreach ( $activity_aim_tabs as $tab ) :
-                        $aim_panel_id = 'wellme-activity-aim-panel-' . $module->ID . '-' . $tab['key'];
-                    ?>
-                    <button type="button"
-                            class="wellme-activity-aim-tab"
-                            data-aim-tab="<?php echo esc_attr( $tab['key'] ); ?>"
-                            aria-controls="<?php echo esc_attr( $aim_panel_id ); ?>">
-                        <?php echo esc_html( $tab['title'] ); ?>
-                    </button>
-                    <?php endforeach; ?>
-                </nav>
-
-                <?php foreach ( $activity_aim_tabs as $tab ) :
-                    $aim_panel_id = 'wellme-activity-aim-panel-' . $module->ID . '-' . $tab['key'];
+            <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module activity tabs', 'wellme-pamphlets' ); ?>">
+                <?php
+                $activity_tab_index = 0;
+                foreach ( $activity_aim_tabs as $tab ) :
+                    $panel_index  = $activity_tab_index++;
+                    $aim_panel_id = 'wellme-chapter-panel-' . $module->ID . '-aim-' . $tab['key'];
                 ?>
-                <div class="wellme-activity-aim-panel"
-                     id="<?php echo esc_attr( $aim_panel_id ); ?>"
-                     data-aim-tab="<?php echo esc_attr( $tab['key'] ); ?>"
-                     hidden>
-                    <div class="wellme-activity-aim-content">
-                        <?php echo wp_kses_post( $tab['content'] ); ?>
-                    </div>
-                </div>
+                <button type="button"
+                        class="wellme-chapter-btn wellme-chapter-btn--aim"
+                        data-chapter="<?php echo esc_attr( $panel_index ); ?>"
+                        aria-controls="<?php echo esc_attr( $aim_panel_id ); ?>">
+                    <?php echo esc_html( $tab['title'] ); ?>
+                </button>
                 <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
-
-            <?php if ( ! empty( $display_chapters ) ) : ?>
-            <nav class="wellme-chapter-nav" aria-label="<?php esc_attr_e( 'Module chapters', 'wellme-pamphlets' ); ?>">
-                <?php foreach ( $display_chapters as $i => $chapter ) : ?>
-                <button class="wellme-chapter-btn"
-                        data-chapter="<?php echo esc_attr( $i ); ?>"
+                <?php foreach ( $display_chapters as $i => $chapter ) :
+                    $panel_index = $activity_tab_index++;
+                ?>
+                <button type="button"
+                        class="wellme-chapter-btn"
+                        data-chapter="<?php echo esc_attr( $panel_index ); ?>"
                         aria-controls="wellme-chapter-panel-<?php echo esc_attr( $module->ID . '-' . $i ); ?>">
                     <?php echo esc_html( $chapter['chapter_title'] ); ?>
                 </button>
                 <?php endforeach; ?>
             </nav>
 
+            <?php
+            $activity_tab_index = 0;
+            foreach ( $activity_aim_tabs as $tab ) :
+                $panel_index  = $activity_tab_index++;
+                $aim_panel_id = 'wellme-chapter-panel-' . $module->ID . '-aim-' . $tab['key'];
+            ?>
+            <div class="wellme-chapter-panel wellme-chapter-panel--aim"
+                 id="<?php echo esc_attr( $aim_panel_id ); ?>"
+                 data-chapter="<?php echo esc_attr( $panel_index ); ?>"
+                 hidden>
+                <div class="wellme-activity-aim-content">
+                    <?php echo wp_kses_post( $tab['content'] ); ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
             <?php foreach ( $display_chapters as $i => $chapter ) :
                 $ch_img = $chapter['chapter_image']['url'] ?? '';
+                $panel_index = $activity_tab_index++;
             ?>
             <div class="wellme-chapter-panel"
                  id="wellme-chapter-panel-<?php echo esc_attr( $module->ID . '-' . $i ); ?>"
-                 data-chapter="<?php echo esc_attr( $i ); ?>"
+                 data-chapter="<?php echo esc_attr( $panel_index ); ?>"
                  hidden>
                 <?php if ( $ch_img ) : ?>
                 <img src="<?php echo esc_url( $ch_img ); ?>" alt="" class="wellme-chapter-image">
@@ -242,7 +243,6 @@ if ( ! empty( $assessment_questions ) ) {
                 </div>
             </div>
             <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </section>
     <?php endif; ?>

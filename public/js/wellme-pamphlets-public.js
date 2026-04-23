@@ -501,7 +501,6 @@
 
     function initPamphletInteractions(root) {
         root = root || document;
-        initActivityAims(root);
         initChapterNav(root);
         initOutcomePanels(root);
         initHotspots(root);
@@ -509,34 +508,6 @@
     }
 
     /* ── Chapter Navigation ──────────────────────────────────── */
-
-    function initActivityAims(root) {
-        root.querySelectorAll('.wellme-activity-aim-tabs').forEach(function (nav) {
-            var btns = nav.querySelectorAll('.wellme-activity-aim-tab');
-            var parent = nav.closest('.wellme-activity-aims');
-            if (!parent) return;
-            var panels = parent.querySelectorAll('.wellme-activity-aim-panel');
-
-            function activate(index) {
-                var activeKey = btns[index] ? btns[index].dataset.aimTab : '';
-
-                btns.forEach(function (btn, i) {
-                    btn.classList.toggle('is-active', i === index);
-                    btn.setAttribute('aria-expanded', i === index ? 'true' : 'false');
-                });
-
-                panels.forEach(function (panel) {
-                    panel.dataset.aimTab === activeKey ? show(panel) : hide(panel);
-                });
-            }
-
-            btns.forEach(function (btn, i) {
-                btn.addEventListener('click', function () { activate(i); });
-            });
-
-            if (btns.length) activate(0);
-        });
-    }
 
     function initChapterNav(root) {
         root.querySelectorAll('.wellme-chapter-nav').forEach(function (nav) {
