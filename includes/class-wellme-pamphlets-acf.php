@@ -271,6 +271,15 @@ class Wellme_Pamphlets_ACF {
                             'media_upload' => 0,
                         ],
                         [
+                            'key'           => 'field_wm_pres_overview_block_image',
+                            'label'         => 'Block Image',
+                            'name'          => 'image',
+                            'type'          => 'image',
+                            'return_format' => 'array',
+                            'preview_size'  => 'medium',
+                            'instructions'  => 'Optional image shown when this overview block is selected. Falls back to the global Overview Image when empty.',
+                        ],
+                        [
                             'key'           => 'field_wm_pres_overview_block_color',
                             'label'         => 'Accent Colour',
                             'name'          => 'color',
@@ -286,7 +295,7 @@ class Wellme_Pamphlets_ACF {
                     'type'         => 'image',
                     'return_format'=> 'array',
                     'preview_size' => 'medium',
-                    'instructions' => 'Optional image for the overview slide.',
+                    'instructions' => 'Fallback image for overview blocks that do not have their own block image.',
                 ],
 
                 // Slide 5: Sum-Up.

@@ -37,17 +37,20 @@ if ( ! empty( $blocks ) && is_array( $blocks ) ) {
 
         $label = $block['label'] ?? '';
         $title = $block['title'] ?? '';
+        $block_image = $block['image'] ?? [];
+        $block_image_url = $block_image['sizes']['large'] ?? ( $block_image['url'] ?? $image_url );
 
         $overview_items[] = [
-            'key'   => 'block-' . ( $block_index + 1 ),
-            'label' => $label ?: sprintf(
+            'key'       => 'block-' . ( $block_index + 1 ),
+            'label'     => $label ?: sprintf(
                 /* translators: %d: overview block number */
                 __( 'Block %d', 'wellme-pamphlets' ),
                 $block_index + 1
             ),
-            'title' => $title ?: ( $label ?: __( 'Overview', 'wellme-pamphlets' ) ),
-            'body'  => $body,
-            'color' => $block['color'] ?? '#1e88c8',
+            'title'     => $title ?: ( $label ?: __( 'Overview', 'wellme-pamphlets' ) ),
+            'body'      => $body,
+            'image_url' => $block_image_url,
+            'color'     => $block['color'] ?? '#1e88c8',
         ];
     }
 }
@@ -57,25 +60,28 @@ if ( empty( $overview_items ) ) {
         array_filter(
             [
                 [
-                    'key'   => 'purpose',
-                    'label' => __( 'Purpose', 'wellme-pamphlets' ),
-                    'title' => __( 'Why WELLME exists', 'wellme-pamphlets' ),
-                    'body'  => $purpose,
-                    'color' => '#27ae60',
+                    'key'       => 'purpose',
+                    'label'     => __( 'Purpose', 'wellme-pamphlets' ),
+                    'title'     => __( 'Why WELLME exists', 'wellme-pamphlets' ),
+                    'body'      => $purpose,
+                    'image_url' => $image_url,
+                    'color'     => '#27ae60',
                 ],
                 [
-                    'key'   => 'need',
-                    'label' => __( 'Need', 'wellme-pamphlets' ),
-                    'title' => __( 'The challenge for youth trainers', 'wellme-pamphlets' ),
-                    'body'  => $need,
-                    'color' => '#1e88c8',
+                    'key'       => 'need',
+                    'label'     => __( 'Need', 'wellme-pamphlets' ),
+                    'title'     => __( 'The challenge for youth trainers', 'wellme-pamphlets' ),
+                    'body'      => $need,
+                    'image_url' => $image_url,
+                    'color'     => '#1e88c8',
                 ],
                 [
-                    'key'   => 'results',
-                    'label' => __( 'Results', 'wellme-pamphlets' ),
-                    'title' => __( 'Expected results', 'wellme-pamphlets' ),
-                    'body'  => $results,
-                    'color' => '#c6548f',
+                    'key'       => 'results',
+                    'label'     => __( 'Results', 'wellme-pamphlets' ),
+                    'title'     => __( 'Expected results', 'wellme-pamphlets' ),
+                    'body'      => $results,
+                    'image_url' => $image_url,
+                    'color'     => '#c6548f',
                 ],
             ],
             static function ( $item ) {
@@ -84,6 +90,13 @@ if ( empty( $overview_items ) ) {
         )
     );
 }
+
+$initial_image_url = $overview_items[0]['image_url'] ?? '';
+$has_overview_images = ! empty(
+    array_filter(
+        wp_list_pluck( $overview_items, 'image_url' )
+    )
+);
 ?>
 <section class="wellme-experience-slide wellme-slide-overview<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
@@ -101,6 +114,7 @@ if ( empty( $overview_items ) ) {
                     class="wellme-mazda-page-tab<?php echo 0 === $item_index ? ' is-active' : ''; ?>"
                     data-overview-target="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>"
                     data-overview-label="<?php echo esc_attr( $item['label'] ); ?>"
+                    data-overview-image="<?php echo esc_url( $item['image_url'] ?? '' ); ?>"
                     data-overview-index="<?php echo esc_attr( $item_index + 1 ); ?>"
                     data-overview-total="<?php echo esc_attr( count( $overview_items ) ); ?>">
                 <?php echo esc_html( $item['label'] ); ?>
@@ -109,10 +123,10 @@ if ( empty( $overview_items ) ) {
         </nav>
 
         <div class="wellme-overview-visual">
-            <?php if ( $image_url ) : ?>
-            <div class="wellme-overview-image">
-                <img src="<?php echo esc_url( $image_url ); ?>"
-                     alt="<?php esc_attr_e( 'WELLME Project Overview', 'wellme-pamphlets' ); ?>">
+            <?php if ( $has_overview_images ) : ?>
+            <div class="wellme-overview-image" data-overview-image-frame<?php echo $initial_image_url ? '' : ' hidden'; ?>>
+                <img <?php echo $initial_image_url ? 'src="' . esc_url( $initial_image_url ) . '"' : ''; ?>
+                     alt="<?php echo esc_attr( $overview_items[0]['label'] ?? __( 'WELLME Project Overview', 'wellme-pamphlets' ) ); ?>">
             </div>
             <?php endif; ?>
 
@@ -136,6 +150,7 @@ if ( empty( $overview_items ) ) {
                         style="--overview-color: <?php echo esc_attr( $item['color'] ); ?>;"
                         data-overview-target="wellme-overview-panel-<?php echo esc_attr( $item['key'] ); ?>"
                         data-overview-label="<?php echo esc_attr( $item['label'] ); ?>"
+                        data-overview-image="<?php echo esc_url( $item['image_url'] ?? '' ); ?>"
                         data-overview-index="<?php echo esc_attr( $item_index + 1 ); ?>"
                         data-overview-total="<?php echo esc_attr( count( $overview_items ) ); ?>"
                         role="tab"

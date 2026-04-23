@@ -7274,12 +7274,12 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-card {
-    min-height: 68px;
+    min-height: 84px;
     display: grid;
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 11px;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 16px;
     align-items: center;
-    padding: 10px 12px;
+    padding: 13px 16px;
     border: 0;
     border-radius: 0;
     background: rgba(255,255,255,0.86);
@@ -7298,9 +7298,9 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-logo {
-    width: 48px;
-    height: 38px;
-    padding: 5px;
+    width: 70px;
+    height: 54px;
+    padding: 7px;
     border-radius: 0;
     background: rgba(255,255,255,0.96);
     object-fit: contain;
@@ -7309,10 +7309,10 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-name {
     min-width: 0;
     color: currentColor;
-    font-size: 0.62rem;
+    font-size: clamp(0.78rem, 0.9vw, 0.98rem);
     font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1.28;
+    letter-spacing: 0.06em;
+    line-height: 1.22;
     overflow-wrap: anywhere;
     text-transform: uppercase;
 }
@@ -7344,6 +7344,16 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     .wellme-experience--reader .wellme-slide-partnership .wellme-partner-strip {
         grid-row: 3;
         padding: 24px 22px 28px;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-card {
+        grid-template-columns: 72px minmax(0, 1fr);
+        min-height: 80px;
+    }
+
+    .wellme-experience--reader .wellme-slide-partnership .wellme-partner-logo {
+        width: 66px;
+        height: 50px;
     }
 }
 

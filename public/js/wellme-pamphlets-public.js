@@ -1557,6 +1557,8 @@
         var panels = Array.from(overview.querySelectorAll('.wellme-overview-section'));
         var label = overview.querySelector('.wellme-overview-active-label');
         var count = overview.querySelector('.wellme-overview-state-count');
+        var imageFrame = overview.querySelector('[data-overview-image-frame]');
+        var image = imageFrame ? imageFrame.querySelector('img') : null;
 
         if (!buttons.length || !panels.length) return;
 
@@ -1579,6 +1581,16 @@
             if (label) label.textContent = button.dataset.overviewLabel || '';
             if (count) {
                 count.textContent = (button.dataset.overviewIndex || '1') + ' / ' + (button.dataset.overviewTotal || buttons.length);
+            }
+
+            if (imageFrame && image) {
+                if (button.dataset.overviewImage) {
+                    image.src = button.dataset.overviewImage;
+                    image.alt = button.dataset.overviewLabel || '';
+                    imageFrame.hidden = false;
+                } else {
+                    imageFrame.hidden = true;
+                }
             }
         }
 
