@@ -1127,11 +1127,69 @@
             actions.insertBefore(nextButton, moreButton || null);
         }
 
-        function getModuleSequence() {
-            return Array.from(document.querySelectorAll('.wellme-module-inline-card[data-module-id]')).map(function (card) {
+        function getConfiguredModuleSequence() {
+            var raw = overlay.getAttribute('data-module-sequence') || '[]';
+            var configured = [];
+
+            try {
+                configured = JSON.parse(raw);
+            } catch (e) {
+                configured = [];
+            }
+
+            if (!Array.isArray(configured)) return [];
+
+            return configured.map(function (item) {
                 return {
-                    id: card.dataset.moduleId,
+                    id: item && item.id ? String(item.id) : '',
+                    label: item && item.label ? String(item.label) : '',
+                    title: item && item.title ? String(item.title) : '',
+                    subtitle: item && item.subtitle ? String(item.subtitle) : '',
+                    desc: item && item.desc ? String(item.desc) : '',
+                };
+            }).filter(function (item) {
+                return !!item.id;
+            });
+        }
+
+        function getTextFromElement(root, selector) {
+            var element = root ? root.querySelector(selector) : null;
+            return element ? element.textContent.trim() : '';
+        }
+
+        function getModuleSequence() {
+            var cards = Array.from(document.querySelectorAll('.wellme-module-inline-card[data-module-id]'));
+            var cardsById = {};
+
+            cards.forEach(function (card) {
+                cardsById[String(card.dataset.moduleId)] = card;
+            });
+
+            var configured = getConfiguredModuleSequence();
+
+            if (configured.length) {
+                return configured.map(function (item) {
+                    var card = cardsById[item.id] || null;
+
+                    return {
+                        id: item.id,
+                        trigger: card,
+                        label: item.label || getTextFromElement(card, '.wellme-module-inline-number, .wellme-module-detail-label'),
+                        title: item.title || getTextFromElement(card, '.wellme-module-inline-title, h3'),
+                        subtitle: item.subtitle || getTextFromElement(card, '.wellme-module-inline-subtitle, .wellme-module-detail-subtitle'),
+                        desc: item.desc || getTextFromElement(card, '.wellme-module-inline-desc, .wellme-module-detail-desc'),
+                    };
+                });
+            }
+
+            return cards.map(function (card) {
+                return {
+                    id: String(card.dataset.moduleId),
                     trigger: card,
+                    label: getTextFromElement(card, '.wellme-module-inline-number, .wellme-module-detail-label'),
+                    title: getTextFromElement(card, '.wellme-module-inline-title, h3'),
+                    subtitle: getTextFromElement(card, '.wellme-module-inline-subtitle, .wellme-module-detail-subtitle'),
+                    desc: getTextFromElement(card, '.wellme-module-inline-desc, .wellme-module-detail-desc'),
                 };
             }).filter(function (item) {
                 return !!item.id;
@@ -1141,6 +1199,12 @@
         function findModuleCard(moduleId) {
             return Array.from(document.querySelectorAll('.wellme-module-inline-card')).find(function (item) {
                 return item.dataset.moduleId === String(moduleId);
+            });
+        }
+
+        function findModuleSequenceItem(moduleId) {
+            return getModuleSequence().find(function (item) {
+                return item.id === String(moduleId);
             });
         }
 
@@ -1237,17 +1301,22 @@
         function openModulePopup(moduleId, trigger) {
             if (!moduleId) return;
 
-            var sourceCard = findModuleCard(moduleId) || trigger;
+            var moduleItem = findModuleSequenceItem(moduleId);
+            var sourceCard = findModuleCard(moduleId) || trigger || (moduleItem ? moduleItem.trigger : null);
             var label = sourceCard ? sourceCard.querySelector('.wellme-module-inline-number, .wellme-module-detail-label') : null;
             var title = sourceCard ? sourceCard.querySelector('.wellme-module-inline-title, h3') : null;
             var subtitle = sourceCard ? sourceCard.querySelector('.wellme-module-inline-subtitle, .wellme-module-detail-subtitle') : null;
             var desc = sourceCard ? sourceCard.querySelector('.wellme-module-inline-desc, .wellme-module-detail-desc') : null;
+            var labelText = label ? label.textContent : (moduleItem ? moduleItem.label : '');
+            var titleText = title ? title.textContent : (moduleItem ? moduleItem.title : '');
+            var subtitleText = subtitle ? subtitle.textContent : (moduleItem ? moduleItem.subtitle : '');
+            var descText = desc ? desc.textContent : (moduleItem ? moduleItem.desc : '');
 
-            if (popupLabel && label) popupLabel.textContent = label.textContent;
-            if (popupTitle && title) popupTitle.textContent = title.textContent;
-            if (popupSubtitle && subtitle) popupSubtitle.textContent = subtitle.textContent;
-            if (popupDesc) popupDesc.textContent = desc ? desc.textContent : '';
-            if (popupModnum && label) popupModnum.textContent = label.textContent;
+            if (popupLabel && labelText) popupLabel.textContent = labelText;
+            if (popupTitle && titleText) popupTitle.textContent = titleText;
+            if (popupSubtitle) popupSubtitle.textContent = subtitleText || '';
+            if (popupDesc) popupDesc.textContent = descText || '';
+            if (popupModnum && labelText) popupModnum.textContent = labelText;
             if (popupMoreInfo) popupMoreInfo.hidden = true;
             updatePopupModuleNav(moduleId);
 

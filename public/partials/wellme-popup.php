@@ -10,6 +10,28 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$popup_module_sequence = [];
+
+if ( ! empty( $modules ) && is_array( $modules ) ) {
+    foreach ( $modules as $popup_module_index => $popup_module ) {
+        if ( ! $popup_module instanceof WP_Post ) {
+            continue;
+        }
+
+        $popup_module_number = (int) get_field( 'module_number', $popup_module->ID );
+        $popup_module_number = $popup_module_number ?: ( $popup_module_index + 1 );
+        $popup_module_desc   = get_field( 'module_description', $popup_module->ID );
+
+        $popup_module_sequence[] = [
+            'id'       => (string) $popup_module->ID,
+            'label'    => sprintf( __( 'Module %d', 'wellme-pamphlets' ), $popup_module_number ),
+            'title'    => get_the_title( $popup_module ),
+            'subtitle' => (string) get_field( 'module_subtitle', $popup_module->ID ),
+            'desc'     => $popup_module_desc ? wp_trim_words( wp_strip_all_tags( $popup_module_desc ), 22 ) : '',
+        ];
+    }
+}
 ?>
 <div
     class="wellme-popup-overlay"
@@ -17,6 +39,7 @@ defined( 'ABSPATH' ) || exit;
     role="dialog"
     aria-modal="true"
     aria-label="<?php esc_attr_e( 'Module Pamphlet', 'wellme-pamphlets' ); ?>"
+    data-module-sequence="<?php echo esc_attr( wp_json_encode( $popup_module_sequence ) ); ?>"
     hidden
 >
     <div class="wellme-popup-container">
