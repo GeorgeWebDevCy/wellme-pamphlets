@@ -36,6 +36,7 @@
 
     let wellmeDebugEnabled = isWellmeDebugEnabled();
     let wellmePopupNavInspector = null;
+    let wellmePopupNavActions = null;
 
     function getWellmeHeroLogo() {
         return document.querySelector('.wellme-experience--reader .wellme-slide-landing.is-active .wellme-landing-hero-media.is-logo-hero .wellme-landing-hero-logo') ||
@@ -320,6 +321,26 @@
 
                 if (window.console) {
                     console.warn('[WELLME Debug] popup nav inspector is not available on this page');
+                }
+            },
+            popupPrev: function () {
+                if (wellmePopupNavActions && typeof wellmePopupNavActions.prev === 'function') {
+                    wellmePopupNavActions.prev();
+                    return;
+                }
+
+                if (window.console) {
+                    console.warn('[WELLME Debug] popup prev action is not available on this page');
+                }
+            },
+            popupNext: function () {
+                if (wellmePopupNavActions && typeof wellmePopupNavActions.next === 'function') {
+                    wellmePopupNavActions.next();
+                    return;
+                }
+
+                if (window.console) {
+                    console.warn('[WELLME Debug] popup next action is not available on this page');
                 }
             },
             sampleLogoMotion: function (label) {
@@ -1439,6 +1460,14 @@
         wellmePopupNavInspector = function (label) {
             logPopupModuleNav(label || 'manual');
         };
+        wellmePopupNavActions = {
+            prev: function () {
+                openAdjacentModule(-1);
+            },
+            next: function () {
+                openAdjacentModule(1);
+            },
+        };
         logPopupModuleNav('initialized');
 
         document.querySelectorAll('.wellme-mazda-page-tab[data-module-target]').forEach(function (tab) {
@@ -1507,6 +1536,18 @@
 
             openAdjacentModule(prevButton ? -1 : 1);
         });
+
+        document.addEventListener('click', function (event) {
+            var navButton = event.target.closest('[data-popup-module-prev], [data-popup-module-next]');
+
+            if (!navButton || !overlay.contains(navButton)) return;
+
+            logPopupModuleNav('nav click captured', {
+                button: navButton.hasAttribute('data-popup-module-prev') ? 'prev' : 'next',
+                buttonDisabled: navButton.disabled,
+                buttonAriaDisabled: navButton.getAttribute('aria-disabled'),
+            });
+        }, true);
 
         document.addEventListener('keydown', function (e) {
             if (!overlay || overlay.hidden) return;
