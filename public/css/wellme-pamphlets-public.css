@@ -242,7 +242,7 @@
     background: transparent;
     color: var(--wellme-primary);
     font-weight: 600;
-    font-size: .88rem;
+    font-size: .96rem;
     cursor: pointer;
     transition: background var(--wellme-transition), color var(--wellme-transition);
 }
@@ -2876,7 +2876,7 @@
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.55);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -2974,7 +2974,7 @@
 
     .wellme-exp-topnav-tab {
         padding: 0 10px;
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .wellme-exp-topnav-tab::after {
@@ -4546,7 +4546,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     justify-content: flex-start;
     padding: 0 24px;
     color: rgba(255,255,255,0.78);
-    font-size: 0.86rem;
+    font-size: 0.94rem;
     font-weight: 400;
     letter-spacing: 0.06em;
     text-align: left;
@@ -4691,7 +4691,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     background: transparent;
     color: #a0a0a0;
     font: inherit;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -5139,7 +5139,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     height: var(--wellme-reader-top-height);
     padding: 0 8px;
     color: #555;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
@@ -5355,7 +5355,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-experience--reader .wellme-overview-content > .wellme-mazda-page-tabs .wellme-mazda-page-tab {
     color: #fff;
-    font-size: 0.68rem;
+    font-size: 0.76rem;
 }
 
 .wellme-experience--reader .wellme-overview-content > .wellme-mazda-page-tabs .wellme-mazda-page-tab::after {
@@ -5934,7 +5934,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     height: var(--wellme-reader-top-height);
     padding: 0 8px;
     color: #555;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
@@ -6122,7 +6122,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-experience--reader .wellme-overview-content > .wellme-mazda-page-tabs .wellme-mazda-page-tab {
     color: #fff;
-    font-size: 0.68rem;
+    font-size: 0.76rem;
 }
 
 .wellme-experience--reader .wellme-overview-main-title {
@@ -8144,7 +8144,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-experience--reader .wellme-slide-modules .wellme-modules-page-tabs .wellme-mazda-page-tab {
     color: rgba(255,255,255,0.62);
-    font-size: 0.56rem;
+    font-size: 0.66rem;
     font-weight: 800;
     letter-spacing: 0.16em;
 }

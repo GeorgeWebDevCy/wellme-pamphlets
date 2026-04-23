@@ -11,15 +11,6 @@
  */
 class Wellme_Pamphlets_ACF {
 
-    public function prepare_module_activity_label( $field ) {
-        $module_number = $this->get_current_module_number();
-        $field['label'] = $module_number
-            ? sprintf( __( 'Module %d Activity', 'wellme-pamphlets' ), $module_number )
-            : __( 'Module Activity', 'wellme-pamphlets' );
-
-        return $field;
-    }
-
     public function prepare_module_wellme_goals_label( $field ) {
         $module_number = $this->get_current_module_number();
         $field['label'] = $module_number
@@ -501,30 +492,30 @@ class Wellme_Pamphlets_ACF {
 
                 [
                     'key'       => 'field_wm_tab_outcomes',
-                    'label'     => 'Learning Outcomes',
+                    'label'     => 'Module Activity',
                     'type'      => 'tab',
                     'placement' => 'top',
                 ],
                 [
                     'key'          => 'field_wm_learning_outcomes',
-                    'label'        => 'Learning Outcomes',
+                    'label'        => 'Module Activity',
                     'name'         => 'module_learning_outcomes',
                     'type'         => 'repeater',
-                    'instructions' => 'Each outcome becomes a clickable button that opens a side-panel overlay (Partou pattern).',
+                    'instructions' => 'Each activity item becomes a clickable button that opens a side-panel overlay (Partou pattern).',
                     'min'          => 0,
                     'max'          => 10,
                     'layout'       => 'block',
-                    'button_label' => 'Add Outcome',
+                    'button_label' => 'Add Activity Item',
                     'sub_fields'   => [
                         [
                             'key'   => 'field_wm_outcome_title',
-                            'label' => 'Outcome Title',
+                            'label' => 'Activity Title',
                             'name'  => 'outcome_title',
                             'type'  => 'text',
                         ],
                         [
                             'key'   => 'field_wm_outcome_detail',
-                            'label' => 'Outcome Detail',
+                            'label' => 'Activity Detail',
                             'name'  => 'outcome_detail',
                             'type'  => 'wysiwyg',
                             'tabs'  => 'all',
@@ -611,7 +602,7 @@ class Wellme_Pamphlets_ACF {
 
                 [
                     'key'       => 'field_wm_tab_chapters',
-                    'label'     => 'Module Activity',
+                    'label'     => 'Activity Content',
                     'type'      => 'tab',
                     'placement' => 'top',
                 ],
@@ -654,7 +645,7 @@ class Wellme_Pamphlets_ACF {
                 ],
                 [
                     'key'          => 'field_wm_chapters',
-                    'label'        => 'Module Activity',
+                    'label'        => 'Activity Tabs',
                     'name'         => 'module_chapters',
                     'type'         => 'repeater',
                     'instructions' => 'Each chapter becomes a navigation button inside the pamphlet (Partou chapter-nav pattern).',

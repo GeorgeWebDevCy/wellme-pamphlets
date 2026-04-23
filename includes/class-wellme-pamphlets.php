@@ -92,8 +92,6 @@ class Wellme_Pamphlets {
         $this->loader->add_action( 'acf/init', $acf, 'register_field_groups' );
         $this->loader->add_action( 'acf/init', $acf, 'migrate_overview_legacy_fields_to_repeater', 20 );
         $this->loader->add_action( 'acf/init', $acf, 'migrate_sumup_module_fields_to_repeater', 25 );
-        $this->loader->add_filter( 'acf/prepare_field/key=field_wm_tab_chapters', $acf, 'prepare_module_activity_label' );
-        $this->loader->add_filter( 'acf/prepare_field/key=field_wm_chapters', $acf, 'prepare_module_activity_label' );
         $this->loader->add_filter( 'acf/prepare_field/key=field_wm_activity_wellme_goals', $acf, 'prepare_module_wellme_goals_label' );
     }
 
