@@ -8557,3 +8557,98 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-landing::after {
     display: none;
 }
+
+/* ============================================================
+   BRAND REDESIGN — Partnership / Overview / Modules text colours
+   ============================================================ */
+
+/* Partnership slide — white bg, dark text */
+.wellme-partnership-title,
+.wellme-partnership-kicker,
+.wellme-partnership-lede,
+.wellme-partnership-content {
+    color: #1a1a2e;
+}
+.wellme-partnership-kicker {
+    color: #26aafc;
+}
+
+/* Left intro panel — dark navy, white text */
+.wellme-partnership-intro {
+    background: linear-gradient(160deg, #1a1a2e 0%, #0d2a4a 100%);
+    color: #fff;
+    border-radius: var(--wellme-radius);
+    padding: 28px 24px;
+}
+.wellme-partnership-intro .wellme-partnership-kicker {
+    color: #26aafc;
+}
+.wellme-partnership-intro .wellme-partnership-title,
+.wellme-partnership-intro .wellme-partnership-lede {
+    color: #fff;
+}
+
+/* Choice nav buttons — white cards, blue number */
+.wellme-partnership-choice {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: var(--wellme-radius);
+    padding: 16px 20px;
+    text-align: left;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.wellme-partnership-choice:hover,
+.wellme-partnership-choice:focus-visible {
+    border-color: #26aafc;
+    transform: translateY(-2px);
+}
+.wellme-partnership-choice-number {
+    color: #26aafc;
+}
+.wellme-partnership-choice-title {
+    color: #1a1a2e;
+}
+.wellme-partnership-choice-text {
+    color: #666;
+}
+
+/* Partner cards — white with border */
+.wellme-partner-card {
+    background: #fff !important;
+    border: 1px solid #eee !important;
+}
+.wellme-partner-card:hover,
+.wellme-partner-card:focus-visible {
+    border-color: #26aafc !important;
+}
+.wellme-partner-name {
+    color: #1a1a2e !important;
+}
+
+/* Overview slide — dark text */
+.wellme-overview-main-title,
+.wellme-overview-title,
+.wellme-overview-content {
+    color: #1a1a2e;
+}
+.wellme-overview-kicker,
+.wellme-overview-section-label,
+.wellme-overview-state-kicker {
+    color: #26aafc;
+}
+.wellme-overview-section h3 {
+    color: #1a1a2e;
+}
+.wellme-overview-section-body {
+    color: #444;
+}
+.wellme-overview-active-label,
+.wellme-overview-state-count {
+    color: #1a1a2e;
+}
+
+/* Modules slide — dark text */
+.wellme-modules-slide-title,
+.wellme-modules-slide-content {
+    color: #1a1a2e;
+}
