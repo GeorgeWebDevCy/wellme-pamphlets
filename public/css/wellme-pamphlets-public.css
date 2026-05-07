@@ -8695,3 +8695,73 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-mazda-page-tab.is-active::after {
     display: none !important;
 }
+
+/* ============================================================
+   BRAND REDESIGN — Module inline cards (slide 4)
+   ============================================================ */
+
+.wellme-module-inline-card {
+    background: #fff !important;
+    border: 1px solid #eee !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.wellme-module-inline-card:hover,
+.wellme-module-inline-card:focus-visible {
+    background: #fff !important;
+    border-color: var(--module-color, #26aafc) !important;
+    box-shadow: 0 6px 24px rgba(0,0,0,.10);
+}
+
+/* Colour-top band using module image as bg + gradient overlay */
+.wellme-module-inline-image {
+    height: 72px;
+    background-color: var(--module-color, #26aafc) !important;
+    background-blend-mode: multiply;
+    position: relative;
+}
+.wellme-module-inline-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        var(--module-color, #26aafc) 0%,
+        color-mix(in srgb, var(--module-color, #26aafc) 65%, #000 35%) 100%
+    );
+    opacity: 0.85;
+}
+
+.wellme-module-inline-number {
+    color: var(--module-color, #26aafc) !important;
+}
+
+.wellme-module-inline-title {
+    color: #1a1a2e !important;
+}
+
+.wellme-module-inline-desc {
+    color: #666 !important;
+}
+
+/* CTA pill */
+.wellme-module-inline-cta {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--module-color, #26aafc) !important;
+    color: #fff !important;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none !important;
+    border-bottom: none !important;
+    transition: opacity 0.2s;
+}
+
+.wellme-module-inline-card:hover .wellme-module-inline-cta,
+.wellme-module-inline-card:focus-visible .wellme-module-inline-cta {
+    opacity: 0.85 !important;
+}
