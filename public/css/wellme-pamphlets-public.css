@@ -8503,3 +8503,52 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
         line-height: 1.16;
     }
 }
+
+/* ============================================================
+   BRAND REDESIGN — Landing Slide
+   ============================================================ */
+
+.wellme-landing-bg {
+    background: linear-gradient(135deg, #26aafc 0%, #1a7bbe 100%) !important;
+}
+
+.wellme-landing-overlay {
+    background: none !important;
+}
+
+/* Wave divider at bottom of landing slide */
+.wellme-slide-landing {
+    overflow: hidden;
+}
+.wellme-slide-landing::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: #fff;
+    clip-path: ellipse(55% 100% at 50% 100%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Solid white CTA pill */
+.wellme-landing-continue {
+    background: #fff !important;
+    color: #1a7bbe !important;
+    border-color: #fff !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: none !important;
+}
+.wellme-landing-continue:hover,
+.wellme-landing-continue:focus-visible {
+    background: rgba(255,255,255,.9) !important;
+    color: #1a7bbe !important;
+}
+
+/* No spin on landing logo */
+.wellme-slide-landing .wellme-logo-spin {
+    animation: none !important;
+}
