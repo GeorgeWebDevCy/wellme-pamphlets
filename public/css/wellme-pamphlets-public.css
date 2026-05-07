@@ -8564,7 +8564,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 /* Partnership slide — white bg, dark text */
 .wellme-partnership-title,
-.wellme-partnership-kicker,
 .wellme-partnership-lede,
 .wellme-partnership-content {
     color: #1a1a2e;
@@ -8595,6 +8594,8 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     border-radius: var(--wellme-radius);
     padding: 16px 20px;
     text-align: left;
+    font: inherit;
+    cursor: pointer;
     transition: border-color 0.2s, transform 0.2s;
 }
 .wellme-partnership-choice:hover,
