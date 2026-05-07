@@ -8512,6 +8512,26 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     background: linear-gradient(135deg, #26aafc 0%, #1a7bbe 100%) !important;
 }
 
+/* Reader mode: replace grey scroll-container with the blue gradient */
+.wellme-experience--reader .wellme-landing-scroll {
+    background: linear-gradient(135deg, #26aafc 0%, #1a7bbe 100%) !important;
+}
+
+/* Reader mode: ensure text on landing copy stays white over the blue bg */
+.wellme-experience--reader .wellme-landing-copy {
+    background: transparent !important;
+    color: #fff !important;
+}
+.wellme-experience--reader .wellme-landing-title {
+    color: #fff !important;
+    text-shadow: 0 2px 12px rgba(0,0,0,.3) !important;
+}
+.wellme-experience--reader .wellme-landing-subtitle,
+.wellme-experience--reader .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-landing-agreement {
+    color: rgba(255,255,255,.85) !important;
+}
+
 .wellme-landing-overlay {
     background: none !important;
 }
