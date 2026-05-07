@@ -8653,3 +8653,45 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-modules-slide-content {
     color: #1a1a2e;
 }
+
+/* ============================================================
+   BRAND REDESIGN — Mazda Page Tabs (pill style)
+   ============================================================ */
+
+.wellme-mazda-page-tabs {
+    border-bottom: none;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.wellme-mazda-page-tab {
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #f0f0f0;
+    color: #555;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    border: 1px solid transparent;
+    transition: background 0.2s, color 0.2s;
+}
+
+.wellme-mazda-page-tab::after {
+    display: none;
+}
+
+.wellme-mazda-page-tab:hover,
+.wellme-mazda-page-tab:focus-visible {
+    background: #e0f0ff;
+    color: #26aafc;
+}
+
+.wellme-mazda-page-tab.is-active {
+    background: #26aafc;
+    color: #fff;
+}
+
+.wellme-mazda-page-tab.is-active::after {
+    display: none;
+}
