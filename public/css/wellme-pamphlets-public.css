@@ -8766,3 +8766,49 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-module-inline-card:focus-visible .wellme-module-inline-cta {
     opacity: 0.85 !important;
 }
+
+/* ============================================================
+   BRAND REDESIGN — Flip cards (Sum-Up slide)
+   ============================================================ */
+
+.wellme-flipcard-front {
+    background: linear-gradient(
+        135deg,
+        var(--module-color, #26aafc) 0%,
+        color-mix(in srgb, var(--module-color, #26aafc) 65%, #000 35%) 100%
+    ) !important;
+}
+
+/* Cover image as subtle overlay, not dominant */
+.wellme-flipcard-image {
+    opacity: 0.18 !important;
+    mix-blend-mode: luminosity;
+}
+
+.wellme-flipcard-front .wellme-flipcard-number {
+    color: rgba(255,255,255,.8) !important;
+    opacity: 1 !important;
+}
+
+.wellme-flipcard-front .wellme-flipcard-title {
+    color: #fff !important;
+}
+
+/* Back: white with dark text */
+.wellme-flipcard-back {
+    background: #fff !important;
+    color: #1a1a2e !important;
+}
+
+.wellme-flipcard-back .wellme-flipcard-number {
+    color: var(--module-color, #26aafc) !important;
+    opacity: 1 !important;
+}
+
+.wellme-flipcard-motto {
+    color: #1a1a2e !important;
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.6;
+}
