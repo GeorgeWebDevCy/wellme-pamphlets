@@ -8725,6 +8725,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 1;
     background: linear-gradient(
         135deg,
         var(--module-color, #26aafc) 0%,
