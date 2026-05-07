@@ -8665,33 +8665,33 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-mazda-page-tab {
-    padding: 6px 16px;
-    border-radius: 20px;
-    background: #f0f0f0;
-    color: #555;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    background: #f0f0f0 !important;
+    color: #555 !important;
     font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    border: 1px solid transparent;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: none !important;
+    border: 1px solid transparent !important;
     transition: background 0.2s, color 0.2s;
 }
 
 .wellme-mazda-page-tab::after {
-    display: none;
+    display: none !important;
 }
 
 .wellme-mazda-page-tab:hover,
 .wellme-mazda-page-tab:focus-visible {
-    background: #e0f0ff;
-    color: #26aafc;
+    background: #e0f0ff !important;
+    color: #26aafc !important;
 }
 
 .wellme-mazda-page-tab.is-active {
-    background: #26aafc;
-    color: #fff;
+    background: #26aafc !important;
+    color: #fff !important;
 }
 
 .wellme-mazda-page-tab.is-active::after {
-    display: none;
+    display: none !important;
 }
