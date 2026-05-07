@@ -8552,3 +8552,8 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-slide-landing .wellme-logo-spin {
     animation: none !important;
 }
+
+/* Suppress landing wave divider in reader mode */
+.wellme-experience--reader .wellme-slide-landing::after {
+    display: none;
+}
