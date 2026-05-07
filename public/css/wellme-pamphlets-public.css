@@ -8812,3 +8812,63 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     font-weight: 600;
     line-height: 1.6;
 }
+
+/* ============================================================
+   BRAND REDESIGN — Module popup
+   ============================================================ */
+
+.wellme-popup-right {
+    background: #f8fafc !important;
+}
+
+.wellme-popup-title {
+    font-weight: 700 !important;
+    font-size: 1.15rem !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+.wellme-popup-module-label,
+.wellme-popup-label {
+    color: var(--module-color, #26aafc) !important;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Cover title in pamphlet (inside popup) */
+.wellme-cover-title {
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}
+
+.wellme-cover-number {
+    color: var(--module-color, #26aafc) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+}
+
+/* TOC box accent */
+.wellme-cover-toc {
+    border-left: 3px solid var(--module-color, #26aafc) !important;
+    background: #f8fafc !important;
+    border-radius: 0 8px 8px 0 !important;
+    padding: 14px 18px !important;
+}
+
+/* Section headings inside pamphlet */
+.wellme-pamphlet .wellme-pamphlet-section h2 {
+    font-weight: 700 !important;
+    color: #1a1a2e !important;
+    font-size: 1.05rem !important;
+}
+
+.wellme-section-cover .wellme-cover-eu-text {
+    font-size: 0.72rem !important;
+    color: #888 !important;
+}
