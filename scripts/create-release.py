@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.65"
-VERSION = "1.2.65"
+TAG     = "v1.2.66"
+VERSION = "1.2.66"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,24 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Full-Height Slides and Landing Cleanup",
-    "body": """## What's new in v1.2.65
+    "name": f"{TAG} - Hotfix: Restore Reader Slide Visibility",
+    "body": """## What's new in v1.2.66
 
-### Full-height slide stage
-The reader presentation now lets each `wellme-experience-slide` and its content fill the available stage, removing the old page-style gaps and internal scrollbars.
+### Hotfix: Restore Reader Slide Visibility
 
-### Updated landing title
-Slide 1 now uses:
+**v1.2.65 introduced a CSS block that forced `overflow: hidden` on all slide content containers, making slides 2–5 completely blank/white.** This release removes that block and restores normal layout.
 
-Wellme-Wellbeing Hubs: Building a sustainable learning environment for Youth in Local communities
-
-### Cleaner navigation
-Removes the bottom `wellme-exp-dots` slide navigation from the rendered markup. The top navigation and arrows remain.
+### What was fixed
+- Removed the "full-height presentation stage" CSS that clipped all slide content
+- Slides 2–5 (Partnership, Overview, Modules, Sum-Up) are now visible again
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
-- `public/partials/wellme-experience.php`
-- `public/partials/wellme-slide-landing.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
