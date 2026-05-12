@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.70"
-VERSION = "1.2.70"
+TAG     = "v1.2.71"
+VERSION = "1.2.71"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,22 +38,20 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - WellMe Partner Slide Restyle",
-    "body": """## What's new in v1.2.70
+    "name": f"{TAG} - Sum-Up Flip Cards and Partner Title Stability",
+    "body": """## What's new in v1.2.71
 
-### Partner slide restyle
+### Sum-Up flip cards
 
-The Partnership slide now aligns more closely with the live WellMe partners page:
+Sum-Up cards now show the resource title on the front and flip on click to show the motto on the back.
 
-- Pink WellMe section background
-- Blue wave-style divider
-- Cleaner white partner logo cards
-- Larger partner logos
-- Better spacing and selected-partner states
+### Partner title stability
 
-### Navigation spacing
+Selected partner titles now reserve the same 3-line title area regardless of text length, preventing the partner slide from jumping when switching partners.
 
-The long project title in the top navigation now truncates with an ellipsis so it does not crowd the slide tabs.
+### Module card cleanup
+
+Hides `.wellme-module-inline-number` labels on inline module cards.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`

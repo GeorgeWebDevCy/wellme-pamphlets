@@ -10634,3 +10634,119 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
+
+/* Client feedback: hide module number labels on inline module cards. */
+.wellme-module-inline-number {
+    display: none !important;
+}
+
+/* Sum-Up feedback: show the title first, then flip to the motto on click. */
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard {
+    height: clamp(180px, 22vh, 230px) !important;
+    min-height: 180px !important;
+    cursor: pointer !important;
+    perspective: 1200px !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-inner {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: inherit !important;
+    padding: 0 !important;
+    border-radius: 34px 0 34px 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transform-style: preserve-3d !important;
+    transition: transform 0.55s cubic-bezier(0.22, 0.72, 0.24, 1) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-inner {
+    transform: rotateY(180deg) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-back,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-back {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    min-height: 0 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: clamp(22px, 2.4vw, 30px) !important;
+    border: 0 !important;
+    border-radius: 34px 0 34px 0 !important;
+    background: var(--wellme-site-blue) !important;
+    box-shadow: 0 14px 34px rgba(38, 170, 252, 0.22) !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-back,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-back {
+    background: color-mix(in srgb, var(--wellme-site-blue) 88%, #0b5aa7) !important;
+    transform: rotateY(180deg) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-image,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-number {
+    display: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front-body {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    align-items: center !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-title {
+    margin: 0 !important;
+    color: #fff !important;
+    font-size: clamp(1.1rem, 1.35vw, 1.35rem) !important;
+    line-height: 1.22 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-motto {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    color: rgba(255, 255, 255, 0.96) !important;
+}
+
+/* Partner feedback: reserve the same title space for every selected partner. */
+.wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro {
+    display: flex !important;
+    height: min(560px, calc(100vh - 140px)) !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-title {
+    display: flex !important;
+    height: 3em !important;
+    min-height: 3em !important;
+    max-height: 3em !important;
+    align-items: center !important;
+    margin-bottom: 22px !important;
+    overflow: hidden !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-lede {
+    display: -webkit-box !important;
+    height: 8.1em !important;
+    min-height: 8.1em !important;
+    max-height: 8.1em !important;
+    overflow: hidden !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 5 !important;
+}
