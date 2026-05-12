@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.75"
-VERSION = "1.2.75"
+TAG     = "v1.2.76"
+VERSION = "1.2.76"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,12 +38,20 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Hide Module Inline Media",
-    "body": """## What's new in v1.2.75
+    "name": f"{TAG} - Popup Body Visual Polish",
+    "body": """## What's new in v1.2.76
 
-### Module card cleanup
+### Popup body visual polish
 
-Hides `.wellme-module-inline-media` on module cards.
+Adds WellMe-style popup body patterns across module sections:
+
+- White section cards with blue/pink accent strips
+- Softer shadows and hover lift effects
+- Styled introduction/activity cards
+- Polished assessment options and buttons
+- Gallery image hover motion
+
+Activity Steps are intentionally left unchanged.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
