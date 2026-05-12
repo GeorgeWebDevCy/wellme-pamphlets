@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.58"
-VERSION = "1.2.58"
+TAG     = "v1.2.59"
+VERSION = "1.2.59"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,22 +38,24 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — WellMe Homepage Visual Alignment",
-    "body": """## What's new in v1.2.58
+    "name": f"{TAG} — Partner Logo Quality and Shape Dividers",
+    "body": """## What's new in v1.2.59
 
-### Homepage style alignment
-The interactive pamphlets page now follows the main wellmeproject.com visual style:
+### Partner logo quality
+The partnership slide now renders partner logos with higher-quality WordPress attachment output:
 
-- **Landing slide** — Photo hero, dark overlay, and "Wellness Starts From Within" headline
-- **Buttons** — Bright WellMe blue CTA treatment with white inner border
-- **Partnership slide** — Soft white partner cards with circular logos
-- **Overview slide** — Homepage-inspired icon/text layout
-- **Modules slide** — Program-card layout with circular media and centered copy
-- **Sum-Up slide** — Blue rounded resource-panel treatment with dashed list lines
-- **Module popup** — Cleaner white cards, blue accents, and rounded panels
+- Uses full attachment images with responsive `srcset`
+- Preserves logo aspect ratios instead of cropping them into circles
+- Enlarges the logo display area to better match the live partners page
+
+### Site-style shape dividers
+Adds subtle curved shape dividers to the main presentation slides where they fit the WellMe website style.
+
+### Activity Steps
+Keeps Activity Steps on the original hotspot and panel treatment.
 
 ### Files changed
-- `public/partials/wellme-slide-landing.php`
+- `public/partials/wellme-slide-partnership.php`
 - `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)
 """,

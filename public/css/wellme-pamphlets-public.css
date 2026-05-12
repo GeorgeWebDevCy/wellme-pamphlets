@@ -8980,7 +8980,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-module-inline-cta,
 .wellme-popup-back-btn,
 .wellme-popup-btn,
-.wellme-step-nav-btn,
 .wellme-assessment-check,
 .wellme-pamphlet-modal-close,
 .wellme-popup-nav-btn,
@@ -8991,7 +8990,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-landing-continue,
 .wellme-module-inline-cta,
 .wellme-popup-back-btn,
-.wellme-step-nav-btn,
 .wellme-assessment-check {
     min-height: 46px;
     padding: 12px 28px !important;
@@ -9014,8 +9012,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-module-inline-cta:focus-visible,
 .wellme-popup-back-btn:hover,
 .wellme-popup-back-btn:focus-visible,
-.wellme-step-nav-btn:hover,
-.wellme-step-nav-btn:focus-visible,
 .wellme-assessment-check:hover,
 .wellme-assessment-check:focus-visible {
     background: var(--wellme-site-blue-dark) !important;
@@ -9756,8 +9752,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-cover-number,
 .wellme-pamphlet .wellme-pamphlet-section h2,
-.wellme-outcome-detail-header h3,
-.wellme-step-panel-header h3 {
+.wellme-outcome-detail-header h3 {
     color: var(--wellme-site-text) !important;
     letter-spacing: 0 !important;
     text-transform: none !important;
@@ -9780,7 +9775,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-cover-toc,
 .wellme-outcome-link,
 .wellme-outcome-detail-inline,
-.wellme-step-panel,
 .wellme-reflection-questions,
 .wellme-assessment-question {
     border: 1px solid var(--wellme-site-line) !important;
@@ -9812,20 +9806,93 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     border-radius: 50% !important;
 }
 
-.wellme-hotspot-number {
-    border: 2px solid #fff !important;
-    outline: 2px solid var(--wellme-site-blue) !important;
-    background: var(--wellme-site-blue) !important;
-    color: #fff !important;
+/* Keep Activity Steps on the original hotspot/panel treatment. */
+.wellme-popup-body .wellme-section-steps .wellme-section-inner,
+.wellme-section-steps .wellme-section-inner {
+    max-width: 720px !important;
 }
 
-.wellme-hotspot-pulse {
-    border-color: var(--wellme-site-blue) !important;
+.wellme-pamphlet .wellme-section-steps h2 {
+    margin: 0 0 24px !important;
+    color: var(--module-color, var(--wellme-primary)) !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
 }
 
-.wellme-hotspot-base-image,
-.wellme-hotspot-map {
-    border-radius: var(--wellme-site-card-radius) !important;
+/* Partner logo quality and site-style section dividers. */
+.wellme-experience--reader .wellme-slide-partnership,
+.wellme-experience--reader .wellme-slide-overview,
+.wellme-experience--reader .wellme-slide-modules,
+.wellme-experience--reader .wellme-slide-sumup {
+    position: relative;
+    overflow: hidden;
+}
+
+.wellme-experience--reader .wellme-slide-partnership::after,
+.wellme-experience--reader .wellme-slide-overview::after,
+.wellme-experience--reader .wellme-slide-modules::after,
+.wellme-experience--reader .wellme-slide-sumup::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -42px;
+    z-index: 1;
+    width: min(980px, 78vw);
+    height: 78px;
+    border-radius: 50% 50% 0 0;
+    background: color-mix(in srgb, var(--wellme-site-blue) 18%, #fff);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.wellme-experience--reader .wellme-slide-overview::after,
+.wellme-experience--reader .wellme-slide-sumup::after {
+    background: color-mix(in srgb, var(--wellme-site-blue) 12%, #fff);
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-content,
+.wellme-experience--reader .wellme-slide-overview .wellme-overview-content,
+.wellme-experience--reader .wellme-slide-modules .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-content {
+    position: relative;
+    z-index: 2;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-card {
+    min-height: 210px !important;
+    padding: 28px 22px 24px !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-logo {
+    width: min(190px, 82%) !important;
+    height: 96px !important;
+    max-width: 190px !important;
+    margin: 0 auto 4px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    object-fit: contain !important;
+    image-rendering: auto;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-logo {
+    position: static !important;
+    display: block !important;
+    width: min(260px, 100%) !important;
+    height: auto !important;
+    max-height: 116px !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    object-fit: contain !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partner-name {
+    margin-top: 2px !important;
 }
 
 /* Responsive tightening */

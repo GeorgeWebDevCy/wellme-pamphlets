@@ -90,7 +90,9 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
 
             <div class="wellme-partners-grid">
                 <?php foreach ( $partners as $p_index => $partner ) :
-                    $logo_url = $partner['partner_logo']['url'] ?? '';
+                    $logo     = $partner['partner_logo'] ?? [];
+                    $logo_id  = ! empty( $logo['ID'] ) ? (int) $logo['ID'] : ( ! empty( $logo['id'] ) ? (int) $logo['id'] : 0 );
+                    $logo_url = $logo['url'] ?? '';
                     $name     = $partner['partner_name'] ?? '';
                 ?>
                 <button type="button"
@@ -99,10 +101,27 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                         aria-expanded="<?php echo $p_index === $default_partner_index ? 'true' : 'false'; ?>"
                         aria-controls="wellme-partner-detail-<?php echo esc_attr( $p_index ); ?>">
 
-                    <?php if ( $logo_url ) : ?>
-                    <img src="<?php echo esc_url( $logo_url ); ?>"
-                         alt="<?php echo esc_attr( $name ); ?>"
-                         class="wellme-partner-logo">
+                    <?php if ( $logo_id ) : ?>
+                        <?php
+                        echo wp_get_attachment_image(
+                            $logo_id,
+                            'full',
+                            false,
+                            [
+                                'class'    => 'wellme-partner-logo',
+                                'alt'      => $name,
+                                'loading'  => 'lazy',
+                                'decoding' => 'async',
+                                'sizes'    => '(max-width: 760px) 70vw, 220px',
+                            ]
+                        );
+                        ?>
+                    <?php elseif ( $logo_url ) : ?>
+                        <img src="<?php echo esc_url( $logo_url ); ?>"
+                             alt="<?php echo esc_attr( $name ); ?>"
+                             class="wellme-partner-logo"
+                             loading="lazy"
+                             decoding="async">
                     <?php endif; ?>
 
                     <span class="wellme-partner-name"><?php echo esc_html( $name ); ?></span>
@@ -118,7 +137,9 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                 $email    = $partner['partner_email'] ?? '';
                 $address  = $partner['partner_address'] ?? '';
                 $website  = $partner['partner_website'] ?? '';
-                $logo_url = $partner['partner_logo']['url'] ?? '';
+                $logo     = $partner['partner_logo'] ?? [];
+                $logo_id  = ! empty( $logo['ID'] ) ? (int) $logo['ID'] : ( ! empty( $logo['id'] ) ? (int) $logo['id'] : 0 );
+                $logo_url = $logo['url'] ?? '';
             ?>
             <div class="wellme-partner-detail"
                  id="wellme-partner-detail-<?php echo esc_attr( $p_index ); ?>"
@@ -126,10 +147,27 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                 <button class="wellme-partner-detail-close"
                         aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
 
-                <?php if ( $logo_url ) : ?>
-                <img src="<?php echo esc_url( $logo_url ); ?>"
-                     alt="<?php echo esc_attr( $name ); ?>"
-                     class="wellme-partner-detail-logo">
+                <?php if ( $logo_id ) : ?>
+                    <?php
+                    echo wp_get_attachment_image(
+                        $logo_id,
+                        'full',
+                        false,
+                        [
+                            'class'    => 'wellme-partner-detail-logo',
+                            'alt'      => $name,
+                            'loading'  => 'lazy',
+                            'decoding' => 'async',
+                            'sizes'    => '(max-width: 760px) 70vw, 260px',
+                        ]
+                    );
+                    ?>
+                <?php elseif ( $logo_url ) : ?>
+                    <img src="<?php echo esc_url( $logo_url ); ?>"
+                         alt="<?php echo esc_attr( $name ); ?>"
+                         class="wellme-partner-detail-logo"
+                         loading="lazy"
+                         decoding="async">
                 <?php endif; ?>
 
                 <h3 class="wellme-partner-detail-name"><?php echo esc_html( $name ); ?></h3>
