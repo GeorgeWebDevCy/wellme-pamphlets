@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.72"
-VERSION = "1.2.72"
+TAG     = "v1.2.73"
+VERSION = "1.2.73"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,14 +38,14 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Sum-Up Live Viewport Fit",
-    "body": """## What's new in v1.2.72
+    "name": f"{TAG} - Partner Contact Visibility",
+    "body": """## What's new in v1.2.73
 
-### Sum-Up live viewport fit
+### Partner contact visibility
 
-The Sum-Up slide was clipping the second row of cards on the live site. This release tightens the Sum-Up spacing, card height, and card text sizing so both rows remain visible in the presentation viewport without scrollbars.
+Restores visible partner contact details in the selected partner panel after the title-height stabilization update.
 
-Verified against the live WellMe pamphlets page with Playwright.
+The selected partner panel now keeps stable title spacing while still showing email, address, and website details.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
