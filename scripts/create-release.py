@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.66"
-VERSION = "1.2.66"
+TAG     = "v1.2.67"
+VERSION = "1.2.67"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,22 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Hotfix: Restore Reader Slide Visibility",
-    "body": """## What's new in v1.2.66
+    "name": f"{TAG} - Fix Landing Title Size and Module Card Background",
+    "body": """## What's new in v1.2.67
 
-### Hotfix: Restore Reader Slide Visibility
+### Fixed landing title size
+The long project title was rendering at massive font sizes (up to 6.4rem). Reduced to a readable `clamp(1.4rem, 2.5vw, 2.2rem)` across all breakpoints so the full title fits without overwhelming the slide.
 
-**v1.2.65 introduced a CSS block that forced `overflow: hidden` on all slide content containers, making slides 2–5 completely blank/white.** This release removes that block and restores normal layout.
-
-### What was fixed
-- Removed the "full-height presentation stage" CSS that clipped all slide content
-- Slides 2–5 (Partnership, Overview, Modules, Sum-Up) are now visible again
+### Fixed module card backgrounds
+Replaced the dark gradient overlay on module cards with a clean semi-transparent solid color (`color-mix(in srgb, var(--module-color) 85%, transparent)`), making text more readable and the design cleaner.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)
-""",
-    "draft": False,
+""",    "draft": False,
     "prerelease": False,
 }
 
