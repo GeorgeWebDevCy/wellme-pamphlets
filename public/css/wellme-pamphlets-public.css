@@ -8206,26 +8206,29 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     height: clamp(248px, 34vh, 330px);
     min-height: 0;
     padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: #151515;
-    color: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 16px;
+    background: #fff;
+    color: #1a1a2e;
     cursor: pointer;
     overflow: hidden;
     text-align: left;
     transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:hover,
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:focus-visible {
-    background: #151515;
-    border-color: transparent;
-    transform: translateY(-4px);
+    background: #fff;
+    border-color: var(--module-color, #1e88c8);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:focus-visible {
-    outline: 2px solid #111;
-    outline-offset: 5px;
+    outline: 2px solid var(--module-color, #1e88c8);
+    outline-offset: 3px;
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card::before {
@@ -8233,7 +8236,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: color-mix(in srgb, var(--module-color, #005b96) 85%, transparent);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 60%, rgba(255,255,255,1) 100%);
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-media {
@@ -8244,8 +8247,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     align-items: flex-end;
     justify-content: center;
     background:
-        linear-gradient(155deg, rgba(255,255,255,0.1), rgba(0,0,0,0.24)),
-        var(--module-color, #005b96);
+        linear-gradient(135deg, color-mix(in srgb, var(--module-color, #1e88c8) 18%, #fff), #eef2f6);
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-image {
@@ -8254,15 +8256,15 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.62;
-    filter: grayscale(22%) contrast(1.05);
+    opacity: 0.85;
+    filter: none;
     transform: scale(1.02);
     transition: transform 0.32s ease, opacity 0.32s ease;
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:hover .wellme-module-inline-image,
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:focus-visible .wellme-module-inline-image {
-    opacity: 0.78;
+    opacity: 1;
     transform: scale(1.07);
 }
 
@@ -8274,7 +8276,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     justify-content: center;
     width: 100%;
     min-height: 45%;
-    color: rgba(255,255,255,0.86);
+    color: var(--module-color, #1e88c8);
     font-size: clamp(3rem, 7vw, 5.4rem);
     font-weight: 900;
     line-height: 1;
@@ -8284,7 +8286,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     width: clamp(60px, 7vw, 92px);
     height: clamp(60px, 7vw, 92px);
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    filter: none;
     opacity: 0.8;
 }
 
@@ -8301,7 +8303,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-number {
     display: block;
     margin: 0 0 12px;
-    color: rgba(255,255,255,0.82);
+    color: var(--module-color, #1e88c8);
     font-size: 0.52rem;
     font-weight: 900;
     letter-spacing: 0.16em;
@@ -8312,7 +8314,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-title {
     display: -webkit-box;
     margin: 0 0 8px;
-    color: #fff;
+    color: #1a1a2e;
     font-size: clamp(0.82rem, 1.02vw, 1rem);
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -8326,7 +8328,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-subtitle {
     display: -webkit-box;
     margin: 0;
-    color: rgba(255,255,255,0.86);
+    color: #5a6a7a;
     font-size: 0.62rem;
     font-weight: 600;
     letter-spacing: 0.03em;
@@ -8344,9 +8346,9 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     min-height: 32px;
     margin: auto 0 12px;
     padding: 0 10px;
-    border: 1px solid rgba(255,255,255,0.8);
-    border-radius: 0;
-    background: rgba(0,0,0,0.16);
+    border: 1px solid var(--module-color, #1e88c8);
+    border-radius: 999px;
+    background: var(--module-color, #1e88c8);
     color: #fff;
     font-size: 0.55rem;
     font-weight: 900;
@@ -8355,15 +8357,17 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:hover .wellme-module-inline-cta,
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-card:focus-visible .wellme-module-inline-cta,
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-cta:hover,
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-cta:focus-visible {
-    background: #fff;
-    color: #111;
+    background: color-mix(in srgb, var(--module-color, #1e88c8) 85%, #000);
+    color: #fff;
     opacity: 1;
+    transform: translateY(-2px);
 }
 
 .wellme-experience--reader .wellme-slide-modules .wellme-module-inline-badge {

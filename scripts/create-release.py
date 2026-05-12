@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.67"
-VERSION = "1.2.67"
+TAG     = "v1.2.68"
+VERSION = "1.2.68"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,14 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Fix Landing Title Size and Module Card Background",
-    "body": """## What's new in v1.2.67
+    "name": f"{TAG} - Redesign Module Cards to Match Site Theme",
+    "body": """## What's new in v1.2.68
 
-### Fixed landing title size
-The long project title was rendering at massive font sizes (up to 6.4rem). Reduced to a readable `clamp(1.4rem, 2.5vw, 2.2rem)` across all breakpoints so the full title fits without overwhelming the slide.
+### Redesigned module cards to match the main site
 
-### Fixed module card backgrounds
-Replaced the dark gradient overlay on module cards with a clean semi-transparent solid color (`color-mix(in srgb, var(--module-color) 85%, transparent)`), making text more readable and the design cleaner.
+Module cards in the reader now use the same **light, clean aesthetic** as the main WellMe site:
+
+- **White cards** with `border-radius: 16px` and subtle shadow
+- **Colored module accent** on labels, borders, and CTA buttons
+- **Image hover**: zoom + brighten (no more grayscale/darkening)
+- **Lift effect on hover**: `translateY(-6px)` with deeper shadow
+- **Pill-shaped CTA buttons** matching the site's button style
+- **Dark text** on light background for better readability
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
