@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.68"
-VERSION = "1.2.68"
+TAG     = "v1.2.70"
+VERSION = "1.2.70"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,24 +38,28 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Redesign Module Cards to Match Site Theme",
-    "body": """## What's new in v1.2.68
+    "name": f"{TAG} - WellMe Partner Slide Restyle",
+    "body": """## What's new in v1.2.70
 
-### Redesigned module cards to match the main site
+### Partner slide restyle
 
-Module cards in the reader now use the same **light, clean aesthetic** as the main WellMe site:
+The Partnership slide now aligns more closely with the live WellMe partners page:
 
-- **White cards** with `border-radius: 16px` and subtle shadow
-- **Colored module accent** on labels, borders, and CTA buttons
-- **Image hover**: zoom + brighten (no more grayscale/darkening)
-- **Lift effect on hover**: `translateY(-6px)` with deeper shadow
-- **Pill-shaped CTA buttons** matching the site's button style
-- **Dark text** on light background for better readability
+- Pink WellMe section background
+- Blue wave-style divider
+- Cleaner white partner logo cards
+- Larger partner logos
+- Better spacing and selected-partner states
+
+### Navigation spacing
+
+The long project title in the top navigation now truncates with an ellipsis so it does not crowd the slide tabs.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)
-""",    "draft": False,
+""",
+    "draft": False,
     "prerelease": False,
 }
 
