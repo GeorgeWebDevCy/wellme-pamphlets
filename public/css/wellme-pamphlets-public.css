@@ -10940,7 +10940,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-popup-body .wellme-cover-toc,
-.wellme-popup-body .wellme-reflection-questions,
 .wellme-popup-body .wellme-outcome-detail-inline,
 .wellme-popup-body .wellme-assessment-question,
 .wellme-popup-body .wellme-video-wrapper,
@@ -10951,8 +10950,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     box-shadow: 0 12px 30px rgba(20, 30, 45, 0.07) !important;
 }
 
-.wellme-popup-body .wellme-cover-toc,
-.wellme-popup-body .wellme-reflection-questions {
+.wellme-popup-body .wellme-cover-toc {
     border-left: 6px solid var(--module-color, var(--wellme-site-blue, #2aa9ec)) !important;
 }
 
@@ -11108,5 +11106,244 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 @media (max-width: 640px) {
     .wellme-popup-body .wellme-reflection-list li {
         gap: 10px !important;
+    }
+}
+
+/* Module content: main-site patterns. Reflection Questions and Activity Steps are intentionally untouched. */
+.wellme-popup-body .wellme-section-cover,
+.wellme-popup-body .wellme-section-introduction,
+.wellme-popup-body .wellme-section-outcomes,
+.wellme-popup-body .wellme-section-assessment,
+.wellme-popup-body .wellme-section-video,
+.wellme-popup-body .wellme-section-gallery {
+    border-color: rgba(42, 169, 236, 0.12) !important;
+    background: #fff !important;
+}
+
+.wellme-popup-body .wellme-section-introduction h2,
+.wellme-popup-body .wellme-section-outcomes h2,
+.wellme-popup-body .wellme-section-assessment h2,
+.wellme-popup-body .wellme-section-video h2 {
+    position: relative !important;
+    display: inline-block !important;
+    isolation: isolate !important;
+    margin-bottom: 22px !important;
+    color: var(--wellme-site-text, #30343d) !important;
+    font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-section-introduction h2::before,
+.wellme-popup-body .wellme-section-outcomes h2::before,
+.wellme-popup-body .wellme-section-assessment h2::before,
+.wellme-popup-body .wellme-section-video h2::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: -1 !important;
+    top: -12px !important;
+    left: -30px !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 999px !important;
+    background: #ed3293 !important;
+    opacity: 0.92 !important;
+}
+
+.wellme-popup-body .wellme-section-introduction h2::after,
+.wellme-popup-body .wellme-section-outcomes h2::after,
+.wellme-popup-body .wellme-section-assessment h2::after,
+.wellme-popup-body .wellme-section-video h2::after {
+    width: 92px !important;
+    height: 2px !important;
+    margin-top: 16px !important;
+    border-radius: 0 !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+}
+
+.wellme-popup-body .wellme-cover-toc {
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 42px 0 42px 0 !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    box-shadow: 0 22px 44px rgba(42, 169, 236, 0.2) !important;
+    color: #fff !important;
+}
+
+.wellme-popup-body .wellme-cover-toc-title {
+    margin-bottom: 16px !important;
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.72) !important;
+    color: #fff !important;
+    text-align: center !important;
+}
+
+.wellme-popup-body .wellme-cover-toc-list li {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 18px !important;
+    align-items: center !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-cover-toc-list li::after {
+    content: "-------" !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    letter-spacing: 3px !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcomes-links,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcomes-links {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) !important;
+    gap: clamp(18px, 2.4vw, 30px) !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 220px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    padding: 30px 24px 26px !important;
+    border-left-width: 1px !important;
+    text-align: center !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link::before,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link::before {
+    position: static !important;
+    display: grid !important;
+    width: 58px !important;
+    height: 58px !important;
+    margin: 0 auto 18px !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    box-shadow: 0 12px 26px rgba(42, 169, 236, 0.18) !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:has(.wellme-outcome-icon)::before,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:has(.wellme-outcome-icon)::before {
+    display: none !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link-body,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link-body {
+    display: block !important;
+    width: 100% !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-icon {
+    width: 78px !important;
+    height: 78px !important;
+    margin: 0 auto 18px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 12px 26px rgba(20, 30, 45, 0.12) !important;
+    object-fit: cover !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link-title {
+    color: var(--wellme-site-text, #30343d) !important;
+    font-size: clamp(1.08rem, 1.45vw, 1.34rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link-desc {
+    margin-top: 14px !important;
+    color: var(--wellme-site-muted, #68707d) !important;
+    font-weight: 600 !important;
+    line-height: 1.7 !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link::after,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link::after {
+    content: "View More" !important;
+    display: inline-block !important;
+    margin: auto auto 0 !important;
+    padding-top: 16px !important;
+    border-bottom: 2px solid currentColor !important;
+    color: var(--wellme-site-text, #30343d) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+}
+
+.wellme-popup-body .wellme-outcome-detail-inline {
+    border: 0 !important;
+    border-radius: 8px !important;
+    background:
+        linear-gradient(90deg, var(--module-color, var(--wellme-site-blue, #2aa9ec)) 0 6px, transparent 6px),
+        #fff !important;
+    box-shadow: 0 18px 42px rgba(20, 30, 45, 0.1) !important;
+}
+
+.wellme-popup-body .wellme-outcome-detail-header h3 {
+    color: var(--wellme-site-text, #30343d) !important;
+    font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-section-assessment .wellme-assessment-form {
+    position: relative !important;
+    overflow: hidden !important;
+    padding: clamp(22px, 4vw, 38px) !important;
+    border-radius: 46px 0 46px 0 !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    box-shadow: 0 20px 44px rgba(42, 169, 236, 0.2) !important;
+}
+
+.wellme-popup-body .wellme-section-assessment .wellme-assessment-form::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 18px !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    pointer-events: none !important;
+}
+
+.wellme-popup-body .wellme-assessment-question {
+    position: relative !important;
+    z-index: 1 !important;
+    border: 0 !important;
+    background: #fff !important;
+}
+
+.wellme-popup-body .wellme-assessment-question-number {
+    color: var(--wellme-site-blue, #2aa9ec) !important;
+    font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-video-wrapper {
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: #101114 !important;
+    box-shadow: 0 20px 46px rgba(20, 30, 45, 0.16) !important;
+}
+
+.wellme-popup-body .wellme-section-gallery .wellme-gallery-item {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.wellme-popup-body .wellme-section-gallery .wellme-gallery-item img {
+    aspect-ratio: 4 / 3 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 14px 30px rgba(20, 30, 45, 0.1) !important;
+    object-fit: cover !important;
+}
+
+@media (max-width: 640px) {
+    .wellme-popup-body .wellme-cover-toc-list li {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+    }
+
+    .wellme-popup-body .wellme-cover-toc-list li::after {
+        display: none !important;
     }
 }

@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.83"
-VERSION = "1.2.83"
+TAG     = "v1.2.84"
+VERSION = "1.2.84"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,19 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Popup brand alignment with main site",
-    "body": """## What's new in v1.2.83
+    "name": f"{TAG} - Module content homepage patterns",
+    "body": """## What's new in v1.2.84
 
-### Popup brand alignment with wellmeproject.com
+### Module content homepage patterns
 
-Updated the module popup styles to match the main WELLME site brand:
+Updated module popup content to reuse visual patterns from the main WELLME site:
 
-- **Left panel**: white background (was `#eef1f4` grey)
-- **Right panel**: `#f8fafc` light blue-grey (was white)
-- **Section headings**: normal case, no uppercase / letter-spacing
-- **Cover title**: normal case, no uppercase
-- **TOC box**: light blue-grey background with brand-colour left border
-- **Section cards**: lighter `#eee` borders
+- **Headings**: pink circle accent with blue underline
+- **Contents panel**: blue resource-card treatment with dashed row marks
+- **Intro/activity links**: centered white cards, circular icon treatment, and `View More` underline pattern
+- **Detail panels**: clean white cards with brand-colour accent
+- **Assessment/video/gallery**: refreshed to better match the site styling
+- **Protected sections**: Reflection Questions and Activity Steps were left untouched
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
