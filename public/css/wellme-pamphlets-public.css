@@ -11039,3 +11039,75 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
         transition: none !important;
     }
 }
+
+/* Reflection Questions: echo the blue resource-card pattern from the main site. */
+.wellme-popup-body .wellme-reflection-questions {
+    position: relative !important;
+    margin-top: clamp(24px, 4vw, 38px) !important;
+    padding: clamp(28px, 4vw, 42px) clamp(28px, 5vw, 56px) !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 46px 0 46px 0 !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    box-shadow: 0 20px 44px rgba(42, 169, 236, 0.24) !important;
+    color: #fff !important;
+}
+
+.wellme-popup-body .wellme-reflection-questions h3 {
+    margin: 0 0 22px !important;
+    padding: 0 0 18px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.72) !important;
+    color: #fff !important;
+    font-size: clamp(1.35rem, 2.2vw, 2rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+}
+
+.wellme-popup-body .wellme-reflection-list {
+    display: grid !important;
+    gap: 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #fff !important;
+    list-style: none !important;
+    counter-reset: wellme-reflection !important;
+}
+
+.wellme-popup-body .wellme-reflection-list li {
+    display: grid !important;
+    grid-template-columns: auto minmax(42px, 1fr) auto !important;
+    gap: 12px !important;
+    align-items: center !important;
+    margin: 0 !important;
+    color: #fff !important;
+    font-size: clamp(0.98rem, 1.25vw, 1.1rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    counter-increment: wellme-reflection !important;
+}
+
+.wellme-popup-body .wellme-reflection-list li::before {
+    content: counter(wellme-reflection, decimal-leading-zero) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-size: 0.82em !important;
+    font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-reflection-list li::after {
+    content: "------" !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.14em !important;
+    white-space: nowrap !important;
+}
+
+@media (max-width: 640px) {
+    .wellme-popup-body .wellme-reflection-list li {
+        grid-template-columns: auto 1fr !important;
+    }
+
+    .wellme-popup-body .wellme-reflection-list li::after {
+        display: none !important;
+    }
+}

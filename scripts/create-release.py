@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.76"
-VERSION = "1.2.76"
+TAG     = "v1.2.77"
+VERSION = "1.2.77"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,18 +38,18 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Popup Body Visual Polish",
-    "body": """## What's new in v1.2.76
+    "name": f"{TAG} - Reflection Questions Blue Card",
+    "body": """## What's new in v1.2.77
 
-### Popup body visual polish
+### Reflection Questions blue card
 
-Adds WellMe-style popup body patterns across module sections:
+Updates the Reflection Questions block to echo the main-site blue resource-card pattern:
 
-- White section cards with blue/pink accent strips
-- Softer shadows and hover lift effects
-- Styled introduction/activity cards
-- Polished assessment options and buttons
-- Gallery image hover motion
+- Blue panel
+- White title and divider
+- Numbered question rows
+- Dashed right-side markers
+- Rounded corner treatment
 
 Activity Steps are intentionally left unchanged.
 
