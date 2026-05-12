@@ -9995,6 +9995,155 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     }
 }
 
+/* Sum-Up resources: individual blue cards in a grid, not an accordion/list. */
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-content {
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+    padding: clamp(36px, 5vw, 72px) clamp(28px, 5vw, 76px) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-title {
+    margin-bottom: 4px !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-subtitle {
+    margin-bottom: 10px !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: clamp(16px, 2vw, 24px) !important;
+    width: min(1220px, 100%) !important;
+    margin: 8px auto 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience::before {
+    content: "WellMe Free Resources for Schools";
+    grid-column: 1 / -1;
+    margin: 0 0 4px;
+    padding: 0 0 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--wellme-site-blue) 22%, #fff);
+    color: var(--wellme-site-text);
+    font-size: clamp(1.35rem, 2.1vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard {
+    height: auto !important;
+    min-height: 0 !important;
+    cursor: default !important;
+    perspective: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-inner {
+    display: block !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    transform-style: flat !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-back,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-back {
+    position: relative !important;
+    display: block !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front {
+    min-height: 0 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front::after {
+    display: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-inner {
+    padding: clamp(22px, 2.4vw, 30px) !important;
+    border-radius: 34px 0 34px 0 !important;
+    background: var(--wellme-site-blue) !important;
+    box-shadow: 0 14px 34px rgba(38, 170, 252, 0.22) !important;
+    color: #fff !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front-body {
+    display: block !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-number {
+    display: block !important;
+    margin: 0 0 10px !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.2 !important;
+    text-transform: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-title {
+    margin: 0 0 14px !important;
+    color: #fff !important;
+    font-size: clamp(1.02rem, 1.22vw, 1.22rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-back .wellme-flipcard-number {
+    display: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-motto {
+    margin: 0 !important;
+    padding: 14px 0 0 !important;
+    border-top: 1px dashed rgba(255, 255, 255, 0.72) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.94) !important;
+    font-size: 0.94rem !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    line-height: 1.55 !important;
+}
+
+.wellme-exp-dot-thumb {
+    display: none !important;
+}
+
+@media (max-width: 1040px) {
+    .wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 /* Live cascade guard: restore homepage-style landing after older reader rules. */
 .wellme-experience--reader .wellme-slide-landing .wellme-landing-bg {
     display: block !important;

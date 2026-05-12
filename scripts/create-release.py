@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.63"
-VERSION = "1.2.63"
+TAG     = "v1.2.64"
+VERSION = "1.2.64"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,23 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Larger Presentation Navigation",
-    "body": """## What's new in v1.2.63
+    "name": f"{TAG} — Sum-Up Resource Cards and Clean Dots",
+    "body": """## What's new in v1.2.64
 
-### Larger top navigation
-The presentation navigation is now easier to read and click:
+### Sum-Up resource cards
+The "WellMe Free Resources for Schools" area now uses individual blue resource cards in a grid instead of one accordion/list panel:
 
-- Larger top nav height
-- Bigger brand label
-- Larger tab labels and hit areas
-- Larger slide counter
-- Responsive sizing for mobile
+- Three-column desktop grid
+- Two-column tablet layout
+- Single-column mobile layout
+- Resource details visible directly inside each card
+
+### Cleaner slide dots
+Removes unused thumbnail spans from the bottom slide navigation.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
+- `public/partials/wellme-experience.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
