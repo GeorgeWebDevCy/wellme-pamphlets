@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.81"
-VERSION = "1.2.81"
+TAG     = "v1.2.83"
+VERSION = "1.2.83"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,13 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Intro & Activity card hover lift",
-    "body": """## What's new in v1.2.81
+    "name": f"{TAG} - Popup brand alignment with main site",
+    "body": """## What's new in v1.2.83
 
-### Hover lift on intro & activity panel cards
+### Popup brand alignment with wellmeproject.com
 
-Introduction and Activity panel cards inside module popups now lift
-(`translateY(-4px)`) on hover, matching the homepage service card pattern.
+Updated the module popup styles to match the main WELLME site brand:
+
+- **Left panel**: white background (was `#eef1f4` grey)
+- **Right panel**: `#f8fafc` light blue-grey (was white)
+- **Section headings**: normal case, no uppercase / letter-spacing
+- **Cover title**: normal case, no uppercase
+- **TOC box**: light blue-grey background with brand-colour left border
+- **Section cards**: lighter `#eee` borders
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
