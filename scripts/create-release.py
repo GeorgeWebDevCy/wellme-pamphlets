@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.74"
-VERSION = "1.2.74"
+TAG     = "v1.2.75"
+VERSION = "1.2.75"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,15 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Module Title Labels",
-    "body": """## What's new in v1.2.74
+    "name": f"{TAG} - Hide Module Inline Media",
+    "body": """## What's new in v1.2.75
 
-### Module title labels
+### Module card cleanup
 
-Module cards now include the module label directly in the title, for example:
-
-`Module 1: From Strength to Strength...`
-
-The separate blue numeric badge is now hidden.
+Hides `.wellme-module-inline-media` on module cards.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
-- `public/partials/wellme-experience.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

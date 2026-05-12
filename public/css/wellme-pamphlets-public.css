@@ -10645,6 +10645,10 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     display: inline !important;
 }
 
+.wellme-module-inline-media {
+    display: none !important;
+}
+
 /* Sum-Up feedback: show the title first, then flip to the motto on click. */
 .wellme-experience--reader .wellme-slide-sumup .wellme-flipcard {
     height: clamp(180px, 22vh, 230px) !important;
