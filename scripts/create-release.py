@@ -1,12 +1,12 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.64"
-VERSION = "1.2.64"
+TAG     = "v1.2.65"
+VERSION = "1.2.65"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
 # ---------------------------------------------------------------------------
-# Token — try gh CLI (Linux/Mac path first, then Windows path), then env var
+# Token - try gh CLI (Linux/Mac path first, then Windows path), then env var
 # ---------------------------------------------------------------------------
 def get_token():
     candidates = [
@@ -38,23 +38,24 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Sum-Up Resource Cards and Clean Dots",
-    "body": """## What's new in v1.2.64
+    "name": f"{TAG} - Full-Height Slides and Landing Cleanup",
+    "body": """## What's new in v1.2.65
 
-### Sum-Up resource cards
-The "WellMe Free Resources for Schools" area now uses individual blue resource cards in a grid instead of one accordion/list panel:
+### Full-height slide stage
+The reader presentation now lets each `wellme-experience-slide` and its content fill the available stage, removing the old page-style gaps and internal scrollbars.
 
-- Three-column desktop grid
-- Two-column tablet layout
-- Single-column mobile layout
-- Resource details visible directly inside each card
+### Updated landing title
+Slide 1 now uses:
 
-### Cleaner slide dots
-Removes unused thumbnail spans from the bottom slide navigation.
+Wellme-Wellbeing Hubs: Building a sustainable learning environment for Youth in Local communities
+
+### Cleaner navigation
+Removes the bottom `wellme-exp-dots` slide navigation from the rendered markup. The top navigation and arrows remain.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
 - `public/partials/wellme-experience.php`
+- `public/partials/wellme-slide-landing.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
@@ -62,7 +63,7 @@ Removes unused thumbnail spans from the bottom slide navigation.
 }
 
 # ---------------------------------------------------------------------------
-# Zip path — relative to this script's location (scripts/ → dist/)
+# Zip path - relative to this script's location (scripts/ to dist/)
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ZIP_PATH   = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "dist", "wellme-pamphlets.zip"))

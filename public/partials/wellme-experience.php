@@ -23,14 +23,6 @@ $sumup_title      = get_field( 'sumup_title', 'option' ) ?: $sumup_nav_label;
 $sumup_subtitle   = get_field( 'sumup_subtitle', 'option' ) ?: __( 'Click each card to reveal the module motto.', 'wellme-pamphlets' );
 $sumup_cards_raw  = get_field( 'sumup_cards', 'option' ) ?: [];
 $sumup_cards      = [];
-$slide_nav_items  = [
-    __( 'WELLME', 'wellme-pamphlets' ),
-    __( 'Partnership', 'wellme-pamphlets' ),
-    __( 'Overview', 'wellme-pamphlets' ),
-    __( 'Modules', 'wellme-pamphlets' ),
-    $sumup_nav_label,
-];
-
 if ( ! empty( $sumup_cards_raw ) && is_array( $sumup_cards_raw ) ) {
     foreach ( $sumup_cards_raw as $card_index => $card ) {
         $card_image     = $card['card_image'] ?? [];
@@ -312,28 +304,6 @@ if ( empty( $sumup_cards ) && ! empty( $modules ) && is_array( $modules ) ) {
             <polyline points="9 18 15 12 9 6"/>
         </svg>
     </button>
-
-    <?php /* ── Dot navigation ──────────────────────────────────── */ ?>
-    <nav
-        class="wellme-exp-dots"
-        aria-label="<?php esc_attr_e( 'Slide navigation', 'wellme-pamphlets' ); ?>"
-    >
-        <?php for ( $d = 0; $d < $total_slides; $d++ ) : ?>
-        <button
-            class="wellme-exp-dot<?php echo $d === 0 ? ' is-active' : ''; ?>"
-            data-index="<?php echo $d; ?>"
-            aria-label="<?php echo esc_attr( sprintf(
-                /* translators: %s: slide number */
-                __( 'Go to slide %s', 'wellme-pamphlets' ),
-                $d + 1
-            ) ); ?>"
-            aria-current="<?php echo $d === 0 ? 'true' : 'false'; ?>"
-        >
-            <span class="wellme-exp-dot-number"><?php echo esc_html( (string) ( $d + 1 ) ); ?></span>
-            <span class="wellme-exp-dot-label"><?php echo esc_html( $slide_nav_items[ $d ] ?? (string) ( $d + 1 ) ); ?></span>
-        </button>
-        <?php endfor; ?>
-    </nav>
 
     <?php /* ── Slide counter (bottom right) ──────────────────────── */ ?>
     <div class="wellme-exp-counter" aria-hidden="true">
