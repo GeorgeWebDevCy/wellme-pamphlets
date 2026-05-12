@@ -10750,3 +10750,56 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 5 !important;
 }
+
+/* Sum-Up live viewport fit: keep both card rows visible without scrollbars. */
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-content {
+    gap: 10px !important;
+    padding: clamp(70px, 10vh, 86px) clamp(28px, 5vw, 68px) clamp(22px, 4vh, 34px) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-title {
+    margin: 0 !important;
+    font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+    line-height: 1.05 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-sumup-subtitle {
+    margin: 0 0 8px !important;
+    font-size: clamp(0.92rem, 1.35vw, 1.08rem) !important;
+    line-height: 1.35 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience {
+    gap: clamp(12px, 1.45vw, 18px) !important;
+    width: min(1080px, 100%) !important;
+    margin-top: 2px !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience::before {
+    margin: 0 !important;
+    padding: 0 0 10px !important;
+    font-size: clamp(1.25rem, 2vw, 1.65rem) !important;
+    line-height: 1.12 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard {
+    height: clamp(132px, 20vh, 156px) !important;
+    min-height: 132px !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-back,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-front,
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard.is-flipped .wellme-flipcard-back {
+    padding: clamp(16px, 1.8vw, 22px) !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-title {
+    font-size: clamp(0.96rem, 1.12vw, 1.12rem) !important;
+    line-height: 1.18 !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-motto {
+    font-size: clamp(0.78rem, 1vw, 0.92rem) !important;
+    line-height: 1.35 !important;
+}

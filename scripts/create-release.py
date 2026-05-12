@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.71"
-VERSION = "1.2.71"
+TAG     = "v1.2.72"
+VERSION = "1.2.72"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,14 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Sum-Up Flip Cards and Partner Title Stability",
-    "body": """## What's new in v1.2.71
+    "name": f"{TAG} - Sum-Up Live Viewport Fit",
+    "body": """## What's new in v1.2.72
 
-### Sum-Up flip cards
+### Sum-Up live viewport fit
 
-Sum-Up cards now show the resource title on the front and flip on click to show the motto on the back.
+The Sum-Up slide was clipping the second row of cards on the live site. This release tightens the Sum-Up spacing, card height, and card text sizing so both rows remain visible in the presentation viewport without scrollbars.
 
-### Partner title stability
-
-Selected partner titles now reserve the same 3-line title area regardless of text length, preventing the partner slide from jumping when switching partners.
-
-### Module card cleanup
-
-Hides `.wellme-module-inline-number` labels on inline module cards.
+Verified against the live WellMe pamphlets page with Playwright.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
