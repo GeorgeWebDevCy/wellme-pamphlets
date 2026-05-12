@@ -10636,8 +10636,13 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 /* Client feedback: hide module number labels on inline module cards. */
-.wellme-module-inline-number {
+.wellme-module-inline-number,
+.wellme-module-inline-badge {
     display: none !important;
+}
+
+.wellme-module-inline-title-prefix {
+    display: inline !important;
 }
 
 /* Sum-Up feedback: show the title first, then flip to the motto on click. */

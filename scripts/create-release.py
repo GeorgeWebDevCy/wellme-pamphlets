@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.73"
-VERSION = "1.2.73"
+TAG     = "v1.2.74"
+VERSION = "1.2.74"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,17 +38,20 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Partner Contact Visibility",
-    "body": """## What's new in v1.2.73
+    "name": f"{TAG} - Module Title Labels",
+    "body": """## What's new in v1.2.74
 
-### Partner contact visibility
+### Module title labels
 
-Restores visible partner contact details in the selected partner panel after the title-height stabilization update.
+Module cards now include the module label directly in the title, for example:
 
-The selected partner panel now keeps stable title spacing while still showing email, address, and website details.
+`Module 1: From Strength to Strength...`
+
+The separate blue numeric badge is now hidden.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
+- `public/partials/wellme-experience.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

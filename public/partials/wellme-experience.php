@@ -196,7 +196,10 @@ if ( empty( $sumup_cards ) && ! empty( $modules ) && is_array( $modules ) ) {
 
                         <div class="wellme-module-inline-body">
                             <span class="wellme-module-inline-number"><?php echo esc_html( sprintf( __( 'Module %d', 'wellme-pamphlets' ), $number ) ); ?></span>
-                            <h3 class="wellme-module-inline-title"><?php echo esc_html( get_the_title( $module ) ); ?></h3>
+                            <h3 class="wellme-module-inline-title">
+                                <span class="wellme-module-inline-title-prefix"><?php echo esc_html( sprintf( __( 'Module %d:', 'wellme-pamphlets' ), $number ) ); ?></span>
+                                <?php echo esc_html( get_the_title( $module ) ); ?>
+                            </h3>
                             <?php if ( $subtitle ) : ?>
                             <p class="wellme-module-inline-subtitle"><?php echo esc_html( $subtitle ); ?></p>
                             <?php elseif ( $desc ) : ?>
