@@ -501,9 +501,19 @@
 
     function initPamphletInteractions(root) {
         root = root || document;
+        markBlankParagraphs(root);
         initOutcomePanels(root);
         initHotspots(root);
         initAssessments(root);
+    }
+
+    function markBlankParagraphs(root) {
+        root.querySelectorAll('.wellme-introduction-content > p, .wellme-outcome-detail-body > p, .wellme-conclusion-content > p').forEach(function (paragraph) {
+            var text = paragraph.textContent.replace(/\u00a0/g, '').trim();
+            if (!text && !paragraph.querySelector('img, iframe, video, audio, svg, canvas')) {
+                paragraph.classList.add('wellme-blank-paragraph');
+            }
+        });
     }
 
     /* ── Chapter Navigation ──────────────────────────────────── */

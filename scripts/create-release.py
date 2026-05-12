@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.85"
-VERSION = "1.2.85"
+TAG     = "v1.2.86"
+VERSION = "1.2.86"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,20 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Module hover and blurb patterns",
-    "body": """## What's new in v1.2.85
+    "name": f"{TAG} - Blank paragraph icon cleanup",
+    "body": """## What's new in v1.2.86
 
-### Module hover and blurb patterns
+### Blank paragraph icon cleanup
 
-Added more homepage-inspired patterns inside module popup content:
+Cleaned up the new blurb-style module content treatment:
 
-- **Intro/activity cards**: blue hover state inspired by the homepage image/CTA cards
-- **Card icons**: hover into the white-on-blue / blue-on-white treatment used across the site
-- **Text and detail content**: blurb-style rows with circular icons and matching hover effects
-- **Protected sections**: Reflection Questions and Activity Steps were left untouched
+- Paragraphs that only contain `&nbsp;` are now marked as blank and no longer receive circular icons or card spacing.
+- The blurb/icon treatment still applies to real paragraph and list content.
+- Reflection Questions and Activity Steps remain untouched.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
+- `public/js/wellme-pamphlets-public.js`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

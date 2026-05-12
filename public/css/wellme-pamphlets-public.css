@@ -11351,11 +11351,11 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     font-weight: 800 !important;
 }
 
-.wellme-popup-body .wellme-introduction-content > p,
+.wellme-popup-body .wellme-introduction-content > p:not(.wellme-blank-paragraph),
 .wellme-popup-body .wellme-introduction-content > ul > li,
-.wellme-popup-body .wellme-outcome-detail-body > p,
+.wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph),
 .wellme-popup-body .wellme-outcome-detail-body > ul > li,
-.wellme-popup-body .wellme-conclusion-content > p,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph),
 .wellme-popup-body .wellme-conclusion-content > ul > li {
     position: relative !important;
     min-height: 74px !important;
@@ -11370,11 +11370,11 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     transition: background 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease, color 0.24s ease !important;
 }
 
-.wellme-popup-body .wellme-introduction-content > p::before,
+.wellme-popup-body .wellme-introduction-content > p:not(.wellme-blank-paragraph)::before,
 .wellme-popup-body .wellme-introduction-content > ul > li::before,
-.wellme-popup-body .wellme-outcome-detail-body > p::before,
+.wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph)::before,
 .wellme-popup-body .wellme-outcome-detail-body > ul > li::before,
-.wellme-popup-body .wellme-conclusion-content > p::before,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph)::before,
 .wellme-popup-body .wellme-conclusion-content > ul > li::before {
     content: "\2713" !important;
     position: absolute !important;
@@ -11393,11 +11393,11 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease !important;
 }
 
-.wellme-popup-body .wellme-introduction-content > p:hover,
+.wellme-popup-body .wellme-introduction-content > p:not(.wellme-blank-paragraph):hover,
 .wellme-popup-body .wellme-introduction-content > ul > li:hover,
-.wellme-popup-body .wellme-outcome-detail-body > p:hover,
+.wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph):hover,
 .wellme-popup-body .wellme-outcome-detail-body > ul > li:hover,
-.wellme-popup-body .wellme-conclusion-content > p:hover,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph):hover,
 .wellme-popup-body .wellme-conclusion-content > ul > li:hover {
     background: var(--wellme-site-blue, #2aa9ec) !important;
     color: #fff !important;
@@ -11405,15 +11405,25 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     transform: translateY(-3px) !important;
 }
 
-.wellme-popup-body .wellme-introduction-content > p:hover::before,
+.wellme-popup-body .wellme-introduction-content > p:not(.wellme-blank-paragraph):hover::before,
 .wellme-popup-body .wellme-introduction-content > ul > li:hover::before,
-.wellme-popup-body .wellme-outcome-detail-body > p:hover::before,
+.wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph):hover::before,
 .wellme-popup-body .wellme-outcome-detail-body > ul > li:hover::before,
-.wellme-popup-body .wellme-conclusion-content > p:hover::before,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph):hover::before,
 .wellme-popup-body .wellme-conclusion-content > ul > li:hover::before {
     background: #fff !important;
     color: var(--wellme-site-blue, #2aa9ec) !important;
     transform: scale(1.04) !important;
+}
+
+.wellme-popup-body .wellme-introduction-content > p.wellme-blank-paragraph,
+.wellme-popup-body .wellme-outcome-detail-body > p.wellme-blank-paragraph,
+.wellme-popup-body .wellme-conclusion-content > p.wellme-blank-paragraph {
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 .wellme-popup-body .wellme-section-assessment .wellme-assessment-form {
