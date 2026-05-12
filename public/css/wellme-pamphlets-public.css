@@ -10158,3 +10158,62 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-popup-body .wellme-section-steps .wellme-step-panel {
     background: #f8f9fc !important;
 }
+
+/* Larger presentation navigation. */
+.wellme-experience--reader .wellme-exp-topnav {
+    min-height: 64px !important;
+    padding: 10px clamp(18px, 2.8vw, 42px) !important;
+    gap: clamp(18px, 3vw, 42px) !important;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-brand {
+    min-width: max-content !important;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-brand-name {
+    font-size: clamp(1rem, 1.05vw, 1.22rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.15 !important;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tabs {
+    gap: 12px !important;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-tab {
+    min-height: 40px !important;
+    padding: 10px 18px !important;
+    border-radius: 999px !important;
+    font-size: clamp(0.98rem, 1vw, 1.16rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+}
+
+.wellme-experience--reader .wellme-exp-topnav-counter {
+    min-width: 64px !important;
+    font-size: clamp(0.95rem, 0.95vw, 1.08rem) !important;
+    font-weight: 800 !important;
+}
+
+@media (max-width: 760px) {
+    .wellme-experience--reader .wellme-exp-topnav {
+        min-height: 58px !important;
+        padding: 8px 12px !important;
+        gap: 10px !important;
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav-brand-name {
+        font-size: 0.86rem !important;
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav-tabs {
+        gap: 8px !important;
+    }
+
+    .wellme-experience--reader .wellme-exp-topnav-tab {
+        min-height: 36px !important;
+        padding: 8px 13px !important;
+        font-size: 0.9rem !important;
+    }
+}

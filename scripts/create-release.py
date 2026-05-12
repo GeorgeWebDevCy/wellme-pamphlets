@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.62"
-VERSION = "1.2.62"
+TAG     = "v1.2.63"
+VERSION = "1.2.63"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,15 +38,17 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Remove Cold Reader Background",
-    "body": """## What's new in v1.2.62
+    "name": f"{TAG} — Larger Presentation Navigation",
+    "body": """## What's new in v1.2.63
 
-### Background cleanup
-Removes the cold `#eef1f4` reader background treatment from the interactive pamphlets experience:
+### Larger top navigation
+The presentation navigation is now easier to read and click:
 
-- Forces the main reader, slide track, and non-landing slides back to white
-- Keeps the landing slide dark/photo-based for the homepage hero
-- Keeps Activity Steps panels on their original light panel treatment
+- Larger top nav height
+- Bigger brand label
+- Larger tab labels and hit areas
+- Larger slide counter
+- Responsive sizing for mobile
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
