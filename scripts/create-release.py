@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.84"
-VERSION = "1.2.84"
+TAG     = "v1.2.85"
+VERSION = "1.2.85"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,18 +38,16 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Module content homepage patterns",
-    "body": """## What's new in v1.2.84
+    "name": f"{TAG} - Module hover and blurb patterns",
+    "body": """## What's new in v1.2.85
 
-### Module content homepage patterns
+### Module hover and blurb patterns
 
-Updated module popup content to reuse visual patterns from the main WELLME site:
+Added more homepage-inspired patterns inside module popup content:
 
-- **Headings**: pink circle accent with blue underline
-- **Contents panel**: blue resource-card treatment with dashed row marks
-- **Intro/activity links**: centered white cards, circular icon treatment, and `View More` underline pattern
-- **Detail panels**: clean white cards with brand-colour accent
-- **Assessment/video/gallery**: refreshed to better match the site styling
+- **Intro/activity cards**: blue hover state inspired by the homepage image/CTA cards
+- **Card icons**: hover into the white-on-blue / blue-on-white treatment used across the site
+- **Text and detail content**: blurb-style rows with circular icons and matching hover effects
 - **Protected sections**: Reflection Questions and Activity Steps were left untouched
 
 ### Files changed

@@ -11202,6 +11202,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-popup-body .wellme-section-outcomes .wellme-outcome-link {
     display: flex !important;
     flex-direction: column !important;
+    overflow: hidden !important;
     min-height: 220px !important;
     align-items: center !important;
     justify-content: flex-start !important;
@@ -11209,6 +11210,19 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     padding: 30px 24px 26px !important;
     border-left-width: 1px !important;
     text-align: center !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"],
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"] {
+    border-color: var(--wellme-site-blue, #2aa9ec) !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    box-shadow: 0 22px 46px rgba(42, 169, 236, 0.28) !important;
+    color: #fff !important;
+    transform: translateY(-6px) !important;
 }
 
 .wellme-popup-body .wellme-section-introduction .wellme-outcome-link::before,
@@ -11220,6 +11234,8 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     margin: 0 auto 18px !important;
     background: var(--wellme-site-blue, #2aa9ec) !important;
     box-shadow: 0 12px 26px rgba(42, 169, 236, 0.18) !important;
+    color: #fff !important;
+    transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease !important;
 }
 
 .wellme-popup-body .wellme-section-introduction .wellme-outcome-link:has(.wellme-outcome-icon)::before,
@@ -11244,6 +11260,28 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     object-fit: cover !important;
 }
 
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover::before,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible::before,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"]::before,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover::before,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible::before,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"]::before {
+    background: #fff !important;
+    color: var(--wellme-site-blue, #2aa9ec) !important;
+    transform: translateY(-2px) scale(1.04) !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible .wellme-outcome-icon,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-icon {
+    box-shadow: 0 14px 28px rgba(255, 255, 255, 0.28) !important;
+    filter: brightness(1.06) saturate(1.08) !important;
+    transform: translateY(-2px) scale(1.04) !important;
+}
+
 .wellme-popup-body .wellme-section-introduction .wellme-outcome-link-title,
 .wellme-popup-body .wellme-section-outcomes .wellme-outcome-link-title {
     color: var(--wellme-site-text, #30343d) !important;
@@ -11252,12 +11290,30 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     line-height: 1.2 !important;
 }
 
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible .wellme-outcome-link-title,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-link-title {
+    color: #fff !important;
+}
+
 .wellme-popup-body .wellme-section-introduction .wellme-outcome-link-desc,
 .wellme-popup-body .wellme-section-outcomes .wellme-outcome-link-desc {
     margin-top: 14px !important;
     color: var(--wellme-site-muted, #68707d) !important;
     font-weight: 600 !important;
     line-height: 1.7 !important;
+}
+
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible .wellme-outcome-link-desc,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"] .wellme-outcome-link-desc {
+    color: rgba(255, 255, 255, 0.88) !important;
 }
 
 .wellme-popup-body .wellme-section-introduction .wellme-outcome-link::after,
@@ -11272,6 +11328,15 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     line-height: 1.1 !important;
 }
 
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:hover::after,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link:focus-visible::after,
+.wellme-popup-body .wellme-section-introduction .wellme-outcome-link[aria-expanded="true"]::after,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:hover::after,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link:focus-visible::after,
+.wellme-popup-body .wellme-section-outcomes .wellme-outcome-link[aria-expanded="true"]::after {
+    color: #fff !important;
+}
+
 .wellme-popup-body .wellme-outcome-detail-inline {
     border: 0 !important;
     border-radius: 8px !important;
@@ -11284,6 +11349,71 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-popup-body .wellme-outcome-detail-header h3 {
     color: var(--wellme-site-text, #30343d) !important;
     font-weight: 800 !important;
+}
+
+.wellme-popup-body .wellme-introduction-content > p,
+.wellme-popup-body .wellme-introduction-content > ul > li,
+.wellme-popup-body .wellme-outcome-detail-body > p,
+.wellme-popup-body .wellme-outcome-detail-body > ul > li,
+.wellme-popup-body .wellme-conclusion-content > p,
+.wellme-popup-body .wellme-conclusion-content > ul > li {
+    position: relative !important;
+    min-height: 74px !important;
+    margin: 0 0 18px !important;
+    padding: 12px 16px 12px 88px !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    color: var(--wellme-site-muted, #68707d) !important;
+    font-weight: 600 !important;
+    line-height: 1.7 !important;
+    list-style: none !important;
+    transition: background 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease, color 0.24s ease !important;
+}
+
+.wellme-popup-body .wellme-introduction-content > p::before,
+.wellme-popup-body .wellme-introduction-content > ul > li::before,
+.wellme-popup-body .wellme-outcome-detail-body > p::before,
+.wellme-popup-body .wellme-outcome-detail-body > ul > li::before,
+.wellme-popup-body .wellme-conclusion-content > p::before,
+.wellme-popup-body .wellme-conclusion-content > ul > li::before {
+    content: "\2713" !important;
+    position: absolute !important;
+    top: 12px !important;
+    left: 16px !important;
+    display: grid !important;
+    width: 54px !important;
+    height: 54px !important;
+    place-items: center !important;
+    border-radius: 999px !important;
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    color: #fff !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    box-shadow: 0 12px 26px rgba(42, 169, 236, 0.16) !important;
+    transition: background 0.24s ease, color 0.24s ease, transform 0.24s ease !important;
+}
+
+.wellme-popup-body .wellme-introduction-content > p:hover,
+.wellme-popup-body .wellme-introduction-content > ul > li:hover,
+.wellme-popup-body .wellme-outcome-detail-body > p:hover,
+.wellme-popup-body .wellme-outcome-detail-body > ul > li:hover,
+.wellme-popup-body .wellme-conclusion-content > p:hover,
+.wellme-popup-body .wellme-conclusion-content > ul > li:hover {
+    background: var(--wellme-site-blue, #2aa9ec) !important;
+    color: #fff !important;
+    box-shadow: 0 18px 38px rgba(42, 169, 236, 0.22) !important;
+    transform: translateY(-3px) !important;
+}
+
+.wellme-popup-body .wellme-introduction-content > p:hover::before,
+.wellme-popup-body .wellme-introduction-content > ul > li:hover::before,
+.wellme-popup-body .wellme-outcome-detail-body > p:hover::before,
+.wellme-popup-body .wellme-outcome-detail-body > ul > li:hover::before,
+.wellme-popup-body .wellme-conclusion-content > p:hover::before,
+.wellme-popup-body .wellme-conclusion-content > ul > li:hover::before {
+    background: #fff !important;
+    color: var(--wellme-site-blue, #2aa9ec) !important;
+    transform: scale(1.04) !important;
 }
 
 .wellme-popup-body .wellme-section-assessment .wellme-assessment-form {
