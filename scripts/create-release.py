@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.60"
-VERSION = "1.2.60"
+TAG     = "v1.2.61"
+VERSION = "1.2.61"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,26 +38,22 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Landing Hero Fit and Partner Logo Sizing",
-    "body": """## What's new in v1.2.60
+    "name": f"{TAG} — Landing Hero Cascade Guard",
+    "body": """## What's new in v1.2.61
 
-### Landing hero correction
-The first slide now stays close to the WellMe homepage hero:
+### Playwright-verified landing hero fix
+The first slide now overrides older reader-mode rules that were breaking the homepage-style hero:
 
-- Uses the stable "Wellness Starts From Within" hero headline
-- Avoids falling back to module cover images on the landing slide
-- Uses the homepage hero image fallback when no custom landing image is set
-- Tightens text sizing and spacing so the hero does not clip under navigation
+- Restores the landing background image when older CSS hides it
+- Restores the subtitle and CTA when older CSS hides them
+- Forces title, subtitle, and button into the correct order
+- Keeps the footer full-width at the bottom of the hero
+- Keeps the CTA styled as a WellMe blue button
 
-### Partner logo sizing
-Increases the rendered partner logo area and image size hints so logos read larger inside the partnership cards.
-
-### Activity Steps
-Keeps Activity Steps on the original hotspot and panel treatment.
+### Partner logo intro
+Enlarges the selected partner intro logo used in the partnership detail panel.
 
 ### Files changed
-- `public/partials/wellme-slide-landing.php`
-- `public/partials/wellme-slide-partnership.php`
 - `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)
 """,

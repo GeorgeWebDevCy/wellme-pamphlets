@@ -9994,3 +9994,141 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
         min-height: 240px !important;
     }
 }
+
+/* Live cascade guard: restore homepage-style landing after older reader rules. */
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-bg {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-scroll {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-content {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-width: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: clamp(82px, 11vh, 118px) clamp(28px, 6vw, 92px) clamp(110px, 15vh, 148px) !important;
+    opacity: 1 !important;
+    transform: none !important;
+    text-align: center !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-copy {
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    width: min(1040px, 100%) !important;
+    max-width: 1040px !important;
+    min-height: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    transform: none !important;
+    text-align: center !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-title {
+    display: block !important;
+    order: 0 !important;
+    max-width: 980px !important;
+    margin: 0 auto 28px !important;
+    color: #fff !important;
+    font-size: clamp(3.1rem, 5.45vw, 5.25rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.08 !important;
+    text-align: center !important;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.34) !important;
+    text-transform: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-subtitle,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-continue {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-subtitle {
+    order: 1 !important;
+    max-width: 800px !important;
+    margin: 0 auto 32px !important;
+    color: rgba(255,255,255,0.92) !important;
+    font-size: clamp(1rem, 1.25vw, 1.18rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-continue {
+    order: 2 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: 188px !important;
+    min-height: 50px !important;
+    margin: 0 auto !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    outline: 1px solid var(--wellme-site-blue) !important;
+    background: var(--wellme-site-blue) !important;
+    box-shadow: 0 8px 22px rgba(38, 170, 252, 0.28) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 3 !important;
+    display: flex !important;
+    width: auto !important;
+    min-height: 76px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 18px !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-eu,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-agreement {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro-logo {
+    width: min(260px, 82%) !important;
+    height: 132px !important;
+    max-width: 260px !important;
+    margin: 0 0 24px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    object-fit: contain !important;
+}
