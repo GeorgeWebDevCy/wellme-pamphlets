@@ -10132,3 +10132,29 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     background: transparent !important;
     object-fit: contain !important;
 }
+
+/* Client feedback: remove the cold #eef1f4 reader background. */
+.wellme-experience--reader,
+.wellme-experience--reader .wellme-experience-track,
+.wellme-experience--reader .wellme-experience-slide,
+.wellme-experience--reader .wellme-partnership-content,
+.wellme-experience--reader .wellme-overview-content,
+.wellme-experience--reader .wellme-modules-slide-content,
+.wellme-experience--reader .wellme-sumup-content,
+.wellme-popup-body,
+.wellme-popup-body .wellme-pamphlet,
+.wellme-popup-body .wellme-pamphlet-section {
+    background: #fff !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing {
+    background: #111 !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-bg {
+    background-color: #111 !important;
+}
+
+.wellme-popup-body .wellme-section-steps .wellme-step-panel {
+    background: #f8f9fc !important;
+}

@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.61"
-VERSION = "1.2.61"
+TAG     = "v1.2.62"
+VERSION = "1.2.62"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,15 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Landing Hero Cascade Guard",
-    "body": """## What's new in v1.2.61
+    "name": f"{TAG} — Remove Cold Reader Background",
+    "body": """## What's new in v1.2.62
 
-### Playwright-verified landing hero fix
-The first slide now overrides older reader-mode rules that were breaking the homepage-style hero:
+### Background cleanup
+Removes the cold `#eef1f4` reader background treatment from the interactive pamphlets experience:
 
-- Restores the landing background image when older CSS hides it
-- Restores the subtitle and CTA when older CSS hides them
-- Forces title, subtitle, and button into the correct order
-- Keeps the footer full-width at the bottom of the hero
-- Keeps the CTA styled as a WellMe blue button
-
-### Partner logo intro
-Enlarges the selected partner intro logo used in the partnership detail panel.
+- Forces the main reader, slide track, and non-landing slides back to white
+- Keeps the landing slide dark/photo-based for the homepage hero
+- Keeps Activity Steps panels on their original light panel treatment
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
