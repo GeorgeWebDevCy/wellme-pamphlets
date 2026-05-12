@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.0"
-VERSION = "1.2.0"
+TAG     = "v1.2.58"
+VERSION = "1.2.58"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,35 +38,25 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Mazda-style 5-Slide Experience + Updater",
-    "body": """## What's new in v1.2.0
+    "name": f"{TAG} — WellMe Homepage Visual Alignment",
+    "body": """## What's new in v1.2.58
 
-### 5-Slide Interactive Experience redesign ([wellme_experience])
-The experience now follows a Mazda MX-5 / Maglr digital-brochure layout:
+### Homepage style alignment
+The interactive pamphlets page now follows the main wellmeproject.com visual style:
 
-- **Slide 1 — WELLME Landing**: Rotating logo, project title, EU branding (partners removed from this slide)
-- **Slide 2 — Partnership**: Dedicated full slide with clickable partner cards
-- **Slide 3 — Overview**: Purpose, need, expected results (ACF-editable)
-- **Slide 4 — Modules**: 6 clickable inline cards → modal with full pamphlet content
-- **Slide 5 — Sum-Up**: 6 flip cards with photos on front, module mottos on back
+- **Landing slide** — Photo hero, dark overlay, and "Wellness Starts From Within" headline
+- **Buttons** — Bright WellMe blue CTA treatment with white inner border
+- **Partnership slide** — Soft white partner cards with circular logos
+- **Overview slide** — Homepage-inspired icon/text layout
+- **Modules slide** — Program-card layout with circular media and centered copy
+- **Sum-Up slide** — Blue rounded resource-panel treatment with dashed list lines
+- **Module popup** — Cleaner white cards, blue accents, and rounded panels
 
-### Mazda-style top navigation bar
-- Dark frosted-glass bar (`wellme-exp-topnav`) fixed at the top of the experience
-- Clickable chapter tabs — WELLME / Partnership / Overview / Modules / Sum-Up
-- Active tab highlighted with an animated underline
-- Slide counter (e.g. 2 / 5) on the right
-
-### Reader mode (white A4 pages on dark background)
-- Partnership slide now renders as a proper white reader-mode page
-- All 5 slides fully styled for the Publitas/Maglr reader aesthetic
-
-### Plugin auto-updater
-- Uses `yahnis-elsts/plugin-update-checker` v5
-- WordPress will detect new releases from this GitHub repo and offer one-click updates
-- Release asset `wellme-pamphlets.zip` is the installable plugin package
-
-### Setup
-Add `[wellme_experience]` to any page for the full 5-slide interactive experience.""",
+### Files changed
+- `public/partials/wellme-slide-landing.php`
+- `public/css/wellme-pamphlets-public.css`
+- `wellme-pamphlets.php` (version bump)
+""",
     "draft": False,
     "prerelease": False,
 }
