@@ -7397,9 +7397,10 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro {
     width: min(430px, 68%);
+    height: 400px;
     max-height: calc(100% - 96px);
     padding: 24px 28px 26px;
-    overflow: auto;
+    overflow: hidden auto;
     background: rgba(0,0,0,0.48);
     border-left: 3px solid rgba(255,255,255,0.82);
     backdrop-filter: blur(3px);
@@ -7408,6 +7409,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro {
     width: min(500px, 74%);
+    height: 400px;
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro-logo {
@@ -7464,6 +7466,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
     .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro {
         width: min(520px, calc(100% - 44px));
+        height: 360px;
     }
 }
 
