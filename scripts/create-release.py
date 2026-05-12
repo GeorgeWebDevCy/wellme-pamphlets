@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.78"
-VERSION = "1.2.78"
+TAG     = "v1.2.79"
+VERSION = "1.2.79"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,21 +38,12 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Fix Reflection Questions Layout",
-    "body": """## What's new in v1.2.78
+    "name": f"{TAG} - Hide Reflection List Item Numbers",
+    "body": """## What's new in v1.2.79
 
-### Fixed reflection questions layout
+### Hide reflection list item numbers in popup
 
-The reflection questions card had a broken "------" separator (`::after` pseudo-element)
-that was misaligning when question text wrapped to multiple lines. The separator would
-float on the first line while text wrapped below, creating a messy layout.
-
-**Fix:**
-- Removed the broken `------` separator
-- Added clean bottom-border separators between items (`rgba(255,255,255,0.18)`)
-- Changed grid to 2-column (number + text) with `align-items: start`
-- Wrapped text now flows naturally beside the number
-- Items have consistent vertical padding (`10px 0`)
+Hides the `::before` counter numbers on reflection list items inside the popup body.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
