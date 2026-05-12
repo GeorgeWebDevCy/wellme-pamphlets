@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.79"
-VERSION = "1.2.79"
+TAG     = "v1.2.80"
+VERSION = "1.2.80"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,15 +38,15 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Hide Reflection List Item Numbers",
-    "body": """## What's new in v1.2.79
+    "name": f"{TAG} - Version bump",
+    "body": """## What's new in v1.2.80
 
-### Hide reflection list item numbers in popup
+### Version bump
 
-Hides the `::before` counter numbers on reflection list items inside the popup body.
+Ensures plugin version header matches release.
 
 ### Files changed
-- `public/css/wellme-pamphlets-public.css`
+- `wellme-pamphlets.php`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
