@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.59"
-VERSION = "1.2.59"
+TAG     = "v1.2.60"
+VERSION = "1.2.60"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,23 +38,25 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} — Partner Logo Quality and Shape Dividers",
-    "body": """## What's new in v1.2.59
+    "name": f"{TAG} — Landing Hero Fit and Partner Logo Sizing",
+    "body": """## What's new in v1.2.60
 
-### Partner logo quality
-The partnership slide now renders partner logos with higher-quality WordPress attachment output:
+### Landing hero correction
+The first slide now stays close to the WellMe homepage hero:
 
-- Uses full attachment images with responsive `srcset`
-- Preserves logo aspect ratios instead of cropping them into circles
-- Enlarges the logo display area to better match the live partners page
+- Uses the stable "Wellness Starts From Within" hero headline
+- Avoids falling back to module cover images on the landing slide
+- Uses the homepage hero image fallback when no custom landing image is set
+- Tightens text sizing and spacing so the hero does not clip under navigation
 
-### Site-style shape dividers
-Adds subtle curved shape dividers to the main presentation slides where they fit the WellMe website style.
+### Partner logo sizing
+Increases the rendered partner logo area and image size hints so logos read larger inside the partnership cards.
 
 ### Activity Steps
 Keeps Activity Steps on the original hotspot and panel treatment.
 
 ### Files changed
+- `public/partials/wellme-slide-landing.php`
 - `public/partials/wellme-slide-partnership.php`
 - `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)

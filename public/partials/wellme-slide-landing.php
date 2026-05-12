@@ -19,19 +19,10 @@ $wellme_logo_url    = $wellme_logo['url'] ?? '';
 $eu_logo_url        = $eu_logo['url'] ?? '';
 $landing_image_url  = $landing_image['url'] ?? ( $overview_image['url'] ?? '' );
 
-if ( ! $landing_image_url && ! empty( $modules ) && is_array( $modules ) ) {
-    foreach ( $modules as $landing_module ) {
-        $module_cover = get_field( 'module_cover_image', $landing_module->ID );
-        if ( ! empty( $module_cover['url'] ) ) {
-            $landing_image_url = $module_cover['url'];
-            break;
-        }
-    }
-}
-
 // Default hero background from main site if no custom image set
 $default_hero_bg = 'https://www.wellmeproject.com/wp-content/uploads/2025/05/top-view-child-learning-how-count-home.webp';
 $hero_bg_url     = $landing_image_url ?: $default_hero_bg;
+$hero_headline   = __( 'Wellness Starts From Within', 'wellme-pamphlets' );
 ?>
 <section class="wellme-experience-slide wellme-slide-landing<?php echo $is_first ? ' is-active' : ''; ?>"
          data-index="<?php echo esc_attr( $index ); ?>"
@@ -51,7 +42,7 @@ $hero_bg_url     = $landing_image_url ?: $default_hero_bg;
                 </div>
                 <?php endif; ?>
 
-                <h1 class="wellme-landing-title"><?php echo esc_html( $landing_subtitle ); ?></h1>
+                <h1 class="wellme-landing-title"><?php echo esc_html( $hero_headline ); ?></h1>
 
                 <p class="wellme-landing-subtitle"><?php echo esc_html( $project_title ); ?></p>
 

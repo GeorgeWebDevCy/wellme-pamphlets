@@ -112,7 +112,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                                 'alt'      => $name,
                                 'loading'  => 'lazy',
                                 'decoding' => 'async',
-                                'sizes'    => '(max-width: 760px) 70vw, 220px',
+                                'sizes'    => '(max-width: 760px) 78vw, 300px',
                             ]
                         );
                         ?>
@@ -158,7 +158,7 @@ if ( ! $partnership_image_url && ! empty( $modules ) && is_array( $modules ) ) {
                             'alt'      => $name,
                             'loading'  => 'lazy',
                             'decoding' => 'async',
-                            'sizes'    => '(max-width: 760px) 70vw, 260px',
+                            'sizes'    => '(max-width: 760px) 78vw, 340px',
                         ]
                     );
                     ?>

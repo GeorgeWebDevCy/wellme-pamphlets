@@ -9859,15 +9859,16 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-card {
-    min-height: 210px !important;
-    padding: 28px 22px 24px !important;
+    min-height: 230px !important;
+    padding: 22px 24px 24px !important;
+    justify-content: space-between !important;
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-logo {
-    width: min(190px, 82%) !important;
-    height: 96px !important;
-    max-width: 190px !important;
-    margin: 0 auto 4px !important;
+    width: min(270px, 94%) !important;
+    height: 132px !important;
+    max-width: 270px !important;
+    margin: 0 auto 10px !important;
     padding: 0 !important;
     border: 0 !important;
     border-radius: 0 !important;
@@ -9880,9 +9881,9 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-detail-logo {
     position: static !important;
     display: block !important;
-    width: min(260px, 100%) !important;
+    width: min(320px, 100%) !important;
     height: auto !important;
-    max-height: 116px !important;
+    max-height: 150px !important;
     margin: 0 0 18px !important;
     padding: 0 !important;
     border: 0 !important;
@@ -9892,7 +9893,45 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership .wellme-partner-name {
-    margin-top: 2px !important;
+    margin-top: 0 !important;
+    font-size: clamp(1rem, 1.12vw, 1.18rem) !important;
+}
+
+/* Landing slide final correction: keep it close to the homepage hero. */
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-content {
+    min-height: calc(100% - 96px) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: clamp(84px, 12vh, 128px) clamp(28px, 6vw, 96px) clamp(70px, 10vh, 110px) !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-copy {
+    width: min(1120px, 100%) !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-title {
+    max-width: 1050px !important;
+    margin: 0 auto 30px !important;
+    font-size: clamp(3.25rem, 6.1vw, 5.8rem) !important;
+    line-height: 1.08 !important;
+    overflow-wrap: normal !important;
+    text-wrap: balance;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-subtitle {
+    max-width: 860px !important;
+    margin: 0 auto 34px !important;
+    font-size: clamp(1rem, 1.35vw, 1.25rem) !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer {
+    min-height: 76px !important;
+    padding: 12px clamp(20px, 4vw, 56px) !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-eu-logo {
+    max-width: 150px !important;
+    max-height: 48px !important;
 }
 
 /* Responsive tightening */
