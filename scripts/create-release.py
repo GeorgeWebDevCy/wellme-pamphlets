@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.86"
-VERSION = "1.2.86"
+TAG     = "v1.2.87"
+VERSION = "1.2.87"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,18 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Blank paragraph icon cleanup",
-    "body": """## What's new in v1.2.86
+    "name": f"{TAG} - Larger selected partner logo",
+    "body": """## What's new in v1.2.87
 
-### Blank paragraph icon cleanup
+### Larger selected partner logo
 
-Cleaned up the new blurb-style module content treatment:
+Updated the Partnership slide selected-partner card:
 
-- Paragraphs that only contain `&nbsp;` are now marked as blank and no longer receive circular icons or card spacing.
-- The blurb/icon treatment still applies to real paragraph and list content.
-- Reflection Questions and Activity Steps remain untouched.
+- Increased `.wellme-partnership-intro-logo` for selected partners.
+- Kept the sizing responsive so the partner card text still has room.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
-- `public/js/wellme-pamphlets-public.js`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
