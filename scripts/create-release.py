@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.87"
-VERSION = "1.2.87"
+TAG     = "v1.2.88"
+VERSION = "1.2.88"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,15 +38,16 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Larger selected partner logo",
-    "body": """## What's new in v1.2.87
+    "name": f"{TAG} - Landing footer layout fix",
+    "body": """## What's new in v1.2.88
 
-### Larger selected partner logo
+### Landing footer layout fix
 
-Updated the Partnership slide selected-partner card:
+Fixed the landing slide EU funding footer:
 
-- Increased `.wellme-partnership-intro-logo` for selected partners.
-- Kept the sizing responsive so the partner card text still has room.
+- Footer children now stay inside the footer bar instead of overlapping above it.
+- Logo, funding text, and agreement are aligned in a responsive grid.
+- Mobile footer stacks cleanly.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`

@@ -10278,6 +10278,77 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     visibility: visible !important;
 }
 
+/* Landing footer fix: keep funding details inside the footer bar instead of absolutely overlapping it. */
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer {
+    display: grid !important;
+    grid-template-columns: auto minmax(280px, 560px) minmax(220px, 340px) !important;
+    gap: clamp(14px, 2.2vw, 28px) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 76px !important;
+    padding: 10px clamp(20px, 4vw, 56px) !important;
+    overflow: hidden !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    transform: none !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px 8px !important;
+    background: #fff !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu-logo {
+    display: block !important;
+    width: 138px !important;
+    max-width: 138px !important;
+    max-height: 40px !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu-text,
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+    overflow: visible !important;
+    color: var(--wellme-site-muted, #6e747d) !important;
+    font-size: clamp(0.5rem, 0.62vw, 0.62rem) !important;
+    line-height: 1.32 !important;
+}
+
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+    text-align: right !important;
+    white-space: normal !important;
+}
+
+@media (max-width: 820px) {
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        padding: 10px 18px !important;
+        text-align: center !important;
+    }
+
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu {
+        margin: 0 auto !important;
+    }
+
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+        text-align: center !important;
+    }
+}
+
 .wellme-experience--reader .wellme-slide-partnership .wellme-partnership-intro-logo {
     width: min(260px, 82%) !important;
     height: 132px !important;
