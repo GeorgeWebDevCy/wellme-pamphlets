@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.77"
-VERSION = "1.2.77"
+TAG     = "v1.2.78"
+VERSION = "1.2.78"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,20 +38,21 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Reflection Questions Blue Card",
-    "body": """## What's new in v1.2.77
+    "name": f"{TAG} - Fix Reflection Questions Layout",
+    "body": """## What's new in v1.2.78
 
-### Reflection Questions blue card
+### Fixed reflection questions layout
 
-Updates the Reflection Questions block to echo the main-site blue resource-card pattern:
+The reflection questions card had a broken "------" separator (`::after` pseudo-element)
+that was misaligning when question text wrapped to multiple lines. The separator would
+float on the first line while text wrapped below, creating a messy layout.
 
-- Blue panel
-- White title and divider
-- Numbered question rows
-- Dashed right-side markers
-- Rounded corner treatment
-
-Activity Steps are intentionally left unchanged.
+**Fix:**
+- Removed the broken `------` separator
+- Added clean bottom-border separators between items (`rgba(255,255,255,0.18)`)
+- Changed grid to 2-column (number + text) with `align-items: start`
+- Wrapped text now flows naturally beside the number
+- Items have consistent vertical padding (`10px 0`)
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
