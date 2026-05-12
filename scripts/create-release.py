@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.80"
-VERSION = "1.2.80"
+TAG     = "v1.2.81"
+VERSION = "1.2.81"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,15 +38,16 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Version bump",
-    "body": """## What's new in v1.2.80
+    "name": f"{TAG} - Intro & Activity card hover lift",
+    "body": """## What's new in v1.2.81
 
-### Version bump
+### Hover lift on intro & activity panel cards
 
-Ensures plugin version header matches release.
+Introduction and Activity panel cards inside module popups now lift
+(`translateY(-4px)`) on hover, matching the homepage service card pattern.
 
 ### Files changed
-- `wellme-pamphlets.php`
+- `public/css/wellme-pamphlets-public.css`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
