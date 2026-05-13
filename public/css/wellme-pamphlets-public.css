@@ -801,7 +801,6 @@
 .wellme-flipcard-front-body {
     position: absolute; bottom: 0; left: 0; right: 0;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 100%);
     color: #fff;
 }
 .wellme-flipcard-number {
