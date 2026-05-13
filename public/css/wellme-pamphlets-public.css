@@ -9706,6 +9706,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-popup-title {
+    display: none !important;
     color: var(--wellme-site-text) !important;
     font-size: clamp(1.2rem, 1.7vw, 1.7rem) !important;
     font-weight: 800 !important;
