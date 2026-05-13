@@ -1525,10 +1525,10 @@
 .wellme-landing-footer {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
+    justify-content: stretch;
     gap: 12px;
     padding: 16px 24px;
     background: rgba(0, 0, 0, 0.35);
@@ -1537,6 +1537,7 @@
 
 .wellme-landing-eu {
     flex-shrink: 0;
+    justify-self: start;
 }
 
 .wellme-landing-eu-logo {
@@ -1549,10 +1550,11 @@
 .wellme-landing-eu-text {
     font-size: 0.7rem;
     opacity: 0.75;
-    max-width: 500px;
+    max-width: 680px;
     line-height: 1.5;
     margin: 0;
     color: #fff;
+    justify-self: start;
 }
 
 .wellme-landing-agreement {
@@ -1561,15 +1563,23 @@
     letter-spacing: 0.04em;
     color: #fff;
     white-space: nowrap;
+    justify-self: end;
+    text-align: right;
 }
 
 @media (max-width: 768px) {
     .wellme-landing-footer {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         text-align: center;
         gap: 8px;
     }
+    .wellme-landing-eu,
+    .wellme-landing-eu-text,
     .wellme-landing-agreement {
+        justify-self: center;
+    }
+    .wellme-landing-agreement {
+        text-align: center;
         white-space: normal;
     }
 }
@@ -10281,10 +10291,10 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 /* Landing footer fix: keep funding details inside the footer bar instead of absolutely overlapping it. */
 .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer {
     display: grid !important;
-    grid-template-columns: auto minmax(280px, 560px) minmax(220px, 340px) !important;
+    grid-template-columns: auto minmax(0, 1fr) minmax(220px, auto) !important;
     gap: clamp(14px, 2.2vw, 28px) !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: stretch !important;
     min-height: 76px !important;
     padding: 10px clamp(20px, 4vw, 56px) !important;
     overflow: hidden !important;
@@ -10308,6 +10318,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    justify-self: start !important;
     padding: 6px 8px !important;
     background: #fff !important;
 }
@@ -10327,7 +10338,13 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     line-height: 1.32 !important;
 }
 
+.wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu-text {
+    justify-self: start !important;
+    text-align: left !important;
+}
+
 .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+    justify-self: end !important;
     text-align: right !important;
     white-space: normal !important;
 }
@@ -10342,9 +10359,16 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 
     .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu {
         margin: 0 auto !important;
+        justify-self: center !important;
+    }
+
+    .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-eu-text {
+        justify-self: center !important;
+        text-align: center !important;
     }
 
     .wellme-experience--reader .wellme-slide-landing .wellme-landing-footer .wellme-landing-agreement {
+        justify-self: center !important;
         text-align: center !important;
     }
 }
