@@ -10838,8 +10838,10 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro-logo {
-    width: min(190px, 68%) !important;
-    height: 112px !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: min(190px, 68%) !important;
+    max-height: 112px !important;
     margin: 0 0 22px !important;
     border: 2px solid #ED3293 !important;
     box-sizing: border-box !important;

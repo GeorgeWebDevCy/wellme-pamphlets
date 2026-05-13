@@ -962,6 +962,36 @@
         slide.classList.remove('has-selected-partner');
     }
 
+    function fitPartnershipIntroLogo(logo) {
+        if (!logo) return;
+
+        const applyFit = function () {
+            const naturalWidth = logo.naturalWidth || 0;
+            const naturalHeight = logo.naturalHeight || 0;
+
+            if (!naturalWidth || !naturalHeight) return;
+
+            const maxWidth = 190;
+            const maxHeight = 112;
+            const scale = Math.min(maxWidth / naturalWidth, maxHeight / naturalHeight, 1);
+
+            logo.style.setProperty('width', `${naturalWidth * scale}px`, 'important');
+            logo.style.setProperty('height', `${naturalHeight * scale}px`, 'important');
+            logo.style.setProperty('max-width', 'none', 'important');
+            logo.style.setProperty('max-height', 'none', 'important');
+            logo.style.setProperty('object-fit', 'fill', 'important');
+        };
+
+        logo.removeAttribute('width');
+        logo.removeAttribute('height');
+
+        if (logo.complete) {
+            applyFit();
+        } else {
+            logo.addEventListener('load', applyFit, { once: true });
+        }
+    }
+
     function renderPartnershipIntro(slide, panel) {
         const intro = slide ? slide.querySelector('.wellme-partnership-intro') : null;
 
@@ -982,6 +1012,7 @@
         if (logo) {
             const logoClone = logo.cloneNode(true);
             logoClone.className = 'wellme-partnership-intro-logo';
+            fitPartnershipIntroLogo(logoClone);
             intro.appendChild(logoClone);
         }
 
