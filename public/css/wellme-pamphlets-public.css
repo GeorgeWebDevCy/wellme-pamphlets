@@ -10830,16 +10830,19 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 /* Partner feedback: reserve the same title space for every selected partner. */
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro {
     display: flex !important;
-    height: min(560px, calc(100vh - 140px)) !important;
+    height: auto !important;
+    min-height: min(560px, calc(100vh - 140px)) !important;
     flex-direction: column !important;
     justify-content: center !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro-logo {
     width: min(190px, 68%) !important;
     height: 112px !important;
     margin: 0 0 22px !important;
+    border: 2px solid #ED3293 !important;
+    box-sizing: border-box !important;
     flex: 0 0 auto !important;
 }
 
@@ -10855,14 +10858,14 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-lede {
-    display: -webkit-box !important;
-    height: 6.5em !important;
-    min-height: 6.5em !important;
-    max-height: 6.5em !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
     margin-bottom: 12px !important;
-    overflow: hidden !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 4 !important;
+    overflow: visible !important;
+    -webkit-box-orient: initial !important;
+    -webkit-line-clamp: unset !important;
 }
 
 .wellme-experience--reader .wellme-slide-partnership.has-selected-partner .wellme-partnership-intro-contacts {
