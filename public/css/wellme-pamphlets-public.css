@@ -5110,18 +5110,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     background: #cfcfcf !important;
 }
 
-.wellme-experience--reader::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 4;
-    height: var(--wellme-reader-control-height);
-    background: #050505;
-    pointer-events: none;
-}
-
 .wellme-experience--reader .wellme-exp-topnav {
     min-height: var(--wellme-reader-top-height);
     height: var(--wellme-reader-top-height);
@@ -5910,18 +5898,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     --wellme-reader-control-height: 28px;
     --wellme-reader-page-width: 100vw;
     background: #cfcfcf !important;
-}
-
-.wellme-experience--reader::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 4;
-    height: var(--wellme-reader-control-height);
-    background: #050505;
-    pointer-events: none;
 }
 
 .wellme-experience--reader .wellme-exp-topnav {
@@ -10996,6 +10972,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     margin: 0 0 8px !important;
     font-size: clamp(0.92rem, 1.35vw, 1.08rem) !important;
     line-height: 1.35 !important;
+    text-align: center !important;
 }
 
 .wellme-experience--reader .wellme-slide-sumup .wellme-flipcards-grid--experience {
@@ -11023,9 +11000,21 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     padding: clamp(16px, 1.8vw, 22px) !important;
 }
 
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front {
+    align-items: center !important;
+    background: #ED3293 !important;
+    text-align: center !important;
+}
+
+.wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-front-body {
+    justify-content: center !important;
+    text-align: center !important;
+}
+
 .wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-title {
     font-size: clamp(0.96rem, 1.12vw, 1.12rem) !important;
     line-height: 1.18 !important;
+    text-align: center !important;
 }
 
 .wellme-experience--reader .wellme-slide-sumup .wellme-flipcard-motto {
