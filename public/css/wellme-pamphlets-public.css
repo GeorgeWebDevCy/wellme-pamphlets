@@ -11380,7 +11380,6 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-popup-body .wellme-cover-toc-list li::after {
-    content: "-------" !important;
     color: #fff !important;
     font-weight: 800 !important;
     letter-spacing: 3px !important;
