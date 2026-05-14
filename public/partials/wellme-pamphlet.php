@@ -202,8 +202,11 @@ $display_introduction_items = array_values(
                 <?php foreach ( $steps as $i => $step ) :
                     $step_number = $i + 1;
                     $panel_id    = 'wellme-step-panel-' . $module->ID . '-' . $i;
+                    $x           = count( $steps ) > 1 ? 12 + ( 76 * $i / ( count( $steps ) - 1 ) ) : 50;
+                    $y           = 50;
                 ?>
                 <button class="wellme-hotspot-dot"
+                        style="left: <?php echo esc_attr( round( $x, 2 ) ); ?>%; top: <?php echo esc_attr( $y ); ?>%;"
                         data-target="<?php echo esc_attr( $panel_id ); ?>"
                         aria-expanded="false"
                         aria-controls="<?php echo esc_attr( $panel_id ); ?>"

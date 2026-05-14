@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.101"
-VERSION = "1.2.101"
+TAG     = "v1.2.102"
+VERSION = "1.2.102"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,21 +38,26 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Activity Steps hotspot presentation fix",
-    "body": """## What's new in v1.2.101
+    "name": f"{TAG} - Activity Steps line layout fix",
+    "body": """## What's new in v1.2.102
 
-### Activity Steps hotspot presentation fix
+### Activity Steps line layout fix
 
-Refined the Activity Steps fix so the section keeps the existing hotspot-style presentation while removing the incorrect base image:
+Restored the Activity Steps presentation to the line-style hotspot layout from yesterday's versions while keeping the requested fixes:
 
 - Removed the hotspot base image from Activity Steps.
-- Kept numbered hotspot-style step triggers.
+- Kept numbered hotspot dots laid out in a horizontal line.
 - Ensured Activity Steps render in stable sequential order.
+- Restored hotspot coordinate fields/import payloads for compatibility.
 
 ### Files changed
+- `admin/class-wellme-pamphlets-importer.php`
+- `includes/class-wellme-pamphlets-acf.php`
 - `public/css/wellme-pamphlets-public.css`
 - `public/js/wellme-pamphlets-public.js`
 - `public/partials/wellme-pamphlet.php`
+- `scripts/build-docx-content-package.py`
+- `scripts/build-import-package.py`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

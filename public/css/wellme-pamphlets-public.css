@@ -365,42 +365,43 @@
 }
 
 .wellme-hotspot-map {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-    align-items: stretch;
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 132px;
+    border-radius: var(--wellme-radius);
+    background: linear-gradient(135deg, #f8fafc 0%, #eef4f8 100%);
+    overflow: visible;
     margin-bottom: 28px;
 }
 
-.wellme-hotspot-dot {
-    position: relative;
-    display: grid;
-    grid-template-columns: 56px minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-    flex: 1 1 210px;
-    min-height: 78px;
-    padding: 12px 14px;
-    border: 1px solid color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, #d8dee8);
-    border-radius: var(--wellme-radius);
-    background: #fff;
-    color: #1f2937;
-    font: inherit;
-    cursor: pointer;
-    text-align: left;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+.wellme-hotspot-map--ordered::before {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 50%;
+    height: 3px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--module-color, var(--wellme-primary)) 28%, #dbe4ef);
+    transform: translateY(-50%);
 }
 
-.wellme-hotspot-dot:hover,
-.wellme-hotspot-dot[aria-expanded="true"] {
-    border-color: var(--module-color, var(--wellme-primary));
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
-    transform: translateY(-1px);
+.wellme-hotspot-dot {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2;
 }
 
 .wellme-hotspot-dot:focus-visible {
     outline: 3px solid var(--wellme-secondary);
-    outline-offset: 3px;
+    border-radius: 50%;
 }
 
 .wellme-hotspot-number {
@@ -421,15 +422,12 @@
 
 .wellme-hotspot-dot:hover .wellme-hotspot-number,
 .wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number {
-    transform: scale(1.08);
+    transform: scale(1.2);
 }
 
 .wellme-hotspot-pulse {
     position: absolute;
-    left: 14px;
-    top: 11px;
-    width: 56px;
-    height: 56px;
+    inset: 0;
     border-radius: 50%;
     border: 3px solid var(--wellme-secondary);
     opacity: 0;
@@ -443,18 +441,38 @@
 }
 
 .wellme-hotspot-label {
-    position: relative;
-    z-index: 1;
-    font-size: 0.92rem;
-    font-weight: 800;
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(4px);
+    width: max-content;
+    max-width: min(220px, calc(100vw - 48px));
+    white-space: normal;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
     line-height: 1.25;
-    color: #1f2937;
+    color: #fff;
+    background: rgba(0,0,0,.65);
+    padding: 6px 12px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+
+.wellme-hotspot-dot:hover .wellme-hotspot-label,
+.wellme-hotspot-dot:focus-visible .wellme-hotspot-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 @keyframes wellme-pulse {
     0%   { transform: scale(1);   opacity: .7; }
-    80%  { transform: scale(1.8); opacity: 0; }
-    100% { transform: scale(1.8); opacity: 0; }
+    80%  { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(2.2); opacity: 0; }
 }
 
 /* Step panels */

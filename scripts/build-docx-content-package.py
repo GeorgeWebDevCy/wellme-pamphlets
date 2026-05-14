@@ -388,6 +388,8 @@ def extract_steps(guide: list[str]) -> list[dict[str, object]]:
             {
                 "step_title": title,
                 "step_content": html_from_lines(content_lines),
+                "step_hotspot_x": round(12 + (76 * index / max(total - 1, 1)), 2),
+                "step_hotspot_y": 50,
             }
         )
 

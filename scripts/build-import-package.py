@@ -396,6 +396,15 @@ def build_outcomes(goals_section: SectionData | None) -> list[dict]:
     return outcomes[:10]
 
 
+def default_hotspots(count: int) -> list[tuple[int, int]]:
+    if count <= 1:
+        return [(50, 50)] if count else []
+    return [
+        (round(12 + (76 * index / max(count - 1, 1)), 2), 50)
+        for index in range(count)
+    ]
+
+
 def build_steps(sections: OrderedDict[str, SectionData]) -> list[dict]:
     practice_section = sections.get("practice")
     exercises = practice_section.exercises[:20] if practice_section else []
@@ -423,13 +432,17 @@ def build_steps(sections: OrderedDict[str, SectionData]) -> list[dict]:
     if not exercises:
         return []
 
+    hotspots = default_hotspots(len(exercises))
     steps = []
-    for exercise in exercises:
+    for index, exercise in enumerate(exercises):
+        x, y = hotspots[index]
         steps.append(
             {
                 "step_title": exercise["title"],
                 "step_content": exercise["content"],
                 "step_image": "",
+                "step_hotspot_x": x,
+                "step_hotspot_y": y,
             }
         )
     return steps
