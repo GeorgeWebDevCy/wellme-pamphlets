@@ -364,49 +364,97 @@
     color: #334155;
 }
 
-.wellme-step-trigger-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+.wellme-hotspot-map {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: stretch;
     margin-bottom: 28px;
 }
 
-.wellme-step-trigger {
-    display: flex;
+.wellme-hotspot-dot {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
     align-items: center;
     gap: 12px;
-    min-height: 56px;
+    flex: 1 1 210px;
+    min-height: 78px;
     padding: 12px 14px;
     border: 1px solid color-mix(in srgb, var(--module-color, var(--wellme-primary)) 22%, #d8dee8);
-    border-radius: 8px;
+    border-radius: var(--wellme-radius);
     background: #fff;
     color: #1f2937;
     font: inherit;
-    font-weight: 700;
-    line-height: 1.25;
-    text-align: left;
     cursor: pointer;
+    text-align: left;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.wellme-step-trigger:hover,
-.wellme-step-trigger[aria-expanded="true"] {
+.wellme-hotspot-dot:hover,
+.wellme-hotspot-dot[aria-expanded="true"] {
     border-color: var(--module-color, var(--wellme-primary));
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
     transform: translateY(-1px);
 }
 
-.wellme-step-trigger-number {
-    display: inline-flex;
+.wellme-hotspot-dot:focus-visible {
+    outline: 3px solid var(--wellme-secondary);
+    outline-offset: 3px;
+}
+
+.wellme-hotspot-number {
+    position: relative;
+    z-index: 2;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: var(--wellme-brand-gradient);
     color: #fff;
-    flex: 0 0 auto;
-    font-size: 0.9rem;
+    font-size: 18px;
+    font-weight: 700;
+    transition: transform .2s ease;
+}
+
+.wellme-hotspot-dot:hover .wellme-hotspot-number,
+.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-number {
+    transform: scale(1.08);
+}
+
+.wellme-hotspot-pulse {
+    position: absolute;
+    left: 14px;
+    top: 11px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid var(--wellme-secondary);
+    opacity: 0;
+    animation: wellme-pulse 2s ease-out infinite;
+    pointer-events: none;
+}
+
+.wellme-hotspot-dot:hover .wellme-hotspot-pulse,
+.wellme-hotspot-dot[aria-expanded="true"] .wellme-hotspot-pulse {
+    animation: none;
+}
+
+.wellme-hotspot-label {
+    position: relative;
+    z-index: 1;
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #1f2937;
+}
+
+@keyframes wellme-pulse {
+    0%   { transform: scale(1);   opacity: .7; }
+    80%  { transform: scale(1.8); opacity: 0; }
+    100% { transform: scale(1.8); opacity: 0; }
 }
 
 /* Step panels */
@@ -793,6 +841,7 @@
 @media (prefers-reduced-motion: reduce) {
     .wellme-scroll-reveal { opacity: 1; transform: none; transition: none; }
     .wellme-flipcard-inner { transition: none; }
+    .wellme-hotspot-pulse { animation: none; }
     .wellme-pamphlet-modal-inner,
     .wellme-outcome-detail-inline { animation: none; }
     .wellme-logo-spin { animation: none; }
@@ -9752,7 +9801,7 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     border-radius: 50% !important;
 }
 
-/* Keep Activity Steps on the compact step/panel treatment. */
+/* Keep Activity Steps on the hotspot/panel treatment. */
 .wellme-popup-body .wellme-section-steps .wellme-section-inner,
 .wellme-section-steps .wellme-section-inner {
     max-width: 720px !important;

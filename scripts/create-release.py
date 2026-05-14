@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.100"
-VERSION = "1.2.100"
+TAG     = "v1.2.101"
+VERSION = "1.2.101"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,26 +38,21 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Pamphlet interaction fixes",
-    "body": """## What's new in v1.2.100
+    "name": f"{TAG} - Activity Steps hotspot presentation fix",
+    "body": """## What's new in v1.2.101
 
-### Pamphlet interaction fixes
+### Activity Steps hotspot presentation fix
 
-Fixed several pamphlet interaction and display issues:
+Refined the Activity Steps fix so the section keeps the existing hotspot-style presentation while removing the incorrect base image:
 
-- Activity Steps no longer reuse the cover image as a hotspot background.
-- Activity Steps now render as ordered buttons and panels with stable numbering.
-- Sum-Up flip cards reset to their initial state when switching slides.
-- Overview images render fully visible instead of being cropped.
+- Removed the hotspot base image from Activity Steps.
+- Kept numbered hotspot-style step triggers.
+- Ensured Activity Steps render in stable sequential order.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
 - `public/js/wellme-pamphlets-public.js`
 - `public/partials/wellme-pamphlet.php`
-- `includes/class-wellme-pamphlets-acf.php`
-- `admin/class-wellme-pamphlets-importer.php`
-- `scripts/build-docx-content-package.py`
-- `scripts/build-import-package.py`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

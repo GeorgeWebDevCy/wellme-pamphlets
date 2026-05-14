@@ -196,19 +196,21 @@ $display_introduction_items = array_values(
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Activity Steps', 'wellme-pamphlets' ); ?></h2>
 
-            <p class="wellme-exercise-hint"><?php esc_html_e( 'Select a step to explore the activity.', 'wellme-pamphlets' ); ?></p>
+            <p class="wellme-exercise-hint"><?php esc_html_e( 'Click each numbered step to explore the activity.', 'wellme-pamphlets' ); ?></p>
 
-            <div class="wellme-step-trigger-list">
+            <div class="wellme-hotspot-map wellme-hotspot-map--ordered">
                 <?php foreach ( $steps as $i => $step ) :
                     $step_number = $i + 1;
                     $panel_id    = 'wellme-step-panel-' . $module->ID . '-' . $i;
                 ?>
-                <button class="wellme-step-trigger"
+                <button class="wellme-hotspot-dot"
                         data-target="<?php echo esc_attr( $panel_id ); ?>"
                         aria-expanded="false"
-                        aria-controls="<?php echo esc_attr( $panel_id ); ?>">
-                    <span class="wellme-step-trigger-number"><?php echo esc_html( $step_number ); ?></span>
-                    <span><?php echo esc_html( $step['step_title'] ); ?></span>
+                        aria-controls="<?php echo esc_attr( $panel_id ); ?>"
+                        aria-label="<?php echo esc_attr( sprintf( __( 'Step %1$d: %2$s', 'wellme-pamphlets' ), $step_number, $step['step_title'] ) ); ?>">
+                    <span class="wellme-hotspot-number"><?php echo esc_html( $step_number ); ?></span>
+                    <span class="wellme-hotspot-pulse"></span>
+                    <span class="wellme-hotspot-label"><?php echo esc_html( $step['step_title'] ); ?></span>
                 </button>
                 <?php endforeach; ?>
             </div>

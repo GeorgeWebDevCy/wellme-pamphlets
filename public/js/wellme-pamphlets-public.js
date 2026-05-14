@@ -5,7 +5,7 @@
  *   - Module grid card clicks → load pamphlet via AJAX into slide-in modal
  *   - Chapter navigation tabs
  *   - Learning outcome side-panel (Partou pattern)
- *   - Exercise step buttons → open/close step panels
+ *   - Exercise step hotspots → open/close step panels
  *   - Flip cards (Sum-Up slide)
  *   - Scroll reveal (IntersectionObserver)
  *   - Keyboard & accessibility
@@ -579,10 +579,10 @@
         });
     }
 
-    /* ── Step buttons → Step panels ─────────────────────────── */
+    /* ── Step hotspots → Step panels ────────────────────────── */
 
     function initStepPanels(root) {
-        var triggerSelector = '.wellme-step-trigger';
+        var triggerSelector = '.wellme-hotspot-dot';
 
         root.querySelectorAll(triggerSelector).forEach(function (trigger) {
             trigger.addEventListener('click', function () {
@@ -592,7 +592,7 @@
 
                 var isOpen = !panel.hidden;
 
-                // Close all step panels and reset buttons
+                // Close all step panels and reset hotspots
                 root.querySelectorAll('.wellme-step-panel').forEach(hide);
                 root.querySelectorAll(triggerSelector).forEach(function (d) {
                     d.setAttribute('aria-expanded', 'false');
@@ -612,7 +612,7 @@
                 var panel = this.closest('.wellme-step-panel');
                 if (!panel) return;
                 hide(panel);
-                var targetSelector = '.wellme-step-trigger[data-target="' + panel.id + '"]';
+                var targetSelector = '.wellme-hotspot-dot[data-target="' + panel.id + '"]';
                 var trigger = root.querySelector(targetSelector);
                 if (trigger) { trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
             });
@@ -628,7 +628,7 @@
                 if (current) hide(current);
                 if (target) {
                     show(target);
-                    // Sync step buttons
+                    // Sync step hotspots
                     root.querySelectorAll(triggerSelector).forEach(function (d) {
                         d.setAttribute('aria-expanded', d.dataset.target === targetId ? 'true' : 'false');
                     });
