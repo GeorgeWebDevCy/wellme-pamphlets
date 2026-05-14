@@ -5,7 +5,7 @@
  *   - Module grid card clicks → load pamphlet via AJAX into slide-in modal
  *   - Chapter navigation tabs
  *   - Learning outcome side-panel (Partou pattern)
- *   - Exercise step hotspot dots → open/close step panels (Outremer pattern)
+ *   - Exercise step buttons → open/close step panels
  *   - Flip cards (Sum-Up slide)
  *   - Scroll reveal (IntersectionObserver)
  *   - Keyboard & accessibility
@@ -503,7 +503,7 @@
         root = root || document;
         markBlankParagraphs(root);
         initOutcomePanels(root);
-        initHotspots(root);
+        initStepPanels(root);
         initAssessments(root);
     }
 
@@ -579,20 +579,22 @@
         });
     }
 
-    /* ── Hotspot dots → Step panels (Outremer pattern) ─────── */
+    /* ── Step buttons → Step panels ─────────────────────────── */
 
-    function initHotspots(root) {
-        root.querySelectorAll('.wellme-hotspot-dot').forEach(function (dot) {
-            dot.addEventListener('click', function () {
+    function initStepPanels(root) {
+        var triggerSelector = '.wellme-step-trigger';
+
+        root.querySelectorAll(triggerSelector).forEach(function (trigger) {
+            trigger.addEventListener('click', function () {
                 var panelId = this.dataset.target;
                 var panel   = document.getElementById(panelId);
                 if (!panel) return;
 
                 var isOpen = !panel.hidden;
 
-                // Close all step panels and reset dots
+                // Close all step panels and reset buttons
                 root.querySelectorAll('.wellme-step-panel').forEach(hide);
-                root.querySelectorAll('.wellme-hotspot-dot').forEach(function (d) {
+                root.querySelectorAll(triggerSelector).forEach(function (d) {
                     d.setAttribute('aria-expanded', 'false');
                 });
 
@@ -610,8 +612,9 @@
                 var panel = this.closest('.wellme-step-panel');
                 if (!panel) return;
                 hide(panel);
-                var dot = root.querySelector('[data-target="' + panel.id + '"]');
-                if (dot) { dot.setAttribute('aria-expanded', 'false'); dot.focus(); }
+                var targetSelector = '.wellme-step-trigger[data-target="' + panel.id + '"]';
+                var trigger = root.querySelector(targetSelector);
+                if (trigger) { trigger.setAttribute('aria-expanded', 'false'); trigger.focus(); }
             });
         });
 
@@ -625,8 +628,8 @@
                 if (current) hide(current);
                 if (target) {
                     show(target);
-                    // Sync hotspot dots
-                    root.querySelectorAll('.wellme-hotspot-dot').forEach(function (d) {
+                    // Sync step buttons
+                    root.querySelectorAll(triggerSelector).forEach(function (d) {
                         d.setAttribute('aria-expanded', d.dataset.target === targetId ? 'true' : 'false');
                     });
                     target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -751,12 +754,24 @@
 
     function initFlipCards() {
         document.querySelectorAll('.wellme-flipcard').forEach(function (card) {
-            function toggle() { card.classList.toggle('is-flipped'); }
+            function toggle() {
+                var isFlipped = card.classList.toggle('is-flipped');
+                card.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+            }
+
+            card.setAttribute('aria-pressed', card.classList.contains('is-flipped') ? 'true' : 'false');
 
             card.addEventListener('click', toggle);
             card.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
             });
+        });
+    }
+
+    function resetFlipCards(root) {
+        (root || document).querySelectorAll('.wellme-flipcard.is-flipped').forEach(function (card) {
+            card.classList.remove('is-flipped');
+            card.setAttribute('aria-pressed', 'false');
         });
     }
 
@@ -797,6 +812,9 @@
 
         function goTo(index) {
             if (index < 0 || index >= total) return;
+            if (index !== current) {
+                resetFlipCards(slides[current]);
+            }
 
             slides[current].classList.remove('is-active');
             if (dots[current]) {

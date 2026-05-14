@@ -425,7 +425,7 @@ class Wellme_Pamphlets_ACF {
                     'label'         => 'Module Colour',
                     'name'          => 'module_color',
                     'type'          => 'color_picker',
-                    'instructions'  => 'Accent colour for this module\'s card, hotspots and buttons.',
+                    'instructions'  => 'Accent colour for this module\'s card and buttons.',
                     'default_value' => '#005b96',
                     'enable_opacity' => 0,
                     'return_format' => 'string',
@@ -514,7 +514,7 @@ class Wellme_Pamphlets_ACF {
                     'label'        => 'Activity Steps',
                     'name'         => 'module_exercise_steps',
                     'type'         => 'repeater',
-                    'instructions' => 'Each step gets a numbered pulsing hotspot dot. Clicking it opens a panel with the step content (Outremer pattern).',
+                    'instructions' => 'Each step becomes a numbered button. Clicking it opens a panel with the step content.',
                     'min'          => 0,
                     'max'          => 20,
                     'layout'       => 'block',
@@ -543,29 +543,8 @@ class Wellme_Pamphlets_ACF {
                             'return_format' => 'array',
                             'preview_size'  => 'medium',
                         ],
-                        [
-                            'key'          => 'field_wm_step_hotspot_x',
-                            'label'        => 'Hotspot X Position (%)',
-                            'name'         => 'step_hotspot_x',
-                            'type'         => 'number',
-                            'instructions' => 'Left offset of the pulsing dot on the layout image (0–100).',
-                            'default_value'=> 50,
-                            'min'          => 0,
-                            'max'          => 100,
-                        ],
-                        [
-                            'key'          => 'field_wm_step_hotspot_y',
-                            'label'        => 'Hotspot Y Position (%)',
-                            'name'         => 'step_hotspot_y',
-                            'type'         => 'number',
-                            'instructions' => 'Top offset of the pulsing dot on the layout image (0–100).',
-                            'default_value'=> 50,
-                            'min'          => 0,
-                            'max'          => 100,
-                        ],
                     ],
                 ],
-
                 // ── Chapters ───────────────────────────────────────────────────
 
 

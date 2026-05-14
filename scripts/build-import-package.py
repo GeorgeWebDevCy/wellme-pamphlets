@@ -396,24 +396,6 @@ def build_outcomes(goals_section: SectionData | None) -> list[dict]:
     return outcomes[:10]
 
 
-def default_hotspots(count: int) -> list[tuple[int, int]]:
-    presets = {
-        1: [(50, 50)],
-        2: [(32, 38), (68, 62)],
-        3: [(22, 35), (50, 58), (78, 32)],
-        4: [(24, 30), (50, 26), (76, 34), (50, 68)],
-        5: [(18, 30), (40, 62), (56, 28), (72, 66), (86, 38)],
-    }
-    if count in presets:
-        return presets[count]
-    points = []
-    for index in range(count):
-        x = 18 + (index % 4) * 22
-        y = 28 + ((index // 4) % 3) * 22
-        points.append((min(x, 88), min(y, 84)))
-    return points
-
-
 def build_steps(sections: OrderedDict[str, SectionData]) -> list[dict]:
     practice_section = sections.get("practice")
     exercises = practice_section.exercises[:20] if practice_section else []
@@ -441,17 +423,13 @@ def build_steps(sections: OrderedDict[str, SectionData]) -> list[dict]:
     if not exercises:
         return []
 
-    hotspots = default_hotspots(len(exercises))
     steps = []
-    for index, exercise in enumerate(exercises):
-        x, y = hotspots[index]
+    for exercise in exercises:
         steps.append(
             {
                 "step_title": exercise["title"],
                 "step_content": exercise["content"],
                 "step_image": "",
-                "step_hotspot_x": x,
-                "step_hotspot_y": y,
             }
         )
     return steps

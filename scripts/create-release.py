@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.88"
-VERSION = "1.2.88"
+TAG     = "v1.2.100"
+VERSION = "1.2.100"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,19 +38,26 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Landing footer layout fix",
-    "body": """## What's new in v1.2.88
+    "name": f"{TAG} - Pamphlet interaction fixes",
+    "body": """## What's new in v1.2.100
 
-### Landing footer layout fix
+### Pamphlet interaction fixes
 
-Fixed the landing slide EU funding footer:
+Fixed several pamphlet interaction and display issues:
 
-- Footer children now stay inside the footer bar instead of overlapping above it.
-- Logo, funding text, and agreement are aligned in a responsive grid.
-- Mobile footer stacks cleanly.
+- Activity Steps no longer reuse the cover image as a hotspot background.
+- Activity Steps now render as ordered buttons and panels with stable numbering.
+- Sum-Up flip cards reset to their initial state when switching slides.
+- Overview images render fully visible instead of being cropped.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`
+- `public/js/wellme-pamphlets-public.js`
+- `public/partials/wellme-pamphlet.php`
+- `includes/class-wellme-pamphlets-acf.php`
+- `admin/class-wellme-pamphlets-importer.php`
+- `scripts/build-docx-content-package.py`
+- `scripts/build-import-package.py`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,

@@ -19,7 +19,7 @@ $cover_url    = $cover['url'] ?? '';
 $motto        = get_field( 'module_motto',        $module->ID );
 $video_url    = get_field( 'module_video_url',    $module->ID );
 $outcomes     = get_field( 'module_learning_outcomes', $module->ID ) ?: [];
-$steps        = get_field( 'module_exercise_steps',    $module->ID ) ?: [];
+$steps        = array_values( get_field( 'module_exercise_steps', $module->ID ) ?: [] );
 $gallery      = get_field( 'module_gallery',           $module->ID ) ?: [];
 $eu_text      = get_field( 'module_eu_funding_text',   $module->ID );
 $toc          = get_field( 'module_table_of_contents', $module->ID );
@@ -190,34 +190,25 @@ $display_introduction_items = array_values(
     </section>
     <?php endif; ?>
 
-    <?php /* ── Exercise steps with pulsing hotspots (Outremer pattern) ── */ ?>
+    <?php /* ── Activity steps ───────────────────────────────────────── */ ?>
     <?php if ( ! empty( $steps ) ) : ?>
     <section class="wellme-pamphlet-section wellme-section-steps">
         <div class="wellme-section-inner wellme-scroll-reveal">
             <h2><?php esc_html_e( 'Activity Steps', 'wellme-pamphlets' ); ?></h2>
 
-            <p class="wellme-exercise-hint"><?php esc_html_e( 'Click the numbered dots on the image to explore each step.', 'wellme-pamphlets' ); ?></p>
+            <p class="wellme-exercise-hint"><?php esc_html_e( 'Select a step to explore the activity.', 'wellme-pamphlets' ); ?></p>
 
-            <?php /* Layout image with numbered pulsing dots */ ?>
-            <div class="wellme-hotspot-map">
-                <?php if ( $cover_url ) : ?>
-                <img src="<?php echo esc_url( $cover_url ); ?>" alt="" class="wellme-hotspot-base-image">
-                <?php endif; ?>
-
+            <div class="wellme-step-trigger-list">
                 <?php foreach ( $steps as $i => $step ) :
-                    $x = (float) ( $step['step_hotspot_x'] ?? 50 );
-                    $y = (float) ( $step['step_hotspot_y'] ?? 50 );
-                    $panel_id = 'wellme-step-panel-' . $module->ID . '-' . $i;
+                    $step_number = $i + 1;
+                    $panel_id    = 'wellme-step-panel-' . $module->ID . '-' . $i;
                 ?>
-                <button class="wellme-hotspot-dot"
-                        style="left: <?php echo esc_attr( $x ); ?>%; top: <?php echo esc_attr( $y ); ?>%;"
+                <button class="wellme-step-trigger"
                         data-target="<?php echo esc_attr( $panel_id ); ?>"
                         aria-expanded="false"
-                        aria-controls="<?php echo esc_attr( $panel_id ); ?>"
-                        aria-label="<?php echo esc_attr( sprintf( __( 'Step %d: %s', 'wellme-pamphlets' ), $i + 1, $step['step_title'] ) ); ?>">
-                    <span class="wellme-hotspot-number"><?php echo esc_html( $i + 1 ); ?></span>
-                    <span class="wellme-hotspot-pulse"></span>
-                    <span class="wellme-hotspot-label"><?php echo esc_html( $step['step_title'] ); ?></span>
+                        aria-controls="<?php echo esc_attr( $panel_id ); ?>">
+                    <span class="wellme-step-trigger-number"><?php echo esc_html( $step_number ); ?></span>
+                    <span><?php echo esc_html( $step['step_title'] ); ?></span>
                 </button>
                 <?php endforeach; ?>
             </div>
@@ -225,15 +216,16 @@ $display_introduction_items = array_values(
             <?php /* Step content panels */ ?>
             <div class="wellme-step-panels">
                 <?php foreach ( $steps as $i => $step ) :
-                    $panel_id = 'wellme-step-panel-' . $module->ID . '-' . $i;
-                    $img_url  = $step['step_image']['url'] ?? '';
+                    $step_number = $i + 1;
+                    $panel_id    = 'wellme-step-panel-' . $module->ID . '-' . $i;
+                    $img_url     = $step['step_image']['url'] ?? '';
                 ?>
                 <div class="wellme-step-panel"
                      id="<?php echo esc_attr( $panel_id ); ?>"
                      hidden>
                     <button class="wellme-step-panel-close" aria-label="<?php esc_attr_e( 'Close', 'wellme-pamphlets' ); ?>">&times;</button>
                     <div class="wellme-step-panel-header">
-                        <span class="wellme-step-number"><?php echo esc_html( $i + 1 ); ?></span>
+                        <span class="wellme-step-number"><?php echo esc_html( $step_number ); ?></span>
                         <h3><?php echo esc_html( $step['step_title'] ); ?></h3>
                     </div>
                     <?php if ( $img_url ) : ?>

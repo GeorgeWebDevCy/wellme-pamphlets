@@ -387,8 +387,6 @@ class Wellme_Pamphlets_Importer {
                 'step_title'      => $title,
                 'step_content'    => wp_kses_post( $step['step_content'] ?? '' ),
                 'step_image'      => $this->import_attachment_reference( $step['step_image'] ?? '', $package_root, $post_id ) ?: '',
-                'step_hotspot_x'  => $this->clamp_hotspot( $step['step_hotspot_x'] ?? 50 ),
-                'step_hotspot_y'  => $this->clamp_hotspot( $step['step_hotspot_y'] ?? 50 ),
             ];
         }
 
@@ -704,27 +702,6 @@ class Wellme_Pamphlets_Importer {
         }
 
         return $candidate;
-    }
-
-    /**
-     * Clamp hotspot values into the supported 0-100 range.
-     *
-     * @param mixed $value Hotspot value.
-     *
-     * @return float
-     */
-    private function clamp_hotspot( $value ) {
-        $value = (float) $value;
-
-        if ( $value < 0 ) {
-            return 0.0;
-        }
-
-        if ( $value > 100 ) {
-            return 100.0;
-        }
-
-        return $value;
     }
 
     /**
