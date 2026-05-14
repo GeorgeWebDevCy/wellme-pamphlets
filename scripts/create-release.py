@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.103"
-VERSION = "1.2.103"
+TAG     = "v1.2.104"
+VERSION = "1.2.104"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,16 +38,16 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Outcome detail paragraph spacing fix",
-    "body": """## What's new in v1.2.103
+    "name": f"{TAG} - Conclusion paragraph spacing fix",
+    "body": """## What's new in v1.2.104
 
-### Outcome detail paragraph spacing fix
+### Conclusion paragraph spacing fix
 
-Reduced the excessive spacing inside expanded Module Activity/Introduction detail panels:
+Reduced excessive spacing in conclusion text:
 
-- Outcome detail content now renders as normal text paragraphs.
-- Removed the large card-row spacing from `.wellme-outcome-detail-body` paragraphs.
-- Kept the surrounding expandable panel styling intact.
+- Conclusion content now renders as normal text paragraphs.
+- Removed the large card-row spacing from `.wellme-conclusion-content` paragraphs and list items.
+- Reflection Questions keep their existing styled list treatment.
 
 ### Files changed
 - `public/css/wellme-pamphlets-public.css`

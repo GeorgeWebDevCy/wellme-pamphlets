@@ -11578,8 +11578,14 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
     padding: 12px 24px 22px !important;
 }
 
+.wellme-popup-body .wellme-conclusion-content {
+    padding: 0 !important;
+}
+
 .wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph),
-.wellme-popup-body .wellme-outcome-detail-body > ul > li {
+.wellme-popup-body .wellme-outcome-detail-body > ul > li,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph),
+.wellme-popup-body .wellme-conclusion-content > ul > li {
     min-height: 0 !important;
     margin: 0 0 10px !important;
     padding: 0 !important;
@@ -11591,7 +11597,9 @@ body.admin-bar .wellme-popup-overlay.is-visible .wellme-popup-actions {
 }
 
 .wellme-popup-body .wellme-outcome-detail-body > p:not(.wellme-blank-paragraph):last-child,
-.wellme-popup-body .wellme-outcome-detail-body > ul > li:last-child {
+.wellme-popup-body .wellme-outcome-detail-body > ul > li:last-child,
+.wellme-popup-body .wellme-conclusion-content > p:not(.wellme-blank-paragraph):last-child,
+.wellme-popup-body .wellme-conclusion-content > ul > li:last-child {
     margin-bottom: 0 !important;
 }
 
