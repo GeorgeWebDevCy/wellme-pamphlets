@@ -1,7 +1,7 @@
 import requests, os, sys, subprocess
 
-TAG     = "v1.2.102"
-VERSION = "1.2.102"
+TAG     = "v1.2.103"
+VERSION = "1.2.103"
 owner   = "GeorgeWebDevCy"
 repo    = "wellme-pamphlets"
 
@@ -38,26 +38,19 @@ headers = {
 # ---------------------------------------------------------------------------
 release_data = {
     "tag_name": TAG,
-    "name": f"{TAG} - Activity Steps line layout fix",
-    "body": """## What's new in v1.2.102
+    "name": f"{TAG} - Outcome detail paragraph spacing fix",
+    "body": """## What's new in v1.2.103
 
-### Activity Steps line layout fix
+### Outcome detail paragraph spacing fix
 
-Restored the Activity Steps presentation to the line-style hotspot layout from yesterday's versions while keeping the requested fixes:
+Reduced the excessive spacing inside expanded Module Activity/Introduction detail panels:
 
-- Removed the hotspot base image from Activity Steps.
-- Kept numbered hotspot dots laid out in a horizontal line.
-- Ensured Activity Steps render in stable sequential order.
-- Restored hotspot coordinate fields/import payloads for compatibility.
+- Outcome detail content now renders as normal text paragraphs.
+- Removed the large card-row spacing from `.wellme-outcome-detail-body` paragraphs.
+- Kept the surrounding expandable panel styling intact.
 
 ### Files changed
-- `admin/class-wellme-pamphlets-importer.php`
-- `includes/class-wellme-pamphlets-acf.php`
 - `public/css/wellme-pamphlets-public.css`
-- `public/js/wellme-pamphlets-public.js`
-- `public/partials/wellme-pamphlet.php`
-- `scripts/build-docx-content-package.py`
-- `scripts/build-import-package.py`
 - `wellme-pamphlets.php` (version bump)
 """,
     "draft": False,
